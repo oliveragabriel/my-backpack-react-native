@@ -1,0 +1,83 @@
+import React, { useState } from 'react';
+import { View, Text} from 'react-native';
+import { Container, Input } from '../../styles';
+// import { Icon } from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+
+export const FormItemInput = (props) => {
+    // const [security, setSecurity] = useState(secureTextEntry);
+    return (
+        <Container border="none">
+            {props.required && (
+                <View 
+                    style={{ 
+                        width: '100%', 
+                        position: 'absolute', 
+                        fontWeight: 'bold', 
+                        textAlign: 'right', 
+                        height: 80 
+                    }}
+                >
+                    <Text style={{ color: '#FF0303'}}>*</Text>
+                </View>
+            )}
+            <Input
+                {...props}
+                placeholderTextColor="#7B8794"
+                // secureTextEntry={secureTextEntry}
+            />
+            {/* 
+                <Icon 
+                    name={iconName}
+                    color="#7B8794"
+                    size={26} 
+                    style={{ 
+                        position: 'absolute',
+                        left: 30,
+                        top: 12,
+                    }}
+                />
+                {secureTextEntry && (
+                    <TouchableOpacity onPress={() => setSecurity(!security)}>
+                        <Icon 
+                            name={security ? 'eye' : 'eye-off'}
+                            color="#7B8794"
+                            size={26}
+                            style={{ 
+                                position: 'absolute',
+                                right: 30,
+                                top: 12,
+                            }}  
+                        />
+                    </TouchableOpacity>
+                )} 
+            */}
+            {props.checked ? (
+                <View 
+                    style={{ 
+                        width: '102%',
+                        position: 'absolute',  
+                        zIndex: -1, 
+                        height: 55,
+                        borderRadius: 6,
+                        backgroundColor: 'green',
+                        opacity: 0.5
+                    }}
+                >
+                </View>
+            ) : (
+                <View 
+                    style={{ 
+                        width: '102%',
+                        position: 'absolute',  
+                        zIndex: -1, 
+                        height: 55,
+                        borderRadius: 6,
+                        backgroundColor: 'red',
+                        opacity: 0.5
+                    }}
+                >
+                </View>
+            )}
+        </Container>
+    )
+};
