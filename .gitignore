@@ -1,6 +1,6 @@
 # OSX
 #
-.DS_Store
+*/.DS_Store
 
 # Xcode
 #
@@ -23,18 +23,18 @@ DerivedData
 
 # Android/IntelliJ
 #
-build/
+*/build/
 .idea
-.gradle
-local.properties
+**/.gradle
+*/local.properties
 *.iml
 *.hprof
 
 # node.js
 #
-node_modules/
-npm-debug.log
-yarn-error.log
+*/node_modules/
+*/npm-debug.log
+*/yarn-error.log
 
 # BUCK
 buck-out/
@@ -57,5 +57,5 @@ buck-out/
 *.jsbundle
 
 # Ruby / CocoaPods
-/ios/Pods/
-/vendor/bundle/
+*/ios/Pods/
+*/vendor/bundle/
