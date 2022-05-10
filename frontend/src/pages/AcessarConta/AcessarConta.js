@@ -18,11 +18,11 @@ const AcessarConta = ({ navigation }) => {
     if(credentials.email === '' || credentials.password === '') {
       dispatch({type: actions.setMessage, payload: 'Os campos E-mail e Senha são obrigatórios e devem ser preenchidos para acessar para acessar!'});
       setStop('invalid');
-      return dispatch({type: actions.showAlert, payload: 'invalid' });
+      return dispatch({type: actions.showAlert, payload: true });
     } else {
       dispatch({type: actions.setMessage, payload: ''})
       setStop('valid');
-      return dispatch({type: actions.showAlert, payload: 'valid' });
+      return dispatch({type: actions.showAlert, payload: false });
     }
   }, [credentials.login, credentials.password, state, stop]);
 
@@ -44,6 +44,7 @@ const AcessarConta = ({ navigation }) => {
      // }
   }, [checkRequiredField, stop])
 
+  // passar p/ usecallback
   const handleEmail = (text) => {
     if(text !== '') {
       setCredentials({ ...credentials, email: text })
