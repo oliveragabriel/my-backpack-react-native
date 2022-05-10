@@ -2,7 +2,7 @@ drop database if exists gobackpack;
 create database gobackpack;
 use gobackpack;
 
-create table usuario(
+create table user(
 id_user int not null auto_increment,
 name varchar(100) not null,
 birth date,
@@ -14,16 +14,16 @@ password varchar(16) not null,
 primary key(id_user)
 );
 
-create table viagem(
-id_viagem int not null auto_increment,
-titulo varchar(100) not null,
-data_ida date not null,
-data_volta date not null,
-tipo varchar(45),
-foi_realizada boolean,
+create table travel(
+id_travel int not null auto_increment,
+title varchar(100) not null,
+departure_date date not null,
+arrival_date date not null,
+type varchar(45),
+done boolean,
 id_user int not null,
-primary key(id_viagem),
-foreign key(id_user) references usuario(id_user)
+primary key(id_travel),
+foreign key(id_user) references user(id_user)
 );
 create table hospedagem(
 id_hospedagem int not null auto_increment,
@@ -32,9 +32,9 @@ data_inicio date not null,
 data_fim date not null,
 tipo varchar(45) not null,
 valor float not null,
-id_viagem int not null,
+id_travel int not null,
 primary key(id_hospedagem),
-foreign key(id_viagem) references viagem(id_viagem)
+foreign key(id_travel) references viagem(id_travel)
 );
 
 create table dia(
@@ -43,9 +43,9 @@ pais varchar(100),
 city varchar(100),
 foi_realizada boolean,
 id_hospedagem int,
-id_viagem int not null,
+id_travel int not null,
 primary key(id_dia),
-foreign key(id_viagem) references viagem(id_viagem),
+foreign key(id_travel) references travel(id_travel),
 foreign key(id_hospedagem) references hospedagem(id_hospedagem)
 );
 create table atividade(
@@ -55,7 +55,7 @@ tipo varchar(45) not null,
 valor float not null,
 foi_realizada boolean,
 horario time,
-id_viagem int not null,
+id_travel int not null,
 id_dia int not null,
 primary key(id_atividade),
 foreign key(id_dia) references dia(id_dia)
@@ -70,9 +70,9 @@ tipo varchar(45) not null,
 valor float not null,
 local_ida varchar(100) not null,
 local_chegada varchar(100) not null,
-id_viagem int not null,
+id_travel int not null,
 primary key(id_transporte),
-foreign key(id_viagem) references viagem(id_viagem)
+foreign key(id_travel) references travel(id_travel)
 );
 create table desejo(
 id_desejo int not null auto_increment,

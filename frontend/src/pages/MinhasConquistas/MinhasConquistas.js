@@ -1,35 +1,22 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { BottomNav, TitleRow } from '../../components';
+import { BottomNav, TitleRow, Alert } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
-import { ContainerConquista } from './Container'
+import { ContainerConquista } from './Container';
+import { 
+  useSelector, 
+  //useDispatch 
+} from 'react-redux';
 
 const MinhasConquistas = ({ navigation }) => {
-  const [conquest, setConquest] = useState({
-    qtdTravel: 0,
-    qtdCountry: 0,
-    qtdCity: 0,
-    qtdActivity: 0,
-  });
-
-  useEffect(()=>{
-   getConquest() 
-  },[])
-
-  const getConquest = useCallback(async () => {
-    try {
-      const resp = await instance.post('/conquest');
-      setConquest(resp.data);
-    } catch (error) {
-      
-    }
-  })
-
+  const conquest = useSelector((state) => state.conquest);
+  //const dispatch = useDispatch();
 
   return (
     <SafeAreaView>
       <ScrollView>
         <Container bgColor="#085E7D">
+          {state.alert && (<Alert bgColor="#DF6E6E" message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%">
           <TitleRow text="Minhas Conquistas" />
             <ContainerConquista value={`${conquest.qtdTravel}`} text={`Viagens Realizadas`}/>

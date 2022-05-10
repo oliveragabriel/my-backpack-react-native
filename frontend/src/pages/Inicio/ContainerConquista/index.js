@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { View, Text, TouchableOpacity } from 'react-native';
 
 export const ContainerConquistaInicio = ({ title, travel, country, onPress = () => {}}) => {

@@ -1,25 +1,42 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect, useCallback } from 'react';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { BottomNav } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { ContainerProximaViagemInicio } from './ContainerProximaViagem';
 import { ContainerConquistaInicio } from './ContainerConquista';
+import { 
+  useSelector, 
+  //useDispatch 
+} from 'react-redux'
+import { getNextTrip } from '../../services/api';
 
 const Inicio = ({ navigation }) => {
-  const [conquest, setConquest] = useState({
-    qtdTravel: 0,
-    qtdCountry: 0,
+
+  const user = useSelector((state) => state.user);
+  const conquest = useSelector((state) => state.conquest);
+  //const dispatch = useDispatch();
+
+  const [nextTrip, setNextTrip] = useState({
+    title: 'Mexico Trip',
+    departure: "20/05/2022",
+    country: 'Mexico',
+    days: 4,
+    activitys: 8
   });
-  const [trip, setTrip] = useState({
-    title: '',
-    departure: null,
-    country: '',
-    days: 0,
-    activitys: 0
-  });
-  const [user, setUser] = useState({
-    name: '',
-  });
+
+  useEffect(()=>{
+   getTrip()
+  },[])
+
+  const getTrip = useCallback(async () => {
+    try {
+      const trip = getNextTrip(user.id_user);
+      setNextTrip(trip);
+    } catch (error) {
+      
+    }
+  }, [])
+
 
   return (
     <SafeAreaView>
