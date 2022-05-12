@@ -37,6 +37,6 @@ export const userDataSlice = createSlice({
 })
 
 // Action creators are generated for each case reducer function
-export const { updateUser, getId, getUser, getConquest } = userDataSlice.actions
+export const { getAuthRedux, getUserRedux, getConquestRedux } = userDataSlice.actions
 
 export default userDataSlice.reducer

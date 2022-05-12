@@ -2,13 +2,14 @@ drop database if exists gobackpack;
 create database gobackpack;
 use gobackpack;
 
+-- INSERIR UNIQUE NO EMAIL
 create table user(
 id_user int not null auto_increment,
 name varchar(100) not null,
 birth date,
 email varchar(100) not null,
 phone varchar(25),
-nacionality varchar(100),
+nationality varchar(100),
 city varchar(100),
 password varchar(16) not null,
 primary key(id_user)
@@ -34,7 +35,7 @@ tipo varchar(45) not null,
 valor float not null,
 id_travel int not null,
 primary key(id_hospedagem),
-foreign key(id_travel) references viagem(id_travel)
+foreign key(id_travel) references travel(id_travel)
 );
 
 create table dia(
@@ -79,5 +80,12 @@ id_desejo int not null auto_increment,
 descricao varchar(100) not null,
 id_user int not null,
 primary key(id_desejo),
-foreign key(id_user) references usuario(id_user)
+foreign key(id_user) references user(id_user)
 );
+
+
+insert into user (name, email, password) values ('ana', 'ana@gmail.com', '1234');
+insert into user (name, email, password) values ('jose', 'jose@gmail.com', '1234');
+insert into user (name, email, password) values ('pedro', 'pedro@gmail.com', '1234');
+
+insert into travel (title, departure_date, arrival_date, id_user) values ('eua', '2022-07-05', '2022-07-09', 2);

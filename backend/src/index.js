@@ -18,11 +18,11 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 
-app.post("/users", async(req, res) => {
+app.post("/user", async(req, res) => {
   let userRepository = getRepository("User");
-  console.log(req.body);
+  // console.log(req.body);
 
-  const {nome, email} = req.body;
+  let {email, birth} = req.body;
   let user = await userRepository.findOne(
     {
       where: {email}
@@ -30,15 +30,34 @@ app.post("/users", async(req, res) => {
   );
 
   if (user === null){
-    const usuarios = await userRepository.save(req.body);
-    return res.status(200).json({email, nome});
+    birth = FormataStringData(birth);
+    user = {
+      ...req.body, birth
+    }
+    // console.log(user);
+    const savedUser = await userRepository.save(user);
+    return res.status(200).json(savedUser);
   }
 
   let erro = {
     erro : "Já tem email cadastrado"
   }
+  // console.log(erro);
   return res.status(400).json(erro);  
+
 })
+
+function FormataStringData(data) {
+  var dia  = data.split("/")[0];
+  var mes  = data.split("/")[1];
+  var ano  = data.split("/")[2];
+
+  return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);
+  // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
+}
+
+
+
 
 app.get("/users/:id", async(req, res) => {
   let userRepository = getRepository("User");
@@ -85,6 +104,12 @@ app.get("/users", async(req, res) => {
 
 app.get("/teste", async(req, res) => {
   return res.status(200).json({msg: "msg"})
+})
+
+app.get("/nexttrip", async(req, res) => {
+  let travelRepository = getRepository("Travel");
+  let travel = await travelRepository.findOneBy(1);
+  return res.status(200).json(travel)
 })
 
 app.listen(3333, () => {
