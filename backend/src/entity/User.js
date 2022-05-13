@@ -3,6 +3,13 @@ const { EntitySchema } = require("typeorm");
 module.exports = new EntitySchema({
   name: "User",
   tableName: "user",
+  relations:{
+    categories: {
+      target: "Travel",
+      type: "one-to-many",
+      cascade: true
+    }
+  },
   columns: {
     id_user: {
       primary: true,

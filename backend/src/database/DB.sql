@@ -89,3 +89,5 @@ insert into user (name, email, password) values ('jose', 'jose@gmail.com', '1234
 insert into user (name, email, password) values ('pedro', 'pedro@gmail.com', '1234');
 
 insert into travel (title, departure_date, arrival_date, id_user) values ('eua', '2022-07-05', '2022-07-09', 2);
+
+select * from user;

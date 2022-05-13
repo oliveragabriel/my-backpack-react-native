@@ -18,6 +18,7 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 
+// CREATE USER
 app.post("/user", async(req, res) => {
   let userRepository = getRepository("User");
   // console.log(req.body);
@@ -47,6 +48,7 @@ app.post("/user", async(req, res) => {
 
 })
 
+//FORMAT DATE
 function FormataStringData(data) {
   var dia  = data.split("/")[0];
   var mes  = data.split("/")[1];
@@ -56,9 +58,16 @@ function FormataStringData(data) {
   // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
 }
 
+// ENDPOINT DE LOGIN E AUTENTICACAO Q RETORNA O TOKEN NA RESPONSE
+app.post("/users", async(req, res) => {
+  const {email, password} = req.body;
+  //verifica
+  //cria token e salva
+  const token = ""
+  return res.status(200).json({"authKey": token})
+})
 
-
-
+// GET USER BY ID -- FAZER PELO TOKEN DE ACESSO
 app.get("/users/:id", async(req, res) => {
   let userRepository = getRepository("User");
   let id = req.params["id"]
@@ -75,6 +84,7 @@ app.get("/users/:id", async(req, res) => {
   return res.status(200).json({usuario});
 })
 
+// UPDATE USER
 app.patch("/users/:id", async(req, res) => {
   let userRepository = getRepository("User");
   let id = req.params["id"]
@@ -96,21 +106,19 @@ app.patch("/users/:id", async(req, res) => {
   return res.status(200).json({usuario});
 })
 
-app.get("/users", async(req, res) => {
-  let userRepository = getRepository("User");
-  let users = await userRepository.find();
-  return res.status(200).json(users)
-})
-
+// TESTE
 app.get("/teste", async(req, res) => {
   return res.status(200).json({msg: "msg"})
 })
 
+// GET NEXT TRIP
 app.get("/nexttrip", async(req, res) => {
   let travelRepository = getRepository("Travel");
   let travel = await travelRepository.findOneBy(1);
   return res.status(200).json(travel)
 })
+
+//FUNCAO RECEBE TOKEN E RETORNA ID DO USUARIO APOS VALIDACAO
 
 app.listen(3333, () => {
   console.log("Running on port 3333")
