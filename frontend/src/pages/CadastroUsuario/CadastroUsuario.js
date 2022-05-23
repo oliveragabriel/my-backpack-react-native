@@ -14,7 +14,7 @@ const CadastroUsuario = ({ navigation }) => {
     birth: null,
     gender: '',
     email: '',
-    password: '',
+    acc_password: '',
     confirm: '',
   });
 

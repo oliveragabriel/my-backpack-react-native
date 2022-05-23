@@ -4,11 +4,26 @@ module.exports = new EntitySchema({
   name: "Travel",
   tableName: "travel",
   relations:{
-    categories: {
+    user_travel: {
       target: "User",
       type: "many-to-one",
       joinColumn: "id_user",
-      cascade: true
+      inverseSide: "travel_user"
+    },
+    accomodation_travel: {
+      target: "Accomodation",
+      type: "one-to-many",
+      inverseSide: "travel_accomodation"
+    },
+    day_travel: {
+      target: "TravelDay",
+      type: "one-to-many",
+      inverseSide: "travel_day"
+    },
+    trp_travel: {
+      target: "Transport",
+      type: "one-to-many",
+      inverseSide: "travel_trp"
     }
   },
   columns: {
@@ -29,13 +44,13 @@ module.exports = new EntitySchema({
       nullable: false,
       type: "date"
     },
-    type: {
+    travel_type: {
       type: "varchar",
     },
     done: {
       type: "boolean"
     },
-    id_user: {
+    id_acc: {
       nullable: false,
       type: "int"
     }

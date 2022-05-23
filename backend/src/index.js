@@ -1,9 +1,8 @@
+import UserService from './service/UserService';
 const express = require('express');
-const { getRepository, QueryBuilder } = require('typeorm');
-const database = require('./database');
+// const { getRepository, QueryBuilder } = require('typeorm');
+// const database = require('./database');
 const cors = require('cors')
-
-require('./database')
 
 let app = express();
 
@@ -20,43 +19,19 @@ app.use(express.json())
 
 // CREATE USER
 app.post("/user", async(req, res) => {
-  let userRepository = getRepository("User");
-  // console.log(req.body);
-
-  let {email, birth} = req.body;
-  let user = await userRepository.findOne(
-    {
-      where: {email}
+  console.log("no endpoint")
+  let response = UserService(req.body);
+  
+  if (response === false) {
+    let erro = {
+      erro : "Já tem email cadastrado"
     }
-  );
-
-  if (user === null){
-    birth = FormataStringData(birth);
-    user = {
-      ...req.body, birth
-    }
-    // console.log(user);
-    const savedUser = await userRepository.save(user);
-    return res.status(200).json(savedUser);
+    console.log(erro);
+    return res.status(400).json(erro)
   }
-
-  let erro = {
-    erro : "Já tem email cadastrado"
-  }
-  // console.log(erro);
-  return res.status(400).json(erro);  
-
+  console.log(response)
+  return res.status(200).json(response)
 })
-
-//FORMAT DATE
-function FormataStringData(data) {
-  var dia  = data.split("/")[0];
-  var mes  = data.split("/")[1];
-  var ano  = data.split("/")[2];
-
-  return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);
-  // Utilizo o .slice(-2) para garantir o formato com 2 digitos.
-}
 
 // ENDPOINT DE LOGIN E AUTENTICACAO Q RETORNA O TOKEN NA RESPONSE
 app.post("/users", async(req, res) => {
