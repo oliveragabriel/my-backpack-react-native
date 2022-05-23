@@ -25,17 +25,23 @@ const Inicio = ({ navigation }) => {
   });
 
   useEffect(()=>{
-   getTrip()
-  },[])
-
-  const getTrip = useCallback(async () => {
     try {
-      const trip = getNextTrip(user.id_user);
+      const trip = getNextTrip();
       setNextTrip(trip);
-    } catch (error) {
-      
-    }
-  }, [])
+      console.log()
+      } catch (error) {
+        // criar outro componente de caso sem next trip
+        nextTrip = {
+          title: '',
+          departure: "",
+          country: '',
+          days: 4,
+          activitys: 8
+        }
+      }
+    },[])
+
+  
 
 
   return (
@@ -62,11 +68,11 @@ const Inicio = ({ navigation }) => {
             <Spacer />
             <ContainerProximaViagemInicio 
               title="Próxima Viagem"  
-              name={trip.title} 
-              date={trip.departure} 
-              country={trip.country} 
-              day={trip.days}
-              activity={trip.activitys}
+              name={nextTrip.title} 
+              date={nextTrip.departure} 
+              country={nextTrip.country} 
+              day={nextTrip.days}
+              activity={nextTrip.activitys}
               onPress={() => navigation.navigate('Viagem Detalhe')}
             />
             <Spacer />

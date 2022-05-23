@@ -1,9 +1,8 @@
+import UserService from './service/UserService';
 const express = require('express');
-const { getRepository, QueryBuilder } = require('typeorm');
-const database = require('./database');
+// const { getRepository, QueryBuilder } = require('typeorm');
+// const database = require('./database');
 const cors = require('cors')
-
-require('./database')
 
 let app = express();
 
@@ -18,28 +17,32 @@ app.use((req, res, next) => {
 
 app.use(express.json())
 
-app.post("/users", async(req, res) => {
-  let userRepository = getRepository("User");
-  console.log(req.body);
-
-  const {nome, email} = req.body;
-  let user = await userRepository.findOne(
-    {
-      where: {email}
+// CREATE USER
+app.post("/user", async(req, res) => {
+  console.log("no endpoint")
+  let response = UserService(req.body);
+  
+  if (response === false) {
+    let erro = {
+      erro : "Já tem email cadastrado"
     }
-  );
-
-  if (user === null){
-    const usuarios = await userRepository.save(req.body);
-    return res.status(200).json({email, nome});
+    console.log(erro);
+    return res.status(400).json(erro)
   }
-
-  let erro = {
-    erro : "Já tem email cadastrado"
-  }
-  return res.status(400).json(erro);  
+  console.log(response)
+  return res.status(200).json(response)
 })
 
+// ENDPOINT DE LOGIN E AUTENTICACAO Q RETORNA O TOKEN NA RESPONSE
+app.post("/users", async(req, res) => {
+  const {email, password} = req.body;
+  //verifica
+  //cria token e salva
+  const token = ""
+  return res.status(200).json({"authKey": token})
+})
+
+// GET USER BY ID -- FAZER PELO TOKEN DE ACESSO
 app.get("/users/:id", async(req, res) => {
   let userRepository = getRepository("User");
   let id = req.params["id"]
@@ -56,6 +59,7 @@ app.get("/users/:id", async(req, res) => {
   return res.status(200).json({usuario});
 })
 
+// UPDATE USER
 app.patch("/users/:id", async(req, res) => {
   let userRepository = getRepository("User");
   let id = req.params["id"]
@@ -77,15 +81,19 @@ app.patch("/users/:id", async(req, res) => {
   return res.status(200).json({usuario});
 })
 
-app.get("/users", async(req, res) => {
-  let userRepository = getRepository("User");
-  let users = await userRepository.find();
-  return res.status(200).json(users)
-})
-
+// TESTE
 app.get("/teste", async(req, res) => {
   return res.status(200).json({msg: "msg"})
 })
+
+// GET NEXT TRIP
+app.get("/nexttrip", async(req, res) => {
+  let travelRepository = getRepository("Travel");
+  let travel = await travelRepository.findOneBy(1);
+  return res.status(200).json(travel)
+})
+
+//FUNCAO RECEBE TOKEN E RETORNA ID DO USUARIO APOS VALIDACAO
 
 app.listen(3333, () => {
   console.log("Running on port 3333")

@@ -4,7 +4,7 @@ import { Alert, TitleRow, FormItemInput, ButtonRow, ButtonReturn } from '../../c
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
-import instance from '../../services/api';
+import {createUser} from '../../services/api';
 
 const CadastroUsuario = ({ navigation }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -14,7 +14,7 @@ const CadastroUsuario = ({ navigation }) => {
     birth: null,
     gender: '',
     email: '',
-    password: '',
+    acc_password: '',
     confirm: '',
   });
 
@@ -40,10 +40,10 @@ const CadastroUsuario = ({ navigation }) => {
     //console.log(await instance.get('/teste'))
     checkRequiredField();
     if (stop === 'valid') {
-      console.log("no post")
+      // console.log("no post")
       try {
         dispatch({type: actions.toggleLoading});
-        await instance.post('/users', JSON.stringify(user))
+        createUser(user)
         dispatch({type: actions.setMessage, payload: 'Usuário cadastrado com sucesso!'});
         dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
         dispatch({type: actions.showAlert, payload: true });

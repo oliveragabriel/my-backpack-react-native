@@ -2,14 +2,29 @@ const { EntitySchema } = require("typeorm");
 
 module.exports = new EntitySchema({
   name: "User",
-  tableName: "usuario",
+  tableName: "account",
+  relations:{
+    travel_user: {
+      target: "Travel",
+      type: "one-to-many",
+      cascade: true,
+      inverseSide: "relation_user"
+    },
+    wish_user: {
+      target: "Wish",
+      type: "one-to-many",
+      cascade: true,
+      inverseSide: "user_wish"
+    },
+
+  },
   columns: {
-    id_user: {
+    id_acc: {
       primary: true,
       type: "int",
       generated: true
     },
-    name: {
+    acc_name: {
       nullable: false,
       type: "varchar",
     },
@@ -30,7 +45,7 @@ module.exports = new EntitySchema({
     city: {
       type: "varchar"
     },
-    password: {
+    acc_password: {
       nullable: false,
       type: "varchar"
     }
