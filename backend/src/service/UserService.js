@@ -1,29 +1,35 @@
 import FormataStringData from './index'
+import Authentication from '../auth';
 const {FormataStringData} = require('./index');
 const { getRepository, QueryBuilder } = require('typeorm');
 const database = require('../database');
 
-const UserService = async(data) => {
+export const PostUserService = async(data) => {
   console.log("no service")
   let userRepository = getRepository("User");
-  let {email, birth} = data;
-  let user = await userRepository.findOne(
+  let {email} = data;
+  let isUserSaved = await userRepository.findOne(
     {
       where: {email}
     }
   );
   
-  if (user === null){
-    birth = FormataStringData(birth);
-    console.log(birth)
-    user = {
-      ...data, birth
-    }
-    const savedUser = await userRepository.save(user);
+  if (isUserSaved === null){
+    const savedUser = await userRepository.save(data);
     console.log(savedUser);
     return savedUser;
   }
   return false;  
 }
 
-export default UserService;
+export const LoginUserService = async (data) => {
+  let userRepository = getRepository("User");
+  let {email, acc_password} = data;
+  let isUserSaved = await userRepository.findOne(
+    {
+      where: {email, acc_password}
+    }
+  );
+  
+  return isUserSaved;
+}

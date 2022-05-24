@@ -1,9 +1,11 @@
-import UserService from './service/UserService';
+import {LoginUserService, PostUserService} from './service/UserService';
+import Authentication from './auth';
 const express = require('express');
-// const { getRepository, QueryBuilder } = require('typeorm');
+//  const { getRepository, QueryBuilder } = require('typeorm');
 // const database = require('./database');
 const cors = require('cors')
 
+let auth = new Authentication();
 let app = express();
 
 app.use((req, res, next) => {
@@ -19,8 +21,8 @@ app.use(express.json())
 
 // CREATE USER
 app.post("/user", async(req, res) => {
-  console.log("no endpoint")
-  let response = UserService(req.body);
+  console.log(req.body)
+  let response = PostUserService(req.body);
   
   if (response === false) {
     let erro = {
@@ -34,12 +36,13 @@ app.post("/user", async(req, res) => {
 })
 
 // ENDPOINT DE LOGIN E AUTENTICACAO Q RETORNA O TOKEN NA RESPONSE
-app.post("/users", async(req, res) => {
-  const {email, password} = req.body;
-  //verifica
-  //cria token e salva
-  const token = ""
-  return res.status(200).json({"authKey": token})
+app.post("/users/login", async(req, res) => {
+  let response = await LoginUserService(req.body)
+  if (response === null) {
+    return res.status(404)
+  }
+  const token = auth.SetToken(response.acc_name, response.id_acc)
+  return res.status(200).json({token:token})
 })
 
 // GET USER BY ID -- FAZER PELO TOKEN DE ACESSO

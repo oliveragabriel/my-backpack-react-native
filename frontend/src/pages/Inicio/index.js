@@ -1,19 +1,15 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { BottomNav } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { ContainerProximaViagemInicio } from './ContainerProximaViagem';
 import { ContainerConquistaInicio } from './ContainerConquista';
-import { 
-  useSelector, 
-  //useDispatch 
-} from 'react-redux'
+import { UserContext } from '../../UseContext/UserContext';
 import { getNextTrip } from '../../services/api';
 
 const Inicio = ({ navigation }) => {
 
-  const user = useSelector((state) => state.user);
-  const conquest = useSelector((state) => state.conquest);
+  const {user, GetUser, conquest, GetConquest} = useContext(UserContext);
   //const dispatch = useDispatch();
 
   const [nextTrip, setNextTrip] = useState({
@@ -26,9 +22,9 @@ const Inicio = ({ navigation }) => {
 
   useEffect(()=>{
     try {
-      const trip = getNextTrip();
-      setNextTrip(trip);
-      console.log()
+      //const trip = getNextTrip();
+      //setNextTrip(trip);
+      //console.log()
       } catch (error) {
         // criar outro componente de caso sem next trip
         nextTrip = {
@@ -40,9 +36,6 @@ const Inicio = ({ navigation }) => {
         }
       }
     },[])
-
-  
-
 
   return (
     <SafeAreaView>
@@ -62,7 +55,9 @@ const Inicio = ({ navigation }) => {
                   marginLeft: 4
                 }}
               >
-                {user.name}
+                {
+                user.acc_name
+                }
               </Text>
             </View>
             <Spacer />

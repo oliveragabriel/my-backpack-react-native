@@ -6,7 +6,6 @@ export const initialState = {
     message: '',
     backgroundColor: '#DF6E6E',
     checkedName: '',
-    checkedBirth: '',
     checkedEmail: '',
     checkedPassword: '',
     checkedConfirmPassword: '',
@@ -38,11 +37,6 @@ export function reducer(state,action) {
             return {
               ...state,
               checkedName: action.payload,
-              }
-        case actions.setCheckedBirth:
-            return {
-              ...state,
-              checkedBirth: action.payload,
               }
         case actions.setCheckedEmail:
           return {
