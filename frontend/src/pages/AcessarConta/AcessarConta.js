@@ -4,18 +4,18 @@ import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow } from '../../com
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
-// import instance from '../../services/api'
+import {getAuth, SetTokenApi} from '../../services/api'
 
 const AcessarConta = ({ navigation }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stop, setStop] = useState('');
   const [credentials, setCredentials] = useState({
     email: '',
-    password: ''
+    acc_password: ''
   });
 
   const checkRequiredField = useCallback(() => {
-    if(credentials.email === '' || credentials.password === '') {
+    if(credentials.email === '' || credentials.acc_password === '') {
       dispatch({type: actions.setMessage, payload: 'Os campos E-mail e Senha são obrigatórios e devem ser preenchidos para acessar para acessar!'});
       setStop('invalid');
       return dispatch({type: actions.showAlert, payload: true });
@@ -24,14 +24,16 @@ const AcessarConta = ({ navigation }) => {
       setStop('valid');
       return dispatch({type: actions.showAlert, payload: false });
     }
-  }, [credentials.login, credentials.password, state, stop]);
+  }, [credentials.login, credentials.acc_password, state, stop]);
 
-  const handleConfirmButton = useCallback(() => {
+  const handleConfirmButton = useCallback(async () => {
       checkRequiredField();
       // if (stop === 'valid') {
         try {
           dispatch({type: actions.toggleLoading});
-          // await instance.post('/sessions', credentials)
+          let authtoken = await getAuth(credentials)
+          console.log(authtoken)
+          SetTokenApi(authtoken)
           navigation.navigate('Início');
         } catch (error) {
           console.log('Error', error)
@@ -56,7 +58,7 @@ const AcessarConta = ({ navigation }) => {
 
   const handlePassword = (text) => {
     if(text !== '') {
-      setCredentials({ ...credentials, password: text })
+      setCredentials({ ...credentials, acc_password: text })
       dispatch({type: actions.setCheckedPassword, payload: 'valid'})
     } else {
       dispatch({type: actions.setCheckedPassword, payload: 'invalid'})

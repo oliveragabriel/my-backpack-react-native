@@ -10,21 +10,19 @@ const CadastroUsuario = ({ navigation }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stop, setStop] = useState('');
   const [user, setUser] = useState({
-    name: '',
-    birth: null,
-    gender: '',
+    acc_name: '',
     email: '',
     acc_password: '',
     confirm: '',
   });
 
   const checkRequiredField = useCallback(() => {
-    if(user.name === '' || user.email === '' || user.password === '' || user.confirm === '') {
+    if(user.acc_name === '' || user.email === '' || user.acc_password === '' || user.confirm === '') {
       dispatch({type: actions.setMessage, payload: 'Os campos com * são obrigatórios e devem ser preenchidos para cadastrar um novo usuário!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
       setStop('invalid');
       return dispatch({type: actions.showAlert, payload: true });
-    } else if(user.password !== user.confirm) {
+    } else if(user.acc_password !== user.confirm) {
       dispatch({type: actions.setMessage, payload: 'A Senha e a Confirmação devem ser iguais. Por favor, preencha o mesmo valor nos dois campos!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
       setStop('invalid');
@@ -34,7 +32,7 @@ const CadastroUsuario = ({ navigation }) => {
       setStop('valid');
       return dispatch({type: actions.showAlert, payload: false });
     }
-  }, [user.name, user.email, user.password, user.confirm, state, stop]);
+  }, [user.acc_name, user.email, user.acc_password, user.confirm, state, stop]);
  
   const handleConfirmButton = useCallback(async () => {
     //console.log(await instance.get('/teste'))
@@ -60,25 +58,10 @@ const CadastroUsuario = ({ navigation }) => {
 
   const handleName = (text) => {
     if(text !== '') {
-      setUser({ ...user, name: text});
+      setUser({ ...user, acc_name: text});
       dispatch({type: actions.setCheckedName, payload: 'valid'})
     } else {
       dispatch({type: actions.setCheckedName, payload: 'invalid'})                }
-  }
-
-  const handleBirth = (text) => {
-    let value = "";
-    value = text.replace(/\D/g, "");
-    value = text.replace(/^(\d{2})(\d{2})(\d)/, "$1/$2/$3");
-    // let regexDate = (/^(0?[1-9]|[12][0-9]|3[01])[\/\-](0?[1-9]|1[012])[\/\-]\d{4}$/)
-    // const condition = regexDate.test(value)
-    if(value){
-      setUser({ ...user, birth: value})
-      dispatch({type: actions.setCheckedBirth, payload: 'valid'})
-    } else {
-      dispatch({type: actions.setCheckedBirth, payload: 'invalid'})
-    }
-
   }
 
   const handleEmail = (text) => {
@@ -97,7 +80,7 @@ const CadastroUsuario = ({ navigation }) => {
     const regexPassword =  (/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{3,}$/) ;
     const condition = regexPassword.test(text); 
     if(condition) {
-      setUser({ ...user, password: text});
+      setUser({ ...user, acc_password: text});
       dispatch({type: actions.setCheckedPassword, payload: 'valid'})
     } else {
       dispatch({type: actions.setCheckedPassword, payload: 'invalid'})
@@ -105,7 +88,7 @@ const CadastroUsuario = ({ navigation }) => {
   }
 
   const handleConfirmPassowrd = (text) => {
-    if(text === user.password) {
+    if(text === user.acc_password) {
       setUser({ ...user, confirm: text});
       dispatch({type: actions.setCheckedConfirmPassword, payload: 'valid'})
     } else {
@@ -127,22 +110,6 @@ const CadastroUsuario = ({ navigation }) => {
               checked={state.checkedName}
               onChangeText={(text) => handleName(text)}
               // iconName='account'
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Data de Nascimento (DD/MM/AAAA)"
-              autoComplete='birthdate-full'
-              value={user.birth}
-              keyboardType="number-pad"
-              maxLength={10}
-              onChangeText={(text) => handleBirth(text)}
-              checked={state.checkedBirth}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Sexo"
-              autoComplete='gender'
-              onChangeText={text => setUser({ ...user, gender: text})}
             />
             <Spacer />
             <FormItemInput

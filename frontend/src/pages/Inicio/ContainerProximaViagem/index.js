@@ -5,7 +5,7 @@ export const ContainerProximaViagemInicio = ({
   title, 
   name, 
   country, 
-  date, 
+  departure_date,
   onPress = () => {},
   day,
   activity
@@ -107,7 +107,7 @@ export const ContainerProximaViagemInicio = ({
                     marginLeft: 6,
                   }}
                   >
-                  {`${date}`}
+                  {`${departure_date}`}
                 </Text>
                 </View>
           <View

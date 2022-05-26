@@ -12,7 +12,7 @@ export const BottomNav = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={{ width: '25%' }}>
-        <TouchableOpacity style={{ padding: 6 }} onPress={() => {navigation.navigate('Viagens')}}>
+        <TouchableOpacity style={{ padding: 6 }} onPress={() => {navigation.navigate('Viagem Detalhe')}}>
           <Text style={{ padding: 3, textAlign: 'center', fontSize: 18, color: '#FFFFFF' }}>?</Text>
           <Label>Viagens</Label>
         </TouchableOpacity>

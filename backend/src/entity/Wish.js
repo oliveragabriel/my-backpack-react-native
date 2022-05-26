@@ -1,4 +1,4 @@
-const { EntitySchema } = require("typeorm");
+const { EntitySchema} = require("typeorm");
 
 module.exports = new EntitySchema({
   name: "Wish",
@@ -7,7 +7,8 @@ module.exports = new EntitySchema({
     user_wish: {
       target: "User",
       type: "many-to-one",
-      inverseSide: "wish_user"
+      inverseSide: "wish_user",
+      joinColumn: "id_acc"
     }
   },
   columns: {

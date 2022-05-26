@@ -1,8 +1,7 @@
 import React from 'react';
 import { NavigationContainer } from '@react-navigation/native';
 import { createNativeStackNavigator } from '@react-navigation/native-stack';
-import { Provider } from 'react-redux'
-
+import { UserProvider } from './src/UseContext/UserContext';
 import AcessarConta from './src/pages/AcessarConta/AcessarConta';
 import CadastroUsuario from './src/pages/CadastroUsuario/CadastroUsuario';
 import EsqueciMinhaSenha from './src/pages/EsqueciMinhaSenha/EsqueciMinhaSenha';
@@ -12,13 +11,12 @@ import MeuPerfil from './src/pages/MeuPerfil/MeuPerfil';
 import AlterarSenha from './src/pages/AlterarSenha/AlterarSenha';
 import ViagemDetalhe from './src/pages/ViagemDetalhe';
 import EditarViagem from './src/pages/EditarViagem/EditarViagem'
-import store from './src/store/store';
 
 const Stack = createNativeStackNavigator();
 
 const App = () => {
   return (
-    <Provider store={store}>
+    <UserProvider>
       <NavigationContainer>
         <Stack.Navigator initialRouteName='Acessar Conta'>
           <Stack.Screen name="Acessar Conta" component={AcessarConta} />
@@ -32,7 +30,7 @@ const App = () => {
           <Stack.Screen name="Alterar Senha" component={AlterarSenha} />
         </Stack.Navigator>
       </NavigationContainer>
-    </Provider>
+    </UserProvider>
   );
 };
 

@@ -1,48 +1,27 @@
-import React, { useState, useEffect, useCallback } from 'react';
+import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
 import { BottomNav } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
-import { ContainerProximaViagemInicio } from './ContainerProximaViagem';
+import { ContainerViagem } from './ContainerViagem';
 import { ContainerConquistaInicio } from './ContainerConquista';
-import { 
-  useSelector, 
-  //useDispatch 
-} from 'react-redux'
-import { getNextTrip } from '../../services/api';
+import { UserContext } from '../../UseContext/UserContext';
+import { getNextTrip, getUser } from '../../services/api';
 
 const Inicio = ({ navigation }) => {
 
-  const user = useSelector((state) => state.user);
-  const conquest = useSelector((state) => state.conquest);
+  const {user, SetUser, conquest, GetConquest, nextTravel, SetNextTravel, flagTravel} = useContext(UserContext);
   //const dispatch = useDispatch();
 
-  const [nextTrip, setNextTrip] = useState({
-    title: 'Mexico Trip',
-    departure: "20/05/2022",
-    country: 'Mexico',
-    days: 4,
-    activitys: 8
-  });
+  //const [nextTrip, setNextTrip] = useState({});
 
   useEffect(()=>{
     try {
-      const trip = getNextTrip();
-      setNextTrip(trip);
-      console.log()
+      SetUser()
+      SetNextTravel()
       } catch (error) {
-        // criar outro componente de caso sem next trip
-        nextTrip = {
-          title: '',
-          departure: "",
-          country: '',
-          days: 4,
-          activitys: 8
-        }
+        console.log("err")
       }
     },[])
-
-  
-
 
   return (
     <SafeAreaView>
@@ -62,19 +41,16 @@ const Inicio = ({ navigation }) => {
                   marginLeft: 4
                 }}
               >
-                {user.name}
+                {
+                user.acc_name
+                }
               </Text>
             </View>
             <Spacer />
-            <ContainerProximaViagemInicio 
-              title="Próxima Viagem"  
-              name={nextTrip.title} 
-              date={nextTrip.departure} 
-              country={nextTrip.country} 
-              day={nextTrip.days}
-              activity={nextTrip.activitys}
-              onPress={() => navigation.navigate('Viagem Detalhe')}
-            />
+            <ContainerViagem
+              nextTrip={nextTravel}
+              flagTravel={flagTravel}>
+            </ContainerViagem>
             <Spacer />
             <ContainerConquistaInicio 
               title="Minhas Conquistas" 

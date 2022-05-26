@@ -1330,6 +1330,11 @@ base@^0.11.1:
     mixin-deep "^1.2.0"
     pascalcase "^0.1.1"
 
+basic-auth-token@^0.4.2:
+  version "0.4.2"
+  resolved "https://registry.yarnpkg.com/basic-auth-token/-/basic-auth-token-0.4.2.tgz#fc56e66e9dd69c462c3ce5ab7a6b535b35d63a56"
+  integrity sha512-83xWdZGpzPNjB8zrsvNEEvpLxjeaQFrzKJxxa5eFFNWHTJmvb8o9zAbs5j8Fdk0xlyLloCuNLFvMbQU63GvreA==
+
 big-integer@1.6.x:
   version "1.6.51"
   resolved "https://registry.yarnpkg.com/big-integer/-/big-integer-1.6.51.tgz#0df92a5d9880560d3ff2d5fd20245c889d130686"

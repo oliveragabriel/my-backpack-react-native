@@ -7,8 +7,10 @@ module.exports = new EntitySchema({
     user_travel: {
       target: "User",
       type: "many-to-one",
-      joinColumn: "id_user",
-      inverseSide: "travel_user"
+      joinColumn: {
+        name: "id_acc"
+      },
+      inverseSide: "travel_user",
     },
     accomodation_travel: {
       target: "Accomodation",
