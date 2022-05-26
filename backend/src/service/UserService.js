@@ -25,11 +25,21 @@ export const PostUserService = async(data) => {
 export const LoginUserService = async (data) => {
   let userRepository = getRepository("User");
   let {email, acc_password} = data;
-  let isUserSaved = await userRepository.findOne(
+  let isUserValid = await userRepository.findOne(
     {
       where: {email, acc_password}
     }
   );
-  
-  return isUserSaved;
+  return isUserValid;
+}
+
+export const GetUserData = async (id) => {
+  let userRepository = getRepository("User");
+  const usuario = await userRepository.findOneBy(
+    {
+      id_acc: id
+    }
+  )
+  // console.log({acc_name: usuario.acc_name, email: usuario.email})
+  return {acc_name: usuario.acc_name, email: usuario.email}
 }

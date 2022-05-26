@@ -1,4 +1,7 @@
-import {LoginUserService, PostUserService} from './service/UserService';
+import {GetUserData, LoginUserService, PostUserService} from './service/UserService';
+import {GetNextTravel}from './service/TravelService';
+
+
 import Authentication from './auth';
 const express = require('express');
 //  const { getRepository, QueryBuilder } = require('typeorm');
@@ -21,7 +24,6 @@ app.use(express.json())
 
 // CREATE USER
 app.post("/user", async(req, res) => {
-  console.log(req.body)
   let response = PostUserService(req.body);
   
   if (response === false) {
@@ -31,7 +33,6 @@ app.post("/user", async(req, res) => {
     console.log(erro);
     return res.status(400).json(erro)
   }
-  console.log(response)
   return res.status(200).json(response)
 })
 
@@ -39,27 +40,34 @@ app.post("/user", async(req, res) => {
 app.post("/users/login", async(req, res) => {
   let response = await LoginUserService(req.body)
   if (response === null) {
-    return res.status(404)
+    //console.log(res)
+    return res.status(404).send({message : "Error"})
   }
-  const token = auth.SetToken(response.acc_name, response.id_acc)
-  return res.status(200).json({token:token})
+  const authtoken = auth.SetToken(response.acc_name, response.id_acc)
+  return res.status(200).json({authtoken:authtoken})
 })
 
-// GET USER BY ID -- FAZER PELO TOKEN DE ACESSO
-app.get("/users/:id", async(req, res) => {
-  let userRepository = getRepository("User");
-  let id = req.params["id"]
-  const usuario = await userRepository.findOneBy(
-    {
-      idtb_user: id
-    }    
-  )
-
-  if (usuario === null){
-    return res.status(400).json({erro:"Not Found"})
+// GET NEXT TRIP
+app.get("/nexttrip", async(req, res) => {
+  let token = req.headers.authtoken;
+  let id = auth.session[token];
+  let response = await GetNextTravel(id)
+  console.log(response, " aqui")
+  if (response === null) {
+    return res.status(404).json({erro: "Not Found"})
   }
-  
-  return res.status(200).json({usuario});
+  return res.status(200).json(response)
+})
+
+// GET USER BY TOKEN
+app.get("/users", async(req, res) => { 
+  let token = req.headers.authtoken;
+  let id = auth.session[token];
+  let response = await GetUserData(id)
+  if (response === null){
+    return res.status(404).json({erro:"Not Found"})
+  }
+  return res.status(200).json(response);
 })
 
 // UPDATE USER
@@ -89,12 +97,7 @@ app.get("/teste", async(req, res) => {
   return res.status(200).json({msg: "msg"})
 })
 
-// GET NEXT TRIP
-app.get("/nexttrip", async(req, res) => {
-  let travelRepository = getRepository("Travel");
-  let travel = await travelRepository.findOneBy(1);
-  return res.status(200).json(travel)
-})
+
 
 //FUNCAO RECEBE TOKEN E RETORNA ID DO USUARIO APOS VALIDACAO
 

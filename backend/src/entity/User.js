@@ -8,7 +8,7 @@ module.exports = new EntitySchema({
       target: "Travel",
       type: "one-to-many",
       cascade: true,
-      inverseSide: "relation_user"
+      inverseSide: "user_travel",
     },
     wish_user: {
       target: "Wish",

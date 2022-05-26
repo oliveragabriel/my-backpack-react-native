@@ -4,7 +4,7 @@ import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow } from '../../com
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
-import {getAuth} from '../../services/api'
+import {getAuth, SetTokenApi} from '../../services/api'
 
 const AcessarConta = ({ navigation }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
@@ -26,13 +26,14 @@ const AcessarConta = ({ navigation }) => {
     }
   }, [credentials.login, credentials.acc_password, state, stop]);
 
-  const handleConfirmButton = useCallback(() => {
+  const handleConfirmButton = useCallback(async () => {
       checkRequiredField();
       // if (stop === 'valid') {
         try {
           dispatch({type: actions.toggleLoading});
-          let token = getAuth(credentials)
-          
+          let authtoken = await getAuth(credentials)
+          console.log(authtoken)
+          SetTokenApi(authtoken)
           navigation.navigate('Início');
         } catch (error) {
           console.log('Error', error)
