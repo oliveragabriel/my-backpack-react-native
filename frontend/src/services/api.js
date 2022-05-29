@@ -3,7 +3,7 @@ import { UserContext } from '../UseContext/UserContext';
 
 const instance = axios.create({
     // nao logar na internet do senai que muda o IP direto e da erro
-    baseURL: "http://172.20.63.197:3333",
+    baseURL: "http://192.168.100.10:3333",
     headers: {
       "Content-Type": "application/json",
       authtoken: ""

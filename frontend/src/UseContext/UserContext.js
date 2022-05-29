@@ -12,7 +12,7 @@ export const UserProvider = ({children}) => {
   });
 
   const [conquest, setConquest] = useState({
-    qtdTravel: 0,
+    qtdTravel: 3,
     qtdCountry: 0,
     qtdCity: 0,
     qtdActivity: 0,

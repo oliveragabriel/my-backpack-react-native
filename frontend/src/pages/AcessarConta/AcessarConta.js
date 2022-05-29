@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer } from 'react';
+import React, { useState, useCallback, useReducer} from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
@@ -78,7 +78,7 @@ const AcessarConta = ({ navigation }) => {
               autoComplete='email'
               checked={state.checkedEmail}
               onChangeText={(text) => handleEmail(text)}
-              // iconName="account"
+              //iconName="email"
             />
             <Spacer />
             <FormItemInput

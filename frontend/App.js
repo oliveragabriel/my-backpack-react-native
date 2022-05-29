@@ -11,6 +11,8 @@ import MeuPerfil from './src/pages/MeuPerfil/MeuPerfil';
 import AlterarSenha from './src/pages/AlterarSenha/AlterarSenha';
 import ViagemDetalhe from './src/pages/ViagemDetalhe';
 import EditarViagem from './src/pages/EditarViagem/EditarViagem'
+import MinhasViagens from './src/pages/MinhasViagens/index';
+import ListaDias from './src/pages/ListaDias/ListaDias';
 
 const Stack = createNativeStackNavigator();
 
@@ -24,6 +26,8 @@ const App = () => {
           <Stack.Screen name="Esqueci Minha Senha" component={EsqueciMinhaSenha} />
           <Stack.Screen name="Início" component={Inicio} />
           <Stack.Screen name="Viagem Detalhe" component={ViagemDetalhe} />
+          <Stack.Screen name="Lista Dias" component={ListaDias} />
+          <Stack.Screen name="Minhas Viagens" component={MinhasViagens} />
           <Stack.Screen name="Editar Viagem" component={EditarViagem} />
           <Stack.Screen name="Minhas Conquistas" component={MinhasConquistas} />
           <Stack.Screen name="Meu Perfil" component={MeuPerfil} />

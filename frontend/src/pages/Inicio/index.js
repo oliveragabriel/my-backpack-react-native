@@ -12,8 +12,6 @@ const Inicio = ({ navigation }) => {
   const {user, SetUser, conquest, GetConquest, nextTravel, SetNextTravel, flagTravel} = useContext(UserContext);
   //const dispatch = useDispatch();
 
-  //const [nextTrip, setNextTrip] = useState({});
-
   useEffect(()=>{
     try {
       SetUser()
@@ -48,7 +46,7 @@ const Inicio = ({ navigation }) => {
             </View>
             <Spacer />
             <ContainerViagem
-              nextTrip={nextTravel}
+              nextTravel={nextTravel}
               flagTravel={flagTravel}>
             </ContainerViagem>
             <Spacer />
