@@ -1,0 +1,6 @@
+{
+  "dependencies": {
+    "@emotion/stylis": "^0.8.5",
+    "styled-icons": "^10.45.0"
+  }
+}

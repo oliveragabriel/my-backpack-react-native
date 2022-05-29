@@ -2,8 +2,7 @@ import React from "react";
 import { ContainerVazio } from "../ContainerVazio";
 import { ContainerProximaViagemInicio } from "../ContainerProximaViagem";
 
-
-export const ContainerViagem = ({navigation, nextTrip, flagTravel}) => {
+export const ContainerViagem = ({navigation, nextTravel, flagTravel}) => {
 
   const handleNextTravelContainer = () => {
     //console.log(nextTrip, "nexttrip");
@@ -13,10 +12,10 @@ export const ContainerViagem = ({navigation, nextTrip, flagTravel}) => {
         <ContainerProximaViagemInicio 
           title="Próxima Viagem"
           name="a definir"
-          departure_date={nextTrip.departure_date}
-          country={nextTrip.title}
-          day={nextTrip.days}
-          activity={nextTrip.activitys}
+          departure_date={nextTravel.departure_date}
+          country={nextTravel.title}
+          day={nextTravel.days}
+          activity={nextTravel.activities}
           onPress={() => navigation.navigate('Viagem Detalhe')}
         />
       )
