@@ -10,12 +10,7 @@ const MeuPerfil = ({ navigation }) => {
   const [stop, setStop] = useState();
   const [user, setUser] = useState({
     name: '',
-    birth: null,
-    gender: '',
     email: '',
-    phone: '',
-    country: '',
-    city: '',
   });
 
   const checkRequiredField = useCallback(() => {
@@ -63,47 +58,11 @@ const MeuPerfil = ({ navigation }) => {
             />
             <Spacer />
             <FormItemInput
-              placeholder="Data de Nascimento"
-              autoComplete='birthdate-full'
-              defaultValue={user.birth ?? null}
-              onChangeText={text => setUser({ ...user, birth: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Sexo"
-              defaultValue={user.gender ?? null}
-              autoComplete='gender'
-              onChangeText={text => setUser({ ...user, gender: text})}
-            />
-            <Spacer />
-            <FormItemInput
               required={true}
               placeholder="E-mail"
               defaultValue={user.email ?? null}
               autoComplete='email'
               onChangeText={text => setUser({ ...user, email: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Telefone"
-              autoComplete='tel'
-              onChangeText={text => {setUser({ ...user, phone: text})}}
-              // secureTextEntry
-              // iconName="lock-outline"
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="País"
-              onChangeText={text => setUser({ ...user, country: text})}
-              // secureTextEntry
-              // iconName="lock-outline"
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Cidade"
-              onChangeText={text => setUser({ ...user, city: text})}
-              // secureTextEntry
-              // iconName="lock-outline"
             />
             <Spacer />
             <ButtonRow
