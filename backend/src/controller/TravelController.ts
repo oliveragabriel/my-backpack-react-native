@@ -1,4 +1,4 @@
-//import { NextFunction, Request, Response } from "express";
+import { NextFunction, Request, Response } from "express";
 //import { AppDataSource } from "../data-source";
 import { Travel } from "../entity/Travel";
 import { CommonController } from "./CommonController";
@@ -6,6 +6,10 @@ import { CommonController } from "./CommonController";
 export class TravelController extends CommonController {
 
     entity = Travel;
+
+    async save(request: Request, response: Response, next: NextFunction) {
+        return Travel.createTravel(request.body, parseInt(request.params.id));
+    }
 
     /*
     private travelRepository = AppDataSource.getRepository(Travel);
@@ -22,9 +26,7 @@ export class TravelController extends CommonController {
         });
     }
 
-    async save(request: Request, response: Response, next: NextFunction) {
-        return this.travelRepository.save(request.body);
-    }
+    
 
     async remove(request: Request, response: Response, next: NextFunction) {
         let travelToRemove = await this.travelRepository.findOneBy({ id: parseInt(request.params.id) });

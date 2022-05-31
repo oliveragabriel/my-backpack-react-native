@@ -7,16 +7,16 @@ export class TravelRoutes extends CommonRoutes {
     maps = [
         {
             method: "get",
-            route: "/travels",
-            action: "all"
+            route: "/users/:userId/travels",
+            action: "allBy"
+        }, {
+            method: "post",
+            route: "/users/:userId/travels",
+            action: "saveBy"
         }, {
             method: "get",
             route: "/travels/:id",
             action: "one"
-        }, {
-            method: "post",
-            route: "/travels",
-            action: "save"
         }, {
             method: 'patch',
             route: "/travels/:id",

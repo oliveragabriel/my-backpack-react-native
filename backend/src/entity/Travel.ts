@@ -37,4 +37,10 @@ export class Travel extends BaseEntity {
     @OneToMany(() => Transport, (transport) => transport.travel)
     transports: Transport[]
 
+    static createTravel = async (obj: any, userId: number): Promise<Travel> => {
+        return Travel.create({
+            ...obj,
+            user: await User.findOneBy({id: userId})
+        })
+    };
 }
