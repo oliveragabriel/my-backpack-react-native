@@ -1,34 +1,85 @@
 import React, { useContext, useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, FlatList } from 'react-native';
 import { BottomNav, TitleRow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';
-import {ContainerProximaViagem} from './ContainerProximaViagem'
-import {ContainerViagensAnteriores} from './ContainerViagensAnteriores'  
 
 const MinhasViagens = ({ navigation }) => {
   
-  const {nextTravel} = useContext(UserContext)
+
+  const [travels, setTravels] = useState([{
+    name: "Viagem 1"
+  }, {
+    name: "Viagem 2"
+  }])
 
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container>
+        <Container bgColor="#085E7D">
           <Card width="90%">
-            <TitleRow text="Próxima Viagem" />
-            <ContainerProximaViagem
-              nextTravel={nextTravel}
-            //onPress={() => navigation.navigate('Viagem Detalhe')}
-            />
-          </Card>
-          <Spacer/>
-          <Card width="90%">
-            <TitleRow text="Viagens Anteriores" />
-            <ContainerViagensAnteriores
-              //onPress={() => navigation.navigate('Viagem Detalhe')}
-            />
-          </Card>
-        </Container>
+            <View>
+
+              <TitleRow  text="Minhas Viagens"/>
+
+              <FlatList
+                  data={travels}
+                  renderItem={({item}) => 
+                  <View>
+                    <TouchableOpacity
+                      style={{
+                        display: 'flex',
+                        flexDirection: 'column',
+                        width: "100%",
+                        marginTop: 10,
+                        padding: 8,
+                        backgroundColor: 'whitesmoke',
+                        borderWidth: 1,
+                        borderRadius: 6,
+                        borderColor: "#DCDCDC",
+                      }}>
+                      <Text
+                        style={{
+                          fontSize: 16,
+                          fontWeight: '700',
+                          textAlign: "center",
+                          color: "#084594",
+                          marginLeft: 4
+                        }}
+                      >
+                        {item.name}
+                      </Text>
+                    </TouchableOpacity>
+                  </View>}
+                />
+
+              </View>
+              <TouchableOpacity
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                width: "100%",
+                marginTop: 10,
+                padding: 8,
+                backgroundColor: 'whitesmoke',
+                borderWidth: 1,
+                borderRadius: 6,
+                borderColor: "#DCDCDC",
+              }}
+                onPress = {navigation.navigate('Editar Viagem')}>
+                <Text 
+                style={{
+                  fontSize: 16,
+                  fontWeight: '700',
+                  textAlign: "center",
+                  color: "#084594",
+                  marginLeft: 4
+                }}>
+                  Adicionar Viagem
+                </Text>
+              </TouchableOpacity>
+            </Card>
+          </Container>
         <BottomNav navigation={navigation}/>
       </ScrollView>
     </SafeAreaView>
