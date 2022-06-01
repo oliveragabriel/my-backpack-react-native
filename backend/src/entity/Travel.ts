@@ -25,6 +25,9 @@ export class Travel extends BaseEntity {
     @Column('boolean')
     isDone: boolean
 
+    @Column()
+    userId: number
+
     @ManyToOne(() => User, (user) => user.travels)
     user: User
 
@@ -37,10 +40,18 @@ export class Travel extends BaseEntity {
     @OneToMany(() => Transport, (transport) => transport.travel)
     transports: Transport[]
 
-    static createTravel = async (obj: any, userId: number): Promise<Travel> => {
-        return Travel.create({
-            ...obj,
-            user: await User.findOneBy({id: userId})
-        })
-    };
+
+    static async createService(dataObj: any, id: number): Promise<Travel> {
+        const newTravel: Travel = Travel.create({
+            ...dataObj,
+            user: await User.findOneBy({id: id})
+        });
+        return newTravel.save();
+    }
+
+
+    static async readService(id: number) {
+        return Travel.findBy({userId: id});
+    }
+
 }

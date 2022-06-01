@@ -1,38 +1,38 @@
-import { Application, Request, Response, NextFunction } from "express";
-import { UserController } from "../controller/UserController";
+import { Application } from "express";
+import { User } from "../entity/User";
 import { CommonRoutes } from "./CommonRoutes";
+
+const parent: string = 'users';
 
 export class UserRoutes extends CommonRoutes {
 
     maps = [
         {
             method: "get",
-            route: "/users",
-            action: "all"
+            action: "all",
+            route: `/${parent}`
         }, {
             method: "get",
-            route: "/users/:id",
-            action: "one"
+            action: "one",
+            route: `/${parent}/:id`
         }, {
             method: "post",
-            route: "/users",
-            action: "save"
+            action: "save",
+            route: `/${parent}`
         }, {
             method: 'patch',
-            route: '/users/:id',
-            action: 'update'
+            action: 'update',
+            route: `/${parent}/:id`
         }, {
             method: "delete",
-            route: "/users/:id",
-            action: "remove"
+            action: "remove",
+            route: `/${parent}/:id`
         }
     ];
 
-    controller = UserController;
-
     constructor(app: Application) {
         super(app);
-        this.configureRoutes();
+        this.configureRoutes(User);
     }
 
 }
