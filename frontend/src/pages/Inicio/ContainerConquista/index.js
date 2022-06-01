@@ -24,7 +24,7 @@ export const ContainerConquistaInicio = ({ title, travel, country, onPress = () 
             style={{
               fontSize: 16,
               fontWeight: "600",
-              color: "#000000",
+              color: "#084594",
               textAlign: "center",
               textTransform: "uppercase",
             }}

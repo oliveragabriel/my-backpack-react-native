@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useReducer} from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow } from '../../components';
-import { Card, Container, Spacer } from '../../styles';
+import { SafeAreaView, ScrollView, Image } from 'react-native';
+import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow, Logo } from '../../components';
+import { Card, Container, Spacer} from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
 import {getAuth, SetTokenApi} from '../../services/api'
@@ -68,17 +68,19 @@ const AcessarConta = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           {state.alert && (<Alert bgColor="#DF6E6E" message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%">
+            <Logo/>
             <TitleRow text="Acessar Conta" />
+            
             <FormItemInput
               required={true}
               placeholder="E-mail"
               autoComplete='email'
               checked={state.checkedEmail}
               onChangeText={(text) => handleEmail(text)}
-              //iconName="email"
+              iconName="email"
             />
             <Spacer />
             <FormItemInput
@@ -88,7 +90,7 @@ const AcessarConta = ({ navigation }) => {
               checked={state.checkedPassword}
               onChangeText={(text) => handlePassword(text)}
               secureTextEntry
-              // iconName="lock-outline"
+              iconName="lock-outline"
             />
             <Container direction border="none">
             <ButtonLink 
@@ -104,7 +106,6 @@ const AcessarConta = ({ navigation }) => {
               disabled={state.loading}
               text="Entrar"
               onPress={() => handleConfirmButton()}
-              // iconName="check"
             />
           </Card>
         </Container>

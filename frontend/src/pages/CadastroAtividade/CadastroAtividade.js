@@ -34,7 +34,7 @@ const CadastroAtividade = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%">
           <TitleRow text="Adicionar Nova Atividade" />
@@ -68,7 +68,6 @@ const CadastroAtividade = () => {
             <ButtonRow
               text="Cadastrar"
               onPress={() => handleConfirmButton()}
-              // iconName="check"
             />
           </Card>
         </Container>

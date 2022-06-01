@@ -5,5 +5,5 @@ export const Title = styled.Text`
     font-weight: ${(props) => props.fontWeight || 'bold'};
     text-align: center;
     text-transform: ${(props) => props.txtTransform || 'uppercase'};
-    color: ${(props) => props.txtColor || '#000000'};
+    color: ${(props) => props.txtColor || '#084594'};
 `;

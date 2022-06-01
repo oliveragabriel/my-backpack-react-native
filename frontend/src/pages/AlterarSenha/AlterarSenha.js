@@ -36,7 +36,7 @@ const AlterarSenha = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%">
             <TitleRow text="Alterar Senha" />
@@ -46,7 +46,7 @@ const AlterarSenha = ({ navigation }) => {
               autoComplete='password'
               onChangeText={(text) => setToken({ ...token, password: text })}
               // secureTextEntry
-              // iconName="lock-outline"
+              iconName="lock-outline"
             />
             <Spacer />
             <FormItemInput
@@ -54,13 +54,12 @@ const AlterarSenha = ({ navigation }) => {
               placeholder="Confirme sua Nova Senha"
               onChangeText={(text) => setToken({ ...token, confirm: text })}
               // secureTextEntry
-              // iconName="lock-outline"
+              iconName="lock-outline"
             />
             <Spacer />
             <ButtonRow
               text="Confirmar"
               onPress={() => handleConfirmButton()}
-              // iconName="check"
             />
           </Card>
         </Container>

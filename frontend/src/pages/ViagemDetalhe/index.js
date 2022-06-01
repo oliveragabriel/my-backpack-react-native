@@ -16,7 +16,7 @@ const ViagemDetalhe = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           <Card width="90%">
             <TitleRow text="Detalhes da Viagem" />
             <ContainerViagem 

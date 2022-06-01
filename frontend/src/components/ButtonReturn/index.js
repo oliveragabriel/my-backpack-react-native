@@ -1,41 +1,36 @@
 import React from 'react';
 import { TouchableOpacity, Text } from 'react-native';
 import { Container } from '../../styles';
-// import { Icon } from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export const ButtonReturn = ({ text, onPress = () => {}, iconName }) => {
+export const ButtonReturn = ({onPress = () => {}, iconName }) => {
     return (
         <Container 
-            bgColor="#E4E7EB" 
+            bgColor="#084594" 
             direction 
             width="15%" 
-            border='1px solid #B2B2B2' 
+            border='none' 
             style={{ 
                 borderRadius: 6, 
                 height: 30 
             }}
         > 
             <TouchableOpacity onPress={onPress}>
-                {/* 
-                    <Icon 
-                        name={iconName} 
-                        size={26} 
-                        style={{ 
-                            color: "#7B8794", 
-                            position: 'absolute', 
-                            left: 30, 
-                            top: 12 
-                        }}
-                    /> 
-                */}
                 <Text 
                     style={{ 
-                        fontSize: 11, 
+                        fontSize: 15, 
                         fontWeight: '400', 
-                        color: '#000000' 
-                    }}
-                >
-                    {text}
+                        color: '#fff' ,
+                    }}>
+                  <Icon 
+                        name={iconName} 
+                        size={20} 
+                        style={{ 
+                            color: "#fff", 
+                            position: 'absolute', 
+                            left: 10, 
+                            top: 12 
+                        }}/> 
                 </Text>
             </TouchableOpacity>
         </Container>
