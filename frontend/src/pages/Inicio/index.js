@@ -1,6 +1,6 @@
 import React, { useState, useEffect, useCallback, useContext } from 'react';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { BottomNav } from '../../components';
+import { BottomNav, Logo } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { ContainerViagem } from './ContainerViagem';
 import { ContainerConquistaInicio } from './ContainerConquista';
@@ -24,10 +24,11 @@ const Inicio = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           <Card width="90%">
+            <Logo/>
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
-              <Text style={{ fontSize: 16, textAlign: "center" }}>
+              <Text style={{ fontSize: 16, textAlign: "center", color: "#084594"}}>
                 Bem-vindo
               </Text>
               <Text

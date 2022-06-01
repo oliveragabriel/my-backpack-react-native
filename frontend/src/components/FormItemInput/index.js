@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { View, Text} from 'react-native';
 import { Container, Input } from '../../styles';
-// import { Icon } from 'react-native-vector-icons/dist/MaterialCommunityIcons';
+import Icon from 'react-native-vector-icons/MaterialIcons';
 
 export const FormItemInput = (props) => {
     // const [security, setSecurity] = useState(secureTextEntry);
@@ -58,33 +58,29 @@ export const FormItemInput = (props) => {
         <Container border="none">
             {props.required && (
                 <View 
-                    style={{ 
-                        width: '100%', 
-                        position: 'absolute', 
-                        fontWeight: 'bold', 
-                        textAlign: 'right', 
-                        height: 80 
-                    }}
-                >
-                    <Text style={{ color: '#FF0303'}}>*</Text>
-                </View>
-            )}
+                  style={{ 
+                      width: '100%', 
+                      position: 'absolute', 
+                      fontWeight: 'bold', 
+                      textAlign: 'right', 
+                      height: 80}}>
+                  <Text style={{ color: '#FF0303'}}>*</Text>
+                </View>)}
             <Input
                 {...props}
                 placeholderTextColor="#7B8794"
                 // secureTextEntry={secureTextEntry}
             />
             
-               {/*  <Icon 
-                    name={iconName}
+                <Icon 
+                    name={props.iconName}
                     color="#7B8794"
                     size={26} 
                     style={{ 
                         position: 'absolute',
-                        left: 30,
+                        left: 270,
                         top: 12,
-                    }}
-                /> */}
+                    }}/>
                 {/* {secureTextEntry && (
                     <TouchableOpacity onPress={() => setSecurity(!security)}>
                         <Icon 

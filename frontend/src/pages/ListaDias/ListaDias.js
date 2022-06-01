@@ -15,7 +15,7 @@ const ListaDias = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           <Card width="90%">
             <View>
 

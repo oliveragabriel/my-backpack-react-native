@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useReducer } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonRow, ButtonReturn } from '../../components';
+import { Alert, TitleRow, FormItemInput, ButtonRow, ButtonReturn, Logo } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
@@ -98,10 +98,11 @@ const CadastroUsuario = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%">
-          <ButtonReturn text="Voltar" onPress={() => navigation.navigate("Acessar Conta")}/>
+          <ButtonReturn iconName='west' onPress={() => navigation.navigate("Acessar Conta")} />
+          <Logo/>
           <TitleRow text="Cadastro de Usuário" />
             <FormItemInput
               required={true}
@@ -109,7 +110,6 @@ const CadastroUsuario = ({ navigation }) => {
               autoComplete="name"
               checked={state.checkedName}
               onChangeText={(text) => handleName(text)}
-              // iconName='account'
             />
             <Spacer />
             <FormItemInput
@@ -118,6 +118,7 @@ const CadastroUsuario = ({ navigation }) => {
               placeholder="E-mail"
               autoComplete='email'
               onChangeText={(text) => handleEmail(text)}
+              iconName="email"
             />
             <Spacer />
             <FormItemInput
@@ -127,7 +128,7 @@ const CadastroUsuario = ({ navigation }) => {
               checked={state.checkedPassword}
               onChangeText={(text) => handlePassword(text)}
               secureTextEntry
-              // iconName="lock-outline"
+              iconName="lock-outline"
             />
             <Spacer />
             <FormItemInput
@@ -136,14 +137,13 @@ const CadastroUsuario = ({ navigation }) => {
               checked={state.checkedConfirmPassword}
               onChangeText={(text) => handleConfirmPassowrd(text)}
               secureTextEntry
-              // iconName="lock-outline"
+              iconName="lock-outline"
             />
             <Spacer />
             <ButtonRow
               disabled={state.loading}
               text="Cadastrar"
               onPress={() => handleConfirmButton()}
-              // iconName="check"
             />
           </Card>
         </Container>

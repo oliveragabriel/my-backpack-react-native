@@ -11,5 +11,5 @@ export const Container = styled.View`
     color: ${(props) => props.txtColor || '#A29B9B'};
     width: ${(props) => props.width || '100%'};
     padding: ${(props) => props.padding || 0}px;
-    border: ${(props) => props.border || '1px solid #BBBBBB'};
+    border: ${(props) => props.border || 'none'};
 `;

@@ -7,8 +7,8 @@ export const Card = styled.View`
     width: ${(props) => props.width || '100%'};
     margin: ${(props) => props.margin || '10px 0 10px 0'};
     padding: ${(props) => props.padding || 16}px;
-    border: ${(props) => props.border || '1px solid #DCDCDC'}
+    border: ${(props) => props.border || 'none'}
     border-radius: 6px;
-    background-color: ${(props) => props.bgColor || '#FFFFFF'};
+    background-color: ${(props) => props.bgColor || '#ffffff'};
     opacity: ${(props) => (props.disabled ? 0.5 : 1)};
 `;

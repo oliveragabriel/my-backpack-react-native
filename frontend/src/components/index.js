@@ -5,3 +5,4 @@ export * from './ButtonRow';
 export * from './ButtonLink';
 export * from './ButtonReturn';
 export * from './BottomNavigation';
+export * from './Logo';

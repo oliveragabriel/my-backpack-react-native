@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useReducer } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav } from '../../components';
+import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, Logo } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
@@ -44,9 +44,10 @@ const MeuPerfil = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%">
+          <Logo/>
           <TitleRow text="Meu Perfil" />
             <FormItemInput
               required={true}
@@ -68,12 +69,10 @@ const MeuPerfil = ({ navigation }) => {
             <ButtonRow
               text="Alterar"
               onPress={() => handleConfirmButton()}
-              // iconName="check"
             />
             <ButtonRow
               text="Configurar Senha"
               onPress={() => navigation.navigate('Alterar Senha')}
-              // iconName="check"
             />
           </Card>
         </Container>

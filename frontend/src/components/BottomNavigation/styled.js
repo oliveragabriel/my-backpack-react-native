@@ -6,5 +6,5 @@ export const Label = styled.Text`
     font-weight: ${(props) => props.fontWeight || '500'};
     text-align: center;
     text-transform: ${(props) => props.txtTransform || 'capitalize'};
-    color: ${(props) => props.txtColor || '#FFFFFF'};
+    color: ${(props) => props.txtColor || '#084594'};
 `;

@@ -34,7 +34,7 @@ const EditarAtividade = () => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%">
           <TitleRow text="Editar Atividade" />
@@ -68,7 +68,6 @@ const EditarAtividade = () => {
             <ButtonRow
               text="Alterar"
               onPress={() => handleConfirmButton()}
-              // iconName="check"
             />
           </Card>
         </Container>

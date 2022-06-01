@@ -16,7 +16,7 @@ const MinhasConquistas = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#085E7D">
+        <Container bgColor="#293775">
           {/* {state.alert && (<Alert bgColor="#DF6E6E" message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)} */}
           <Card width="90%">
           <TitleRow text="Minhas Conquistas" />
