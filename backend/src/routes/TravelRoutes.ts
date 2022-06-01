@@ -1,38 +1,43 @@
-import { Application, Request, Response, NextFunction } from "express";
-import { TravelController } from "../controller/TravelController";
+import { Application } from "express";
+import { Travel } from "../entity/Travel";
 import { CommonRoutes } from "./CommonRoutes";
+
+const parent: string = 'users';
+const child: string = 'travels';
 
 export class TravelRoutes extends CommonRoutes {
 
     maps = [
         {
             method: "get",
-            route: "/users/:userId/travels",
-            action: "allBy"
+            action: "allBy",
+            route: `/${parent}/:id/${child}`
         }, {
             method: "post",
-            route: "/users/:userId/travels",
-            action: "saveBy"
+            action: "saveBy",
+            route: `/${parent}/:id/${child}`
         }, {
             method: "get",
-            route: "/travels/:id",
-            action: "one"
+            action: "one",
+            route: `/${child}/:id`
+        }, {
+            method: "get",
+            action: "all",
+            route: `/${child}`
         }, {
             method: 'patch',
-            route: "/travels/:id",
-            action: 'update'
+            action: 'update',
+            route: `/${child}/:id`
         }, {
             method: "delete",
-            route: "/travels/:id",
-            action: "remove"
+            action: "remove",
+            route: `/${child}/:id`
         }
     ];
 
-    controller = TravelController;
-
     constructor(app: Application) {
         super(app);
-        this.configureRoutes();
+        this.configureRoutes(Travel);
     }
 
 }

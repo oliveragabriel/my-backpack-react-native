@@ -11,8 +11,8 @@ AppDataSource.initialize().then(async () => {
     //app.use(cors());
     initializeRoutes(app);
 
-    app.listen(3000);
-
-    console.log("Express server has started on port 3000");
+    app.listen(3000, () => {
+        console.log("Express server has started on port 3000");
+    });
 
 }).catch(error => console.log(error));

@@ -7,10 +7,10 @@ type routeMap = {
     route: string
 }
 
-export abstract class CommonRoutes {
+export class Route {
 
     app: Application;
-    abstract maps: routeMap[];
+    maps: routeMap[];
 
     constructor(app: Application) {
         this.app = app;

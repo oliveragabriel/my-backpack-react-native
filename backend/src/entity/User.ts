@@ -23,4 +23,9 @@ export class User extends BaseEntity {
     @OneToMany(() => Wish, (wish) => wish.user)
     wishes: Wish[]
 
+    static async createService(dataObj: any): Promise<User> {
+        const newUser: User = User.create(dataObj);
+        return newUser.save();
+    }
+
 }
