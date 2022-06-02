@@ -41,7 +41,7 @@ export class Travel extends BaseEntity {
     transports: Transport[]
 
 
-    static async createService(dataObj: any, id: number): Promise<Travel> {
+    static async createByService(dataObj: any, id: number): Promise<Travel> {
         const newTravel: Travel = Travel.create({
             ...dataObj,
             user: await User.findOneBy({id: id})
@@ -50,7 +50,7 @@ export class Travel extends BaseEntity {
     }
 
 
-    static async readService(id: number) {
+    static async readByService(id: number) {
         return Travel.findBy({userId: id});
     }
 

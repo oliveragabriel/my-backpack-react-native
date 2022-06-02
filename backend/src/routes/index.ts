@@ -1,21 +1,20 @@
 import { Application } from 'express';
-import { TravelRoutes } from './TravelRoutes';
-import { UserRoutes } from './UserRoutes';
+import { Accomodation } from '../entity/Accomodation';
+import { Activity } from '../entity/Activity';
+import { Transport } from '../entity/Transport';
+import { Travel } from '../entity/Travel';
+import { TravelDay } from '../entity/TravelDay';
+import { User } from '../entity/User';
+import { Wish } from '../entity/Wish';
+import { Route } from './Route';
+
 
 export const initializeRoutes = (app: Application) => {
-    new TravelRoutes(app);
-    new UserRoutes(app);
+    new Route(app, Accomodation, 'accomodations', 'travels');
+    new Route(app, Activity, 'activities', 'traveldays');
+    new Route(app, Transport, 'transports', 'travels');
+    new Route(app, Travel, 'travels', 'users');
+    new Route(app, TravelDay, 'traveldays', 'travels');
+    new Route(app, User, 'users');
+    new Route(app, Wish, 'wishes', 'users');
 }
-
-let parent: string
-let child: string
-
-const asdf = [
-    {action: "all",     method: "get",      route: `/${child}`},
-    {action: "allBy",   method: "get",      route: `/${parent}/:id/${child}`},
-    {action: "one",     method: "get",      route: `/${child}/:id`},
-    {action: "save",    method: "post",     route: `/${child}`},
-    {action: "saveBy",  method: "post",     route: `/${parent}/:id/${child}`},
-    {action: 'update',  method: 'patch',    route: `/${child}/:id`},
-    {action: "remove",  method: "delete",   route: `/${child}/:id`},
-];
