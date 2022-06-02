@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, EntitySchemaEmbeddedColumnOptions } from "typeorm";
 import { Travel } from "./Travel";
 import { Wish } from "./Wish";
 
@@ -26,6 +26,11 @@ export class User extends BaseEntity {
     static async createService(dataObj: any): Promise<User> {
         const newUser: User = User.create(dataObj);
         return newUser.save();
+    }
+
+    static async loginService(dataObj: {email: string, password: string}): Promise<User> {
+        const {email, password} = dataObj;
+        return await User.findOne({where:{email: email, password: password}});
     }
 
 }
