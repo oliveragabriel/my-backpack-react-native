@@ -5,8 +5,13 @@ import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
 import {createUser} from '../../services/api';
+import { Dimensions } from 'react-native';
+
 
 const CadastroUsuario = ({ navigation }) => {
+  const Height = Dimensions.get('window').height;
+  const CardHeight = Height - (Height*0.175)
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stop, setStop] = useState('');
   const [user, setUser] = useState({
@@ -98,9 +103,9 @@ const CadastroUsuario = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#293775">
+        <Container bgColor="#293775" height={Height-60}>
           {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%">
+          <Card width="90%" height={0.14}>
           <ButtonReturn iconName='west' onPress={() => navigation.navigate("Acessar Conta")} />
           <Logo/>
           <TitleRow text="Cadastro de Usuário" />

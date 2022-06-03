@@ -1,4 +1,7 @@
 import styled from 'styled-components/native';
+import { Dimensions } from 'react-native';
+
+const Height = Dimensions.get('window').height - 60;
 
 export const Container = styled.View`
     flex: 1;
@@ -10,6 +13,7 @@ export const Container = styled.View`
     background-color: ${(props) => props.bgColor || 'transparent'};
     color: ${(props) => props.txtColor || '#A29B9B'};
     width: ${(props) => props.width || '100%'};
+    height: ${(props) => props.height || `${Height}`}px;
     padding: ${(props) => props.padding || 0}px;
     border: ${(props) => props.border || 'none'};
 `;
