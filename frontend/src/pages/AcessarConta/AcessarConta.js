@@ -7,6 +7,8 @@ import { initialState, reducer } from './reducers/reducer';
 import {getAuth, SetTokenApi} from '../../services/api'
 
 const AcessarConta = ({ navigation }) => {
+
+
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stop, setStop] = useState('');
   const [credentials, setCredentials] = useState({
@@ -70,7 +72,7 @@ const AcessarConta = ({ navigation }) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert bgColor="#DF6E6E" message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%">
+          <Card width="90%" height={0.25}>
             <Logo/>
             <TitleRow text="Acessar Conta" />
             

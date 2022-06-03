@@ -1,13 +1,12 @@
 import * as React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Label } from './styled';
-import { EmailIcon } from '../ReactVectorIcons/Fontawesome';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
 
 export const BottomNav = ({ navigation }) => {
   return (
-    <View style={{ flexDirection: 'row', width: '100%', backgroundColor: '#ffe175' }}>
+    <View style={{ flexDirection: 'row', width: '100%', backgroundColor: '#ffe175', position: 'absolute', zIndex: 2, bottom:0 }}>
       <View style={{ width: '25%' }}>
         <TouchableOpacity style={{ padding: 6 }} onPress={() => {navigation.navigate('Início')}}>
           <Text style={{ padding: 3, textAlign: 'center', fontSize: 18, color: '#084594' }}>

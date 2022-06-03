@@ -25,8 +25,7 @@ const Inicio = ({ navigation }) => {
     <SafeAreaView>
       <ScrollView>
         <Container bgColor="#293775">
-          <Card width="90%">
-            <Logo/>
+          <Card width="90%" height={0.4}>
             <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
               <Text style={{ fontSize: 16, textAlign: "center", color: "#084594"}}>
                 Bem-vindo
@@ -59,8 +58,8 @@ const Inicio = ({ navigation }) => {
             />
           </Card>
         </Container>
+        </ScrollView>
         <BottomNav navigation={navigation}/>
-      </ScrollView>
     </SafeAreaView>
   );
 };

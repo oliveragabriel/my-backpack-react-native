@@ -11,7 +11,7 @@ import MeuPerfil from './src/pages/MeuPerfil/MeuPerfil';
 import AlterarSenha from './src/pages/AlterarSenha/AlterarSenha';
 import ViagemDetalhe from './src/pages/ViagemDetalhe';
 import EditarViagem from './src/pages/EditarViagem/EditarViagem'
-import MinhasViagens from './src/pages/MinhasViagens/index';
+import MinhasViagens from './src/pages/MinhasViagens/';
 import ListaDias from './src/pages/ListaDias/ListaDias';
 
 const Stack = createNativeStackNavigator();
@@ -20,7 +20,7 @@ const App = () => {
   return (
     <UserProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Meu Perfil'>
+        <Stack.Navigator initialRouteName='Minhas Viagens'>
           <Stack.Screen name="Acessar Conta" component={AcessarConta} />
           <Stack.Screen name="Cadastro de Usuário" component={CadastroUsuario} />
           <Stack.Screen name="Esqueci Minha Senha" component={EsqueciMinhaSenha} />
