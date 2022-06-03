@@ -4,6 +4,13 @@ import { Transport } from "./Transport";
 import { TravelDay } from "./TravelDay";
 import { User } from "./User";
 
+type travelType = {
+    title: string
+    arrivalDate: string
+    departureDate: string
+    type: string
+}
+
 @Entity()
 export class Travel extends BaseEntity {
 
@@ -41,12 +48,12 @@ export class Travel extends BaseEntity {
     transports: Transport[]
 
 
-    static async createByService(dataObj: any, id: number): Promise<Travel> {
-        const newTravel: Travel = Travel.create({
-            ...dataObj,
+    static async createByService(data: travelType, id: number): Promise<Travel> {
+        return await Travel.create({
+            ...data,
+            isDone: false,
             user: await User.findOneBy({id: id})
-        });
-        return newTravel.save();
+        }).save();
     }
 
 

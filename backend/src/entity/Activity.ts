@@ -1,8 +1,8 @@
-import { Entity, PrimaryGeneratedColumn, Column, ManyToOne } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, BaseEntity } from "typeorm";
 import { TravelDay } from "./TravelDay";
 
 @Entity()
-export class Activity {
+export class Activity extends BaseEntity {
 
     @PrimaryGeneratedColumn()
     id: number
