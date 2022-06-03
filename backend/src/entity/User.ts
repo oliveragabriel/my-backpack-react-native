@@ -2,6 +2,12 @@ import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, EntitySc
 import { Travel } from "./Travel";
 import { Wish } from "./Wish";
 
+type userType = {
+    name: string
+    email: string
+    password: string
+}
+
 @Entity()
 export class User extends BaseEntity {
 
@@ -23,13 +29,17 @@ export class User extends BaseEntity {
     @OneToMany(() => Wish, (wish) => wish.user)
     wishes: Wish[]
 
-    static async createService(dataObj: any): Promise<User> {
-        const newUser: User = User.create(dataObj);
-        return newUser.save();
+    static async createService(data: userType): Promise<boolean> {
+
+        if (await User.findOneBy({email: data.email}) === null) {
+            await User.create({...data}).save();
+            return true;
+        }
+        return false;
     }
 
-    static async loginService(dataObj: {email: string, password: string}): Promise<User> {
-        const {email, password} = dataObj;
+    static async loginService(data: {email: string, password: string}): Promise<User> {
+        const {email, password} = data;
         return await User.findOne({where:{email: email, password: password}});
     }
 

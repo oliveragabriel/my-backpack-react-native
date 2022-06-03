@@ -51,16 +51,22 @@ export class Route {
 
             this.app[route.method](route.route, async (req: Request, res: Response, next: NextFunction) => {
                 console.log(`Request received: ${route.method} @ ${route.route}`);
+                const {status, body} = await (new Controller(this.entity))[route.action](req, res, next);
+                res.status(status).json(body);
+
+                /*
                 const result = await (new Controller(this.entity))[route.action](req, res, next);
                 if (result instanceof Promise) {
                     result.then(result => result !== null && result !== undefined ? res.send(result) : undefined);
     
+                } else if (typeof result === 'strResponse')  {
+
                 } else if (result !== null && result !== undefined) {
                     res.json(result);
                 } else {
                     route.method === 'get' ? res.status(404).send('Not found') : res.status(400).send("Bad request");
                 }
-
+                */
             });
         });
     }
