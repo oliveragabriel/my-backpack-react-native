@@ -30,19 +30,19 @@ export class Controller {
 
     async login(request: Request, response: Response, next: NextFunction) {
         const result = await this.entity.loginService(request.body);
-        if (result !== null) return this.stdResponse(200, {id_acc: result.id});
+        if (result !== null) return this.stdResponse(200, {id: result.id});
         return this.msgResponse(403, 'Credenciais inválidas!');
     }
 
     async save(request: Request, response: Response, next: NextFunction) {
         const result: boolean = await this.entity.createService(request.body);
-        if (result) return this.msgResponse(200, 'Usuário registrado com sucesso');
-        return this.msgResponse(400, 'Email já utilizado!');
+        if (result) return this.msgResponse(201, 'Usuário cadastrado com sucesso');
+        return this.msgResponse(400, 'Não foi possível cadastrar o usuário. Por favor, tente novamente!');
     }
 
     async saveBy(request: Request, response: Response, next: NextFunction) {
         const result = await this.entity.createByService(request.body, parseInt(request.params.id));
-        if (result !== null) return this.stdResponse(200, result);
+        if (result !== null) return this.stdResponse(201, result);
         return this.msgResponse(400, 'Não foi possível registrar a entidade!');
     }
 

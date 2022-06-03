@@ -20,7 +20,7 @@ const App = () => {
   return (
     <UserProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Minhas Viagens'>
+        <Stack.Navigator initialRouteName='Cadastro de Usuário'>
           <Stack.Screen name="Acessar Conta" component={AcessarConta} />
           <Stack.Screen name="Cadastro de Usuário" component={CadastroUsuario} />
           <Stack.Screen name="Esqueci Minha Senha" component={EsqueciMinhaSenha} />

@@ -11,6 +11,20 @@ export const ContainerProximaViagem = ({
     name: "Viagem 1"
   }, {
     name: "Viagem 2"
+  }, {
+    name: "Viagem 2"
+  }, {
+    name: "Viagem 2"
+  }, {
+    name: "Viagem 2"
+  }, {
+    name: "Viagem 2"
+  }, {
+    name: "Viagem 2"
+  }, {
+    name: "Viagem 2"
+  }, {
+    name: "Viagem 2"
   }])
 
     return (
@@ -20,11 +34,13 @@ export const ContainerProximaViagem = ({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
+        height:'40%',
         marginTop: 10,
         backgroundColor: 'whitesmoke',
         borderWidth: 1,
         borderRadius: 6,
         borderColor: "#DCDCDC",
+        marginBottom:20,
       }}
     >
       <View
@@ -41,10 +57,14 @@ export const ContainerProximaViagem = ({
             textTransform: "uppercase",
           }}
           >
-          n
+          Próximas Viagens
         </Text>
       </View>
-      <View>
+      <View
+         style={{
+          position:'relative',
+          height:'100%'
+        }}>
             <FlatList
                 data={travelsEx}
                 renderItem={({item}) => 
@@ -52,10 +72,11 @@ export const ContainerProximaViagem = ({
                     style={{
                       display: 'flex',
                       flexDirection: 'column',
-                      width: "100%",
+                      width: "90%",
+                      alignSelf: 'center',
                       marginTop: 10,
                       padding: 8,
-                      backgroundColor: 'whitesmoke',
+                      backgroundColor: '#FFFFFF',
                       borderWidth: 1,
                       borderRadius: 6,
                       borderColor: "#DCDCDC",

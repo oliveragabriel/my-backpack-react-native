@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "senai",
+    password: "123456",
     database: "gobackpack",
     synchronize: true,
     logging: false,

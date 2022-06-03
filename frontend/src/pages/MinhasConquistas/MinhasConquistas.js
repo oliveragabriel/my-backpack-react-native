@@ -18,7 +18,7 @@ const MinhasConquistas = ({ navigation }) => {
       <ScrollView>
         <Container bgColor="#293775">
           {/* {state.alert && (<Alert bgColor="#DF6E6E" message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)} */}
-          <Card width="90%">
+          <Card width="90%" height={0.25}>
           <TitleRow text="Minhas Conquistas" />
             <ContainerConquista value={`${conquest.qtdTravel}`} text={`Viagens Realizadas`}/>
             <Spacer />

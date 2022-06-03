@@ -15,19 +15,19 @@ const CadastroUsuario = ({ navigation }) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stop, setStop] = useState('');
   const [user, setUser] = useState({
-    acc_name: '',
+    name: '',
     email: '',
-    acc_password: '',
+    password: '',
     confirm: '',
   });
 
   const checkRequiredField = useCallback(() => {
-    if(user.acc_name === '' || user.email === '' || user.acc_password === '' || user.confirm === '') {
+    if(user.name === '' || user.email === '' || user.password === '' || user.confirm === '') {
       dispatch({type: actions.setMessage, payload: 'Os campos com * são obrigatórios e devem ser preenchidos para cadastrar um novo usuário!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
       setStop('invalid');
       return dispatch({type: actions.showAlert, payload: true });
-    } else if(user.acc_password !== user.confirm) {
+    } else if(user.password !== user.confirm) {
       dispatch({type: actions.setMessage, payload: 'A Senha e a Confirmação devem ser iguais. Por favor, preencha o mesmo valor nos dois campos!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
       setStop('invalid');
@@ -37,7 +37,7 @@ const CadastroUsuario = ({ navigation }) => {
       setStop('valid');
       return dispatch({type: actions.showAlert, payload: false });
     }
-  }, [user.acc_name, user.email, user.acc_password, user.confirm, state, stop]);
+  }, [user.name, user.email, user.password, user.confirm, state, stop]);
  
   const handleConfirmButton = useCallback(async () => {
     //console.log(await instance.get('/teste'))
@@ -46,12 +46,12 @@ const CadastroUsuario = ({ navigation }) => {
       // console.log("no post")
       try {
         dispatch({type: actions.toggleLoading});
-        createUser(user)
-        dispatch({type: actions.setMessage, payload: 'Usuário cadastrado com sucesso!'});
+        const resp = await createUser(user);
+        dispatch({type: actions.setMessage, payload: resp});
         dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
         dispatch({type: actions.showAlert, payload: true });
       } catch (error) {
-        dispatch({type: actions.setMessage, payload: 'Não foi possível cadastrar o usuário. Por favor, tente novamente!'});
+        dispatch({type: actions.setMessage, payload: error});
         dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
         dispatch({type: actions.showAlert, payload: true });
       } finally {
@@ -63,7 +63,7 @@ const CadastroUsuario = ({ navigation }) => {
 
   const handleName = (text) => {
     if(text !== '') {
-      setUser({ ...user, acc_name: text});
+      setUser({ ...user, name: text});
       dispatch({type: actions.setCheckedName, payload: 'valid'})
     } else {
       dispatch({type: actions.setCheckedName, payload: 'invalid'})                }
@@ -85,7 +85,7 @@ const CadastroUsuario = ({ navigation }) => {
     const regexPassword =  (/^(?=.*?[A-Z])(?=.*?[a-z])(?=.*?[0-9])(?=.*?[#?!@$ %^&*-]).{3,}$/) ;
     const condition = regexPassword.test(text); 
     if(condition) {
-      setUser({ ...user, acc_password: text});
+      setUser({ ...user, password: text});
       dispatch({type: actions.setCheckedPassword, payload: 'valid'})
     } else {
       dispatch({type: actions.setCheckedPassword, payload: 'invalid'})
@@ -93,7 +93,7 @@ const CadastroUsuario = ({ navigation }) => {
   }
 
   const handleConfirmPassowrd = (text) => {
-    if(text === user.acc_password) {
+    if(text === user.password) {
       setUser({ ...user, confirm: text});
       dispatch({type: actions.setCheckedConfirmPassword, payload: 'valid'})
     } else {
@@ -103,9 +103,9 @@ const CadastroUsuario = ({ navigation }) => {
   return (
     <SafeAreaView>
       <ScrollView>
-        <Container bgColor="#293775" height={Height-60}>
+        <Container bgColor="#293775">
           {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.14}>
+          <Card width="90%" height={0.20}>
           <ButtonReturn iconName='west' onPress={() => navigation.navigate("Acessar Conta")} />
           <Logo/>
           <TitleRow text="Cadastro de Usuário" />

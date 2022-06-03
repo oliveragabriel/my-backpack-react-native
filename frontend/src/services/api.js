@@ -3,7 +3,7 @@ import { UserContext } from '../UseContext/UserContext';
 
 const instance = axios.create({
     // nao logar na internet do senai que muda o IP direto e da erro
-    baseURL: "http://192.168.100.10:3333",
+    baseURL: "http://172.20.60.129:3000",
     headers: {
       "Content-Type": "application/json",
       authtoken: ""
@@ -11,9 +11,13 @@ const instance = axios.create({
 })
 
 export const createUser = async (data) => {
-  const resp = await instance.post("/user", data);
-  // console.log(resp.status)
-  return resp.status;
+  try{
+    const resp = await instance.post("/users", data);
+    return resp.data.msg;
+  } catch (err) {
+    console.log(err.response.data);
+    throw err.response.data.msg;
+  }
 }
 
 export const getAuth = async (credentials) => {
