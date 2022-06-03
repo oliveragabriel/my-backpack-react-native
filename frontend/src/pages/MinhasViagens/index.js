@@ -3,6 +3,7 @@ import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, FlatList } from
 import { BottomNav, ButtonRow, TitleRow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';
+import { ContainerViagensAnteriores } from './ContainerViagensAnteriores';
 import { ContainerProximaViagem } from './ContainerProximaViagem';
 
 const MinhasViagens = ({ navigation }) => {
@@ -12,14 +13,14 @@ const MinhasViagens = ({ navigation }) => {
     <SafeAreaView>
       <ScrollView>
         <Container bgColor="#293775">
-          <Card width="90%" height={0.4}>
+          <Card width="90%" height={0.25}>
             <View style={{
               width: "100%",
               }}>
               <TitleRow  text="Minhas Viagens"/>
+              <ContainerViagensAnteriores/>
               <ContainerProximaViagem/>
-              <ContainerProximaViagem/>
-              <ButtonRow/>
+              <ButtonRow text="Adicionar próxima viagem" />
             </View>
           </Card>
         </Container>
