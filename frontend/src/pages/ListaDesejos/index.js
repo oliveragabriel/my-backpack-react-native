@@ -3,11 +3,9 @@ import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, FlatList } from
 import { BottomNav, ButtonRow, TitleRow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';
-import { ContainerViagensAnteriores } from './ContainerViagensAnteriores';
-import { ContainerProximaViagem } from './ContainerProximaViagem';
+import { ContainerListaDesejos } from './ContainerListaDesejos';
 
-const MinhasViagens = ({ navigation }) => {
-
+const ListaDesejos = ({ navigation }) => {
 
   return (
     <SafeAreaView>
@@ -17,12 +15,11 @@ const MinhasViagens = ({ navigation }) => {
             <View style={{
               width: "100%",
               }}>
-              <TitleRow  text="Minhas Viagens"/>
-              <ContainerViagensAnteriores navigation={navigation}/>
-              <ContainerProximaViagem navigation={navigation}/>
+              <TitleRow  text="Meus desejos"/>
+              <ContainerListaDesejos navigation={navigation}/>
               <ButtonRow 
-                text="Adicionar próxima viagem" 
-                onPress={() => navigation.navigate('Cadastro Viagem')}/>
+                text="Adicionar desejo"
+                onPress={() => navigation.navigate('Cadastro Desejo')} />
             </View>
           </Card>
         </Container>
@@ -32,4 +29,4 @@ const MinhasViagens = ({ navigation }) => {
   );
 };
 
-export default MinhasViagens;
+export default ListaDesejos;

@@ -13,6 +13,14 @@ import ViagemDetalhe from './src/pages/ViagemDetalhe';
 import EditarViagem from './src/pages/EditarViagem/EditarViagem'
 import MinhasViagens from './src/pages/MinhasViagens/';
 import ListaDias from './src/pages/ListaDias/ListaDias';
+import CadastroDesejo from './src/pages/CadastroDesejo/CadastroDesejo';
+import EditarDesejo from './src/pages/EditarDesejo/EditarDesejo'
+import ListaDesejos from './src/pages/ListaDesejos';
+import CadastroViagem from './src/pages/CadastroViagem/CadastroViagem';
+import ListaAtividades from './src/pages/ListaAtividades/ListaAtividades';
+import EditarAtividade from './src/pages/EditarAtividade/EditarAtividade';
+import CadastroAtividade from './src/pages/CadastroAtividade/CadastroAtividade';
+import AtividadeDetalhe from './src/pages/AtividadeDetalhe/AtividadeDetalhe';
 
 const Stack = createNativeStackNavigator();
 
@@ -20,18 +28,26 @@ const App = () => {
   return (
     <UserProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Cadastro de Usuário'>
+        <Stack.Navigator initialRouteName='Acessar Conta'>
           <Stack.Screen name="Acessar Conta" component={AcessarConta} />
           <Stack.Screen name="Cadastro de Usuário" component={CadastroUsuario} />
-          <Stack.Screen name="Esqueci Minha Senha" component={EsqueciMinhaSenha} />
+          <Stack.Screen name="Esqueci Minha Senha" component={EsqueciMinhaSenha}/>
           <Stack.Screen name="Início" component={Inicio} />
           <Stack.Screen name="Viagem Detalhe" component={ViagemDetalhe} />
           <Stack.Screen name="Lista Dias" component={ListaDias} />
+          <Stack.Screen name="Cadastro Viagem" component={CadastroViagem} />
           <Stack.Screen name="Minhas Viagens" component={MinhasViagens} />
           <Stack.Screen name="Editar Viagem" component={EditarViagem} />
+          <Stack.Screen name="Lista Atividades" component={ListaAtividades} />
+          <Stack.Screen name="Atividade Detalhe" component={AtividadeDetalhe} />
+          <Stack.Screen name="Editar Atividades" component={EditarAtividade} />
+          <Stack.Screen name="Cadastrar Atividades" component={CadastroAtividade} />
           <Stack.Screen name="Minhas Conquistas" component={MinhasConquistas} />
           <Stack.Screen name="Meu Perfil" component={MeuPerfil} />
           <Stack.Screen name="Alterar Senha" component={AlterarSenha} />
+          <Stack.Screen name="Lista Desejos" component={ListaDesejos} />
+          <Stack.Screen name="Cadastro Desejo" component={CadastroDesejo} />
+          <Stack.Screen name="Editar Desejo" component={EditarDesejo} />
         </Stack.Navigator>
       </NavigationContainer>
     </UserProvider>

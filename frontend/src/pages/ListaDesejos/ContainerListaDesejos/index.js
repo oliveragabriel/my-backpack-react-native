@@ -1,30 +1,21 @@
 import React, { useState } from 'react';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
-import { ButtonRow } from '../../../components';
 
-export const ContainerViagensAnteriores = ({ 
-  travels, 
+export const ContainerListaDesejos = ({ 
+  wishes, 
   navigation,
 }) => {
 
-  const [travelsEx, setTravels] = useState([{
-    name: "Viagem 1"
+  const [wishesEx, setTravels] = useState([{
+    name: "Desejo 1"
   }, {
-    name: "Viagem 2"
+    name: "Desejo 2"
   }, {
-    name: "Viagem 2"
+    name: "Desejo 2"
   }, {
-    name: "Viagem 2"
+    name: "Desejo 2"
   }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
+    name: "Desejo 2"
   }])
 
     return (
@@ -34,12 +25,13 @@ export const ContainerViagensAnteriores = ({
         display: 'flex',
         flexDirection: 'column',
         width: '100%',
-        height:'40%',
+        height:'80%',
         marginTop: 10,
         backgroundColor: 'whitesmoke',
         borderWidth: 1,
         borderRadius: 6,
         borderColor: "#DCDCDC",
+        marginBottom:20,
       }}
     >
       <View
@@ -50,22 +42,21 @@ export const ContainerViagensAnteriores = ({
         <Text
           style={{
             fontSize: 16,
-            fontWeight: "600",
+            fontWeight: "400",
             color: "#084594",
             textAlign: "center",
-            textTransform: "uppercase",
           }}
           >
-          Viagens Anteriores
+          Pressione o desejo para editar
         </Text>
       </View>
-      <View>
+      <View
+         style={{
+          position:'relative',
+          height:'100%'
+        }}>
             <FlatList
-                style={{
-                  //GAMBIARRA
-                  marginBottom:80,
-                }}
-                data={travelsEx}
+                data={wishesEx}
                 renderItem={({item}) => 
                   <TouchableOpacity
                     style={{
@@ -80,7 +71,7 @@ export const ContainerViagensAnteriores = ({
                       borderRadius: 6,
                       borderColor: "#DCDCDC",
                     }}
-                    onPress={() => navigation.navigate('Viagem Detalhe')}>
+                    onPress={() => navigation.navigate('Editar Desejo')}>
                     <Text
                       style={{
                         fontSize: 16,

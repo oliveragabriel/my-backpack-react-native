@@ -24,7 +24,7 @@ export const BottomNav = ({ navigation }) => {
         </TouchableOpacity>
       </View>
       <View style={{ width: '25%' }}>
-        <TouchableOpacity style={{ padding: 6 }} onPress={() => {navigation.navigate('Desejos')}}>
+        <TouchableOpacity style={{ padding: 6 }} onPress={() => {navigation.navigate('Lista Desejos')}}>
           <Text style={{ padding: 3, textAlign: 'center', fontSize: 18, color: '#084594' }}>
             <Icon name='redeem' size={25}/>
           </Text>
