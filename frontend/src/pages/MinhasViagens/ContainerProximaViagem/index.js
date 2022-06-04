@@ -4,7 +4,7 @@ import { ButtonRow } from '../../../components';
 
 export const ContainerProximaViagem = ({ 
   travels, 
-  onPress = () => {},
+  navigation,
 }) => {
 
   const [travelsEx, setTravels] = useState([{
@@ -66,6 +66,10 @@ export const ContainerProximaViagem = ({
           height:'100%'
         }}>
             <FlatList
+                style={{
+                  //GAMBIARRA
+                  marginBottom:80,
+                }}
                 data={travelsEx}
                 renderItem={({item}) => 
                   <TouchableOpacity
@@ -80,7 +84,8 @@ export const ContainerProximaViagem = ({
                       borderWidth: 1,
                       borderRadius: 6,
                       borderColor: "#DCDCDC",
-                    }}>
+                    }}
+                    onPress={() => navigation.navigate('Viagem Detalhe')}>
                     <Text
                       style={{
                         fontSize: 16,

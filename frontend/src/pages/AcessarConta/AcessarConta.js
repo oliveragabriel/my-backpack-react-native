@@ -2,7 +2,7 @@ import React, { useState, useCallback, useReducer} from 'react';
 import { SafeAreaView, ScrollView, Image } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow, Logo } from '../../components';
 import { Card, Container, Spacer} from '../../styles';
-import { actions } from './reducers/actions';
+import { actions } from './reducers/actions/';
 import { initialState, reducer } from './reducers/reducer';
 import {getAuth, SetTokenApi} from '../../services/api'
 

@@ -47,7 +47,8 @@ const Inicio = ({ navigation }) => {
             <Spacer />
             <ContainerViagem
               nextTravel={nextTravel}
-              flagTravel={flagTravel}>
+              flagTravel={flagTravel}
+              navigation={navigation}>
             </ContainerViagem>
             <Spacer />
             <ContainerConquistaInicio 

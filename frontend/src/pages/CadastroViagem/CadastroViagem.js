@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonRow } from './src/components';
-import { Card, Container, Spacer } from './src/styles';
-import { actions } from './src/pages/AcessarConta/reducers/actions';
-import { initialState, reducer } from './src/pages/AcessarConta/reducers/reducer';
+import { SafeAreaView, ScrollView, View } from 'react-native';
+import { Alert, TitleRow, ButtonRow, BottomNav, CardEditarViagem } from '../../components';
+import { Card, Container } from '../../styles';
+import { actions } from './reducers/actions';
+import { initialState, reducer } from './reducers/reducer';
 
-const CadastroViagem = () => {
+const CadastroViagem = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [trip, setTrip] = useState({
     title: '',
@@ -13,9 +13,6 @@ const CadastroViagem = () => {
     arrival: null,
     type: '',
   });
-
-  console.log(state);
-  console.log(trip);
 
   const checkRequiredField = useCallback(() => {
     if(trip.title === '' || trip.departure === '' || trip.arrival === '') {
@@ -36,43 +33,20 @@ const CadastroViagem = () => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%">
+          <Card width="90%" height={0.3}>
           <TitleRow text="Adicionar Nova Viagem" />
-            <FormItemInput
-              required={true}
-              placeholder="Título"
-              autoComplete="name"
-              defaultValue={trip.title ?? null}
-              onChangeText={text => setTrip({ ...trip, title: text})}
-              // iconName='account'
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Data de Ida"
-              defaultValue={trip.departure ?? null}
-              onChangeText={text => setTrip({ ...trip, departure: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Data de Volta"
-              defaultValue={trip.arrival ?? null}
-              onChangeText={text => setTrip({ ...trip, arrival: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Tipo"
-              defaultValue={trip.type ?? null}
-              onChangeText={text => setTrip({ ...trip, type: text})}
-            />
-            <Spacer />
+          <View style={{
+              width: "100%",
+              }}>
+            <CardEditarViagem/>
             <ButtonRow
               text="Cadastrar"
               onPress={() => handleConfirmButton()}
             />
+            </View>
           </Card>
         </Container>
+        <BottomNav navigation={navigation}/>
       </ScrollView>
     </SafeAreaView>
   );

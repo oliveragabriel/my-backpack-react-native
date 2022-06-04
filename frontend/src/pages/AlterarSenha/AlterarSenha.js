@@ -38,7 +38,7 @@ const AlterarSenha = ({ navigation }) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%">
+          <Card width="90%" height={0.6}>
             <TitleRow text="Alterar Senha" />
             <FormItemInput
               required={true}

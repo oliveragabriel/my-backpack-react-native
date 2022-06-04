@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { BottomNav, TitleRow } from '../../components';
+import { SafeAreaView, ScrollView } from 'react-native';
+import { BottomNav, TitleRow, ButtonRow, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
 import { ContainerViagem } from './ContainerViagem';
 
@@ -17,7 +17,8 @@ const ViagemDetalhe = ({ navigation }) => {
     <SafeAreaView>
       <ScrollView>
         <Container bgColor="#293775">
-          <Card width="90%">
+          <Card width="90%" height={0.4}>
+            <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Minhas Viagens")} />
             <TitleRow text="Detalhes da Viagem" />
             <ContainerViagem 
               title={trip.title}
@@ -25,6 +26,9 @@ const ViagemDetalhe = ({ navigation }) => {
               country={trip.country}
               navigation={navigation}
             />
+            <ButtonRow 
+                text="Detalhar dias da viagem" 
+                onPress={() => navigation.navigate('Lista Dias')}/>
           </Card>
         </Container>
         <BottomNav navigation={navigation}/>

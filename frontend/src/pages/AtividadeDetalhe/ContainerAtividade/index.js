@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
-export const ContainerViagem = ({ title, country, departure, arrival, days, activities, value, navigation }) => {
+export const ContainerAtividade = ({ country, description, value, type, time, navigation }) => {
     return (
       <View
         style={{
@@ -23,7 +23,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
               textTransform: "uppercase",
             }}
             >
-            {`${title}`}
+            {`${description}`}
           </Text>
         </View>
         <View
@@ -46,7 +46,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
               padding: 10,
               borderRadius: 6,
             }}
-            onPress={() => navigation.navigate('Editar Viagem')}
+            onPress={() => navigation.navigate('Editar Atividade')}
           >
             <Text
               style={{
@@ -91,7 +91,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
             <Text>País:</Text>
             <Text 
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: "600",
                 textTransform: "uppercase",
                 textAlign: "center",
@@ -115,7 +115,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
             <Text>Valor Total:</Text>
             <Text 
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: "600",
                 textAlign: "center",
                 color: "#084594",
@@ -142,18 +142,18 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
             }}
           >
             <Text>
-                  Saída:              
+                  Tipo:              
             </Text>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: "600",
                 color: "#084594",
                 textAlign: "center",
                 marginLeft: 6,
               }}
               >
-              {`${departure}`}
+              {`${type}`}
             </Text>
           </View>
           <View
@@ -169,69 +169,14 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
             </Text>
             <Text
               style={{
-                fontSize: 12,
+                fontSize: 14,
                 fontWeight: "600",
                 color: "#084594",
                 textAlign: "center",
                 marginLeft: 6,
               }}
               >
-              {`${arrival}`}
-            </Text>
-          </View>
-        </View>
-        <View
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'space-between',
-            margin: 4,
-          }}
-        >
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              margin: 6,
-            }}
-          >
-            <Text>
-                  Qtde. Dias:
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                fontWeight: "600",
-                color: "#084594",
-                textAlign: "center",
-                marginLeft: 6,
-              }}
-              >
-              {`${days}`}
-            </Text>
-          </View>
-          <View
-            style={{
-              display: 'flex',
-              flexDirection: 'row',
-              alignItems: 'center',
-              margin: 6,
-            }}
-          >
-            <Text>
-                  Qtde. Atividades:
-            </Text>
-            <Text
-              style={{
-                fontSize: 12,
-                fontWeight: "600",
-                color: "#084594",
-                textAlign: "center",
-                marginLeft: 6,
-              }}
-              >
-              {`${activities}`}
+              {`${time}`}
             </Text>
           </View>
         </View>

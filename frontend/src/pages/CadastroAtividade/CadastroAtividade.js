@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonRow } from './src/components';
-import { Card, Container, Spacer } from './src/styles';
-import { actions } from './src/pages/AcessarConta/reducers/actions';
-import { initialState, reducer } from './src/pages/AcessarConta/reducers/reducer';
+import { SafeAreaView, ScrollView, View } from 'react-native';
+import { Alert, TitleRow, ButtonRow, CardEditarAtividade, BottomNav } from '../../components';
+import { Card, Container } from '../../styles';
+import { actions } from './reducers/actions';
+import { initialState, reducer } from './reducers/reducer';
 
-const CadastroAtividade = () => {
+const CadastroAtividade = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [activity, setActivity] = useState({
     description: '',
@@ -13,9 +13,6 @@ const CadastroAtividade = () => {
     value: 0,
     time: null,
   });
-
-  console.log(state);
-  console.log(activity);
 
   const checkRequiredField = useCallback(() => {
     if(activity.description === '' || activity.type === '') {
@@ -36,41 +33,20 @@ const CadastroAtividade = () => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%">
+          <Card width="90%" height={0.3}>
           <TitleRow text="Adicionar Nova Atividade" />
-            <FormItemInput
-              required={true}
-              placeholder="Descrição"
-              defaultValue={activity.description ?? null}
-              onChangeText={text => setActivity({ ...activity, description: text})}
-              // iconName='account'
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Tipo"
-              defaultValue={activity.type ?? null}
-              onChangeText={text => setActivity({ ...activity, type: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Valor"
-              defaultValue={activity.value ?? null}
-              onChangeText={text => setActivity({ ...activity, value: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Horário"
-              defaultValue={activity.time ?? null}
-              onChangeText={text => setActivity({ ...activity, time: text})}
-            />
-            <Spacer />
-            <ButtonRow
-              text="Cadastrar"
-              onPress={() => handleConfirmButton()}
-            />
+          <View style={{
+              width: "100%",
+              }}>
+              <CardEditarAtividade/>
+              <ButtonRow
+                text="Cadastrar"
+                onPress={() => handleConfirmButton()}
+              />
+            </View>
           </Card>
         </Container>
+        <BottomNav navigation={navigation}/>
       </ScrollView>
     </SafeAreaView>
   );

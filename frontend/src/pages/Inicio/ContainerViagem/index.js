@@ -23,7 +23,7 @@ export const ContainerViagem = ({navigation, nextTravel, flagTravel}) => {
     return (
       <ContainerVazio
         title="Próxima Viagem"
-        onPress={() => navigation.navigate('Editar Viagem')}>
+        onPress={() => navigation.navigate('Cadastro Viagem')}>
       </ContainerVazio>
     )
   };

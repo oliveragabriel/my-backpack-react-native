@@ -1,11 +1,11 @@
 import React, { useState, useCallback, useReducer } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonRow } from './src/components';
-import { Card, Container, Spacer } from './src/styles';
-import { actions } from './src/pages/AcessarConta/reducers/actions';
-import { initialState, reducer } from './src/pages/AcessarConta/reducers/reducer';
+import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
+import { Card, Container, Spacer } from '../../styles';
+import { actions } from './reducers/actions/';
+import { initialState, reducer } from './reducers/reducer';
 
-const EditarDesejo = () => {
+const EditarDesejo = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
   const [wish, setWish] = useState({
     description: '',
@@ -16,7 +16,7 @@ const EditarDesejo = () => {
 
   const checkRequiredField = useCallback(() => {
     if(wish.description === '') {
-      dispatch({type: actions.setMessage, payload: 'O campo Descrição é obrigatório e deve ser preenchido para cadastrar um desejo!'});
+      dispatch({type: actions.setMessage, payload: 'O campo é obrigatório e deve ser preenchido para cadastrar um desejo!'});
       return dispatch({type: actions.showAlert, payload: true });
     }
     dispatch({type: actions.setMessage, payload: ''})
@@ -33,11 +33,12 @@ const EditarDesejo = () => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%">
+          <Card width="90%" height={0.65}>
+          <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Desejos")} />
           <TitleRow text="Editar Desejo" />
             <FormItemInput
               required={true}
-              placeholder="Descrição"
+              placeholder="Descrição do desejo"
               defaultValue={wish.description ?? null}
               onChangeText={text => setWish({ ...wish, description: text})}
               // iconName='account'
@@ -49,6 +50,7 @@ const EditarDesejo = () => {
             />
           </Card>
         </Container>
+        <BottomNav navigation={navigation}/>
       </ScrollView>
     </SafeAreaView>
   );

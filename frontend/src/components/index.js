@@ -6,3 +6,6 @@ export * from './ButtonLink';
 export * from './ButtonReturn';
 export * from './BottomNavigation';
 export * from './Logo';
+export * from './CardEditarAtividade';
+export * from './CardEditarViagem'
+export * from './ButtonReturnYellow'
