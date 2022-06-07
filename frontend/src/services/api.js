@@ -47,13 +47,23 @@ export const getConquest = async (id_user) => {
   return conquest;
 }
 
-export const getNextTrip = async () => {
+export const getTravel = async (id_user) => {
   try {
-    const resp = await instance.get("/nexttrip");
+    const resp = await instance.get(`/users/:${id_user}/travels`);
     const trip = resp.data;
     return trip;
   }
   catch (error) {
+    return false;
+  }
+}
+
+
+export const deleteActivity = async (id_activity) => {
+  try {
+    const resp = await instance.delete(`/activities/:${id_activity}`)
+    return resp;
+  } catch (error) {
     return false;
   }
 }

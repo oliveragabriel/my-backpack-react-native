@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useReducer } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
-import { Alert, TitleRow, ButtonRow, BottomNav, CardEditarViagem } from '../../components';
+import { Alert, TitleRow, ButtonRow, BottomNav, CardEditarViagem, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
@@ -34,6 +34,11 @@ const CadastroViagem = ({navigation}) => {
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%" height={0.3}>
+          <ButtonReturnYellow 
+            marginBottom={10}
+            iconName='west' 
+            onPress={() => navigation.navigate("Minhas Viagens")} 
+             />
           <TitleRow text="Adicionar Nova Viagem" />
           <View style={{
               width: "100%",

@@ -21,6 +21,8 @@ import ListaAtividades from './src/pages/ListaAtividades/ListaAtividades';
 import EditarAtividade from './src/pages/EditarAtividade/EditarAtividade';
 import CadastroAtividade from './src/pages/CadastroAtividade/CadastroAtividade';
 import AtividadeDetalhe from './src/pages/AtividadeDetalhe/AtividadeDetalhe';
+import EditarTransporte from './src/pages/EditarTransporte/EditarTransporte';
+import EditarHospedagem from './src/pages/EditarHospedagem/EditarHospedagem';
 
 const Stack = createNativeStackNavigator();
 
@@ -28,7 +30,7 @@ const App = () => {
   return (
     <UserProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Acessar Conta'>
+        <Stack.Navigator initialRouteName='Editar Hospedagem'>
           <Stack.Screen name="Acessar Conta" component={AcessarConta} />
           <Stack.Screen name="Cadastro de Usuário" component={CadastroUsuario} />
           <Stack.Screen name="Esqueci Minha Senha" component={EsqueciMinhaSenha}/>
@@ -40,8 +42,10 @@ const App = () => {
           <Stack.Screen name="Editar Viagem" component={EditarViagem} />
           <Stack.Screen name="Lista Atividades" component={ListaAtividades} />
           <Stack.Screen name="Atividade Detalhe" component={AtividadeDetalhe} />
-          <Stack.Screen name="Editar Atividades" component={EditarAtividade} />
-          <Stack.Screen name="Cadastrar Atividades" component={CadastroAtividade} />
+          <Stack.Screen name="Editar Atividade" component={EditarAtividade} />
+          <Stack.Screen name="Cadastrar Atividade" component={CadastroAtividade} />
+          <Stack.Screen name="Editar Transporte" component={EditarTransporte} />
+          <Stack.Screen name="Editar Hospedagem" component={EditarHospedagem} />
           <Stack.Screen name="Minhas Conquistas" component={MinhasConquistas} />
           <Stack.Screen name="Meu Perfil" component={MeuPerfil} />
           <Stack.Screen name="Alterar Senha" component={AlterarSenha} />

@@ -2,7 +2,24 @@ import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 export const ContainerAtividade = ({ country, description, value, type, time, navigation }) => {
-    return (
+  
+  const handleDelete = useCallback(async () => {
+      try {
+        dispatch({type: actions.toggleLoading});
+        //deleteActivity(id_activity)
+        dispatch({type: actions.setMessage, payload: 'Uma nova senha foi enviada ao seu e-mail!'});
+        dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
+        dispatch({type: actions.showAlert, payload: true });
+      } catch (error) {
+        dispatch({type: actions.setMessage, payload: 'Não foi possível solicitar uma nova senha. Por favor, tente novamente!'});
+        dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
+        dispatch({type: actions.showAlert, payload: true });
+      } finally {
+        dispatch({type: actions.toggleLoading});
+      }
+  }, [])
+  
+  return (
       <View
         style={{
           width: "100%",
@@ -68,6 +85,7 @@ export const ContainerAtividade = ({ country, description, value, type, time, na
               padding: 10,
               borderRadius: 6,
             }}
+            onPress={handleDelete}
           >
             <Text
               style={{

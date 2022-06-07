@@ -2,12 +2,12 @@ import React from 'react';
 import { TouchableOpacity, Text, View } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialIcons';
 
-export const ButtonReturnYellow = ({onPress = () => {}, iconName }) => {
+export const ButtonReturnYellow = ({onPress = () => {}, iconName, marginBottom }) => {
     return (
         <View  
             style={{ 
                 borderRadius: 6, 
-                height: 35,
+                marginBottom: marginBottom,
                 width: 100,
                 backgroundColor:'#ffe175',
                 alignItems: 'center',
