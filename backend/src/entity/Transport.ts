@@ -28,7 +28,33 @@ export class Transport extends BaseEntity {
     @Column()
     departurePlace: string
 
-    @ManyToOne(() => Travel, (travel) => travel.transports)
+    @Column()
+    travelId: number
+
+    @ManyToOne(() => Travel, (travel) => travel.transports, { onDelete: "CASCADE" })
     travel: Travel
 
+
+    static async createByService(data, id: number): Promise<Transport> {
+        return await Transport.create({
+            ...data,
+            travel: await Travel.findOneBy({id: id})
+        }).save();
+    }
+
+
+    static async readByService(id: number) {
+        return Transport.findBy({travelId: id});
+    }
+
+
+    static async getUserId(id: number) {
+        return await Travel.getUserId(
+            (await Transport.findOneBy({id: id})).travelId
+        );
+    }
+
+    static async getUserIdByParent(id: number) {
+        return await Travel.getUserId(id);
+    }
 }

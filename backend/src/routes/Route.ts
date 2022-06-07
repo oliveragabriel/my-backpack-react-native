@@ -1,6 +1,5 @@
 import { Application, Request, Response, NextFunction } from "express";
 import { Controller } from "../controller/Controller";
-import { User } from "../entity/User";
 
 type routeMap = {
     action: string
@@ -11,38 +10,34 @@ type routeMap = {
 export class Route {
 
     app: Application;
-    entity: any;
+    controller: Controller;
     maps: routeMap[];
 
     constructor(app: Application, entity: any, child: string, parent?: string) {
+
         this.app = app;
-        this.entity = entity;
-        this.maps = (entity === User) ? this.configureUserMaps(child) : this.configureMaps(child, parent);
-        this.configureRoutes();
-    }
+        this.controller = new Controller(entity);
 
-    configureUserMaps(child: string) {
-        console.log("criou rotas de user");
-        return [
+        this.maps = [
+
             {action: "all",         method: "get",      route: `/${child}`},
             {action: "oneBy",       method: "get",      route: `/${child}/:id`},
+            {action: 'updateBy',    method: 'patch',    route: `/${child}/:id`},
+            {action: "removeBy",    method: "delete",   route: `/${child}/:id`}
+
+        ].concat((parent === undefined) ? [
+
             {action: "login",       method: "post",     route: `/${child}/login`},
-            {action: "save",        method: "post",     route: `/${child}`},
-            {action: 'updateBy',    method: 'patch',    route: `/${child}/:id`},
-            {action: "removeBy",    method: "delete",   route: `/${child}/:id`},
-        ];
-    }
+            {action: "save",        method: "post",     route: `/${child}`}
 
-    configureMaps(child: string, parent: string) {
-        return [
-            {action: "all",         method: "get",      route: `/${child}`},
+        ] : [
+
             {action: "allBy",       method: "get",      route: `/${parent}/:id/${child}`},
-            {action: "oneBy",       method: "get",      route: `/${child}/:id`},
-            {action: "save",        method: "post",     route: `/${child}`},
-            {action: "saveBy",      method: "post",     route: `/${parent}/:id/${child}`},
-            {action: 'updateBy',    method: 'patch',    route: `/${child}/:id`},
-            {action: "removeBy",    method: "delete",   route: `/${child}/:id`},
-        ];
+            {action: "saveBy",      method: "post",     route: `/${parent}/:id/${child}`}
+
+        ]);
+
+        this.configureRoutes();
     }
 
     configureRoutes() {
@@ -50,23 +45,14 @@ export class Route {
         this.maps.forEach(route => {
 
             this.app[route.method](route.route, async (req: Request, res: Response, next: NextFunction) => {
+
                 console.log(`Request received: ${route.method} @ ${route.route}`);
-                const {status, body} = await (new Controller(this.entity))[route.action](req, res, next);
-                res.status(status).json(body);
 
-                /*
-                const result = await (new Controller(this.entity))[route.action](req, res, next);
-                if (result instanceof Promise) {
-                    result.then(result => result !== null && result !== undefined ? res.send(result) : undefined);
-    
-                } else if (typeof result === 'strResponse')  {
+                const {status, body, headers} = await this.controller[route.action](req, res, next);
 
-                } else if (result !== null && result !== undefined) {
-                    res.json(result);
-                } else {
-                    route.method === 'get' ? res.status(404).send('Not found') : res.status(400).send("Bad request");
-                }
-                */
+                if (headers !== undefined) res.status(status).header(headers).json(body);
+                else res.status(status).json(body);
+
             });
         });
     }
