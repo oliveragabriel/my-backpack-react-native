@@ -1,69 +1,111 @@
 import axios from 'axios';
-import { UserContext } from '../UseContext/UserContext';
 
 const instance = axios.create({
     // nao logar na internet do senai que muda o IP direto e da erro
     baseURL: "http://192.168.100.10:3000",
     headers: {
-      "Content-Type": "application/json",
-      authtoken: ""
+        "Content-Type": "application/json",
     }
-})
+});
 
-export const createUser = async (data) => {
-  try{
-    const resp = await instance.post("/users", data);
-    return resp.data.msg;
-  } catch (err) {
-    console.log(err.response.data);
-    throw err.response.data.msg;
-  }
+const child = {
+    accomodation: '/accomodations',
+    activity: '/activities',
+    transport: '/transports',
+    travel: '/travels',
+    travelDay: '/traveldays',
+    user: '/users',
+    wish: '/wishes'
+};
+
+const parent = {
+    accomodation: '/travels',
+    activity: '/traveldays',
+    transport: '/travels',
+    travel: '/users',
+    travelDay: '/travels',
+    wish: '/users'
+};
+
+const pathSimple = (id, entity) => {
+    return child[entity] + '/' + id;
 }
 
-export const getAuth = async (credentials) => {
-  console.log("getauth")
-  try {
-    let res = await instance.post("/users/login", credentials);
-    return res.data.authtoken;
-  } catch (error) {
-    console.log('Error', error)
-    throw error
-  }
-}
-
-export const SetTokenApi = (authtoken) => {
-  instance.defaults.headers.authtoken = authtoken
-}
-
-export const getUser = async () => {
-  const resp = await instance.get("/users");
-  const user = resp.data;
-  return user;
-}
-
-export const getConquest = async (id_user) => {
-  const resp = await instance.get(`/conquest/:${id_user}`);
-  const conquest = resp.data;
-  return conquest;
-}
-
-export const getTravel = async (id_user) => {
-  try {
-    const resp = await instance.get(`/users/:${id_user}/travels`);
-    const trip = resp.data;
-    return trip;
-  }
-  catch (error) {
-    return false;
-  }
+const pathParent = (id, entity) => {
+    return parent[entity] + '/' + id + child[entity];
 }
 
 
-export const deleteActivity = async (id_activity) => {
-  try {
-    const resp = await instance.delete(`/activities/:${id_activity}`)
-    return resp;
-  } catch (error) {
-    return false;
-  }
+// GET
+
+export const requestGetAll = async (id, entity) => {
+    try {
+        const resp = await instance.get(pathParent(id, entity));
+        return resp.data;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
+}
+
+export const requestGetOne = async (id, entity) => {
+    try {
+        const resp = await instance.get(pathSimple(id, entity));
+        return resp.data;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
+}
+
+
+// POST
+
+export const requestLoginUser = async (data) => {
+    try {
+        const resp = await instance.post("/users/login", data);
+        return resp.data;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
+}
+
+export const requestCreateUser = async (data) => {
+    try {
+        const resp = await instance.post("/users", data);
+        return resp.data.msg;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
+}
+
+export const requestCreate = async (id, entity, data) => {
+    try {
+        const resp = await instance.post(pathParent(id, entity), data);
+        return resp.data;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
+}
+
+
+// PATCH
+
+export const requestUpdate = async (id, entity, data) => {
+    try {
+        const resp = await instance.patch(pathSimple(id, entity), data);
+        return resp.data;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
+}
+
+
+// DELETE
+
+export const requestDelete = async (id, entity) => {
+    try {
+        const resp = await instance.delete(pathSimple(id, entity));
+        return resp.data.msg;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
 }
