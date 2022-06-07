@@ -1,5 +1,5 @@
 import React, { createContext, useState } from 'react';
-import { getUser, getNextTrip } from '../services/api';
+import * as api from '../services/api';
 
 export const UserContext = createContext();
 
@@ -7,7 +7,6 @@ export const UserProvider = ({children}) => {
 
   const [user, setUser] = useState({
     id:'',
-    //token: '',
     name: '',
     email:'',
   });
@@ -22,18 +21,8 @@ export const UserProvider = ({children}) => {
   const [nextTravel, setNextTravel] = useState({})
   const [flagTravel, setFlagTravel] = useState(true);
 
-  const GetToken = () => {
-    return user.token;
-  }
-
-  // const SetToken = (token) => {
-  //   setUser({
-  //     ...user, token:token
-  //   })
-  // }
-
   const SetUser = async () => {
-    const loggedUser = await getUser();
+    const loggedUser = await api.requestGetOne(user.id, 'user');
     console.log(loggedUser);
     setUser(loggedUser);
   }
@@ -43,7 +32,7 @@ export const UserProvider = ({children}) => {
   }
 
   const SetNextTravel = async () => {
-    const travel = await getNextTrip();
+    const travel = false; // chamar api
     if (travel === false) {
       setFlagTravel(false);
     } else {

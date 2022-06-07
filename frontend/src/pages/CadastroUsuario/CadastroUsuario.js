@@ -4,7 +4,7 @@ import { Alert, TitleRow, FormItemInput, ButtonRow, ButtonReturn, Logo } from '.
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
-import {createUser} from '../../services/api';
+import * as api from '../../services/api';
 import { Dimensions } from 'react-native';
 
 
@@ -40,13 +40,11 @@ const CadastroUsuario = ({ navigation }) => {
   }, [user.name, user.email, user.password, user.confirm, state, stop]);
  
   const handleConfirmButton = useCallback(async () => {
-    //console.log(await instance.get('/teste'))
     checkRequiredField();
     if (stop === 'valid') {
-      // console.log("no post")
       try {
         dispatch({type: actions.toggleLoading});
-        const resp = await createUser(user);
+        const resp = await api.requestCreateUser(user);
         dispatch({type: actions.setMessage, payload: resp});
         dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
         dispatch({type: actions.showAlert, payload: true });
@@ -66,7 +64,8 @@ const CadastroUsuario = ({ navigation }) => {
       setUser({ ...user, name: text});
       dispatch({type: actions.setCheckedName, payload: 'valid'})
     } else {
-      dispatch({type: actions.setCheckedName, payload: 'invalid'})                }
+      dispatch({type: actions.setCheckedName, payload: 'invalid'})
+    }
   }
 
   const handleEmail = (text) => {

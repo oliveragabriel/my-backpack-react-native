@@ -14,14 +14,21 @@ export class Controller {
     }
 
 
-    msgResponse(status: number, msg: string, authkey?: string) {
-        if (authkey !== undefined) return {status: status, body: {msg: msg}, headers: {authkey: authkey}};
+    msgResponse(status: number, msg: string) {
         return {status: status, body: {msg: msg}};
     }
 
 
+    // TESTE
     async all(request: Request, response: Response, next: NextFunction) {
         const result = await this.entity.find();
+        if (result.length) return this.stdResponse(200, result);
+        return this.msgResponse(404, 'Resultado não foi encontrado!');
+    }
+
+
+    async allBy(request: Request, response: Response, next: NextFunction) {
+        const result = await this.entity.readByService(parseInt(request.params.id));
         if (result.length) return this.stdResponse(200, result);
         return this.msgResponse(404, 'Resultado não foi encontrado!');
     }
@@ -36,7 +43,7 @@ export class Controller {
 
     async login(request: Request, response: Response, next: NextFunction) {
         const result = await this.entity.loginService(request.body);
-        if (result !== null) return this.msgResponse(200, 'Login realizado com sucesso!', 'asdfasdf');
+        if (result !== null) return this.stdResponse(200, {id: result.id});
         return this.msgResponse(403, 'Credenciais inválidas!');
     }
 
@@ -52,13 +59,6 @@ export class Controller {
         const result = await this.entity.createByService(request.body, parseInt(request.params.id));
         if (result !== null) return this.stdResponse(201, result);
         return this.msgResponse(400, 'Não foi possível registrar a entidade!');
-    }
-
-
-    async allBy(request: Request, response: Response, next: NextFunction) {
-        const result = await this.entity.readByService(parseInt(request.params.id));
-        if (result.length) return this.stdResponse(200, result);
-        return this.msgResponse(404, 'Resultado não foi encontrado!');
     }
 
 
