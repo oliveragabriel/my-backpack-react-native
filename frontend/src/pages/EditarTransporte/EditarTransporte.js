@@ -1,27 +1,30 @@
 import React, { useState, useCallback, useReducer } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
-import { Alert, TitleRow, ButtonRow, CardEditarAtividade, BottomNav, ButtonReturnYellow } from '../../components';
+import { Alert, TitleRow, ButtonRow, CardEditarTransporte, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
-import { actions } from './reducers/actions';
+import { actions } from './reducers/actions'
 import { initialState, reducer } from './reducers/reducer';
 
-const EditarAtividade = ({navigation}) => {
+const EditarTransporte = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [activity, setActivity] = useState({
+  const [transport, setTransport] = useState({
     description: '',
     type: '',
     value: 0,
-    time: null,
+    arrivalDate: "",
+    departureDate: "",
+    arrivalPlace: "",
+    departurePlace: "",
   });
 
   const checkRequiredField = useCallback(() => {
-    if(activity.description === '' || activity.type === '') {
+    if(transport.description === '' || transport.type === '') {
       dispatch({type: actions.setMessage, payload: 'Os campos Descrição e Tipo são obrigatórios e devem ser preenchidos para cadastrar!'});
       return dispatch({type: actions.showAlert, payload: true });
     }
     dispatch({type: actions.setMessage, payload: ''})
     return dispatch({type: actions.showAlert, payload: false });
-  }, [activity.description, activity.type, activity.value, activity.time, state]);
+  }, [transport.description, transport.type, transport.value, transport.time, state]);
 
   const handleConfirmButton = useCallback(() => {
       checkRequiredField();
@@ -33,18 +36,18 @@ const EditarAtividade = ({navigation}) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.3}>
+          <Card width="90%" height={0.22}>
           <ButtonReturnYellow 
             marginBottom={10}
             iconName='west' 
-            onPress={() => navigation.navigate("Lista Atividades")} 
+            onPress={() => navigation.navigate("Editar Viagem")} 
              />
-          <TitleRow text="Editar Atividade" />
+          <TitleRow text="Editar Transporte" />
             <View style={{
               width: "100%",
               }}>
-              <CardEditarAtividade/>
-              <ButtonRow
+              <CardEditarTransporte/>
+              <ButtonRow              
                 text="Alterar"
                 onPress={() => handleConfirmButton()}
               />
@@ -57,4 +60,4 @@ const EditarAtividade = ({navigation}) => {
   );
 };
 
-export default EditarAtividade;
+export default EditarTransporte;

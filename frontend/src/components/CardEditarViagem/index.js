@@ -15,8 +15,6 @@ export const CardEditarViagem = () => {
   return (
     <View
       style={{
-        display: 'flex',
-        flexDirection: 'column',
         width: '100%',
         height:'80%',
         marginTop: 10,
@@ -26,29 +24,13 @@ export const CardEditarViagem = () => {
         borderColor: "#DCDCDC",
         marginBottom:20,
       }}>
-        <View
-          style={{
-            position:'relative',
-            height:'100%',
-        }}>
+        <Spacer />
           <FormItemInput
               required={true}
               placeholder="Título"
               autoComplete="name"
               defaultValue={trip.title ?? null}
               onChangeText={text => setTrip({ ...trip, title: text})}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: "90%",
-                alignSelf: 'center',
-                marginTop: 10,
-                padding: 8,
-                backgroundColor: '#FFFFFF',
-                borderWidth: 1,
-                borderRadius: 6,
-                borderColor: "#DCDCDC",
-              }}
             />
             <Spacer />
             <FormItemInput
@@ -56,18 +38,6 @@ export const CardEditarViagem = () => {
               placeholder="Data de Ida"
               defaultValue={trip.departure ?? null}
               onChangeText={text => setTrip({ ...trip, departure: text})}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: "90%",
-                alignSelf: 'center',
-                marginTop: 10,
-                padding: 8,
-                backgroundColor: '#FFFFFF',
-                borderWidth: 1,
-                borderRadius: 6,
-                borderColor: "#DCDCDC",
-              }}
             />
             <Spacer />
             <FormItemInput
@@ -75,39 +45,14 @@ export const CardEditarViagem = () => {
               placeholder="Data de Volta"
               defaultValue={trip.arrival ?? null}
               onChangeText={text => setTrip({ ...trip, arrival: text})}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: "90%",
-                alignSelf: 'center',
-                marginTop: 10,
-                padding: 8,
-                backgroundColor: '#FFFFFF',
-                borderWidth: 1,
-                borderRadius: 6,
-                borderColor: "#DCDCDC",
-              }}
             />
             <Spacer />
             <FormItemInput
               placeholder="Tipo"
               defaultValue={trip.type ?? null}
               onChangeText={text => setTrip({ ...trip, type: text})}
-              style={{
-                display: 'flex',
-                flexDirection: 'column',
-                width: "90%",
-                alignSelf: 'center',
-                marginTop: 10,
-                padding: 8,
-                backgroundColor: '#FFFFFF',
-                borderWidth: 1,
-                borderRadius: 6,
-                borderColor: "#DCDCDC",
-              }}
             />
             <Spacer />
         </View>
-      </View>
   )
 }

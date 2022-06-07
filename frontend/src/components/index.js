@@ -9,3 +9,5 @@ export * from './Logo';
 export * from './CardEditarAtividade';
 export * from './CardEditarViagem'
 export * from './ButtonReturnYellow'
+export * from './CardEditarTransporte'
+export * from './CardEditarHospedagem'

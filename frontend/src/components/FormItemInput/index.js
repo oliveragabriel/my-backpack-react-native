@@ -63,7 +63,8 @@ export const FormItemInput = (props) => {
                       position: 'absolute', 
                       fontWeight: 'bold', 
                       textAlign: 'right', 
-                      height: 80}}>
+                      height: 80,
+                      left: 18 }}>
                   <Text style={{ color: '#FF0303'}}>*</Text>
                 </View>)}
             <Input
