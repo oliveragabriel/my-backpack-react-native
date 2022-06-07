@@ -22,7 +22,34 @@ export class Activity extends BaseEntity {
     @Column('boolean')
     isDone: boolean
 
-    @ManyToOne(() => TravelDay, (travelDay) => travelDay.activities)
+    @Column()
+    travelDayId: number
+
+    @ManyToOne(() => TravelDay, (travelDay) => travelDay.activities, { onDelete: "CASCADE" })
     travelDay: TravelDay
 
+
+    static async createByService(data, id: number): Promise<Activity> {
+        return await Activity.create({
+            ...data,
+            idDone: false,
+            travelDay: await TravelDay.findOneBy({id: id})
+        }).save();
+    }
+
+
+    static async readByService(id: number) {
+        return Activity.findBy({travelDayId: id});
+    }
+
+
+    static async getUserId(id: number) {
+        return await TravelDay.getUserId(
+            (await Activity.findOneBy({id: id})).travelDayId
+        );
+    }
+
+    static async getUserIdByParent(id: number) {
+        return await TravelDay.getUserId(id);
+    }
 }

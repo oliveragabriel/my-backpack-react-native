@@ -35,7 +35,7 @@ export class Travel extends BaseEntity {
     @Column()
     userId: number
 
-    @ManyToOne(() => User, (user) => user.travels)
+    @ManyToOne(() => User, (user) => user.travels, { onDelete: "CASCADE" })
     user: User
 
     @OneToMany(() => TravelDay, (travelDay) => travelDay.travel)
@@ -58,7 +58,15 @@ export class Travel extends BaseEntity {
 
 
     static async readByService(id: number) {
-        return Travel.findBy({userId: id});
+        return await Travel.find({where: {userId: id}, order: {arrivalDate: 'ASC'}});
     }
 
+
+    static async getUserId(id: number) {
+        return (await Travel.findOneBy({id: id})).userId;
+    }
+
+    static async getUserIdByParent(id: number) {
+        return id;
+    }
 }

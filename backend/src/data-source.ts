@@ -58,24 +58,6 @@ export const setTestData = async () => {
         travel1.user = user1;
         await travel1.save();
 
-        /*
-        await em.save(
-            em.create(User, {
-                name: "ana",
-                email: "ana@gmail.com",
-                password: "1234"
-            })
-        );
-
-        await em.save(
-            em.create(User, {
-                name: "gabriel",
-                email: "gabriel@gmail.com",
-                password: "1234"
-            })
-        );
-        */
-
     }
 
 }

@@ -43,4 +43,7 @@ export class User extends BaseEntity {
         return await User.findOne({where:{email: email, password: password}});
     }
 
+    static async getUserId(id: number) {
+        return id;
+    }
 }
