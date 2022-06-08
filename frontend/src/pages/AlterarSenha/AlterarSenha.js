@@ -1,6 +1,6 @@
 import React, { useState, useReducer, useCallback } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav } from '../../components';
+import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
 import { Container, Card, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
@@ -38,6 +38,7 @@ const AlterarSenha = ({ navigation }) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+          <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Meu Perfil")} />
           <Card width="90%" height={0.6}>
             <TitleRow text="Alterar Senha" />
             <FormItemInput

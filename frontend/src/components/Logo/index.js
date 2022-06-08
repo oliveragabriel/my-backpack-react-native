@@ -3,8 +3,8 @@ import {Image, StyleSheet, View} from 'react-native'
 
 const styles = StyleSheet.create({
   logo: {
-    width: 180,
-    height: 180,
+    width: 140,
+    height: 140,
   },
   div: {
     alignItems: 'center'

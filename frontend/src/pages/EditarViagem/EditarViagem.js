@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useReducer } from 'react';
 import { SafeAreaView, ScrollView, View, TouchableOpacity, Text } from 'react-native';
-import { Alert, TitleRow, ButtonRow, BottomNav, CardEditarViagem, ButtonReturnYellow } from '../../components';
-import { Card, Container, Button, ButtonText } from '../../styles';
+import { Alert, TitleRow, FormItemInput, BottomNav, ButtonReturnYellow } from '../../components';
+import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
 
@@ -36,19 +36,43 @@ const EditarViagem = ({ navigation }) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.3}>
-          <ButtonReturnYellow 
-            marginBottom={10}
+          <ButtonReturnYellow
             iconName='west' 
             onPress={() => navigation.navigate("Minhas Viagens")} 
-             />
+          />
+          <Card width="90%" height={0.3}>
           <TitleRow text="Editar Viagem" 
               height={40} />
-            <View style={{
-                width: "100%",
-                }}>
-              <CardEditarViagem/>
-              <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between'}}>
+              <Spacer />
+          <FormItemInput
+              required={true}
+              placeholder="Título"
+              autoComplete="name"
+              defaultValue={trip.title ?? null}
+              onChangeText={text => setTrip({ ...trip, title: text})}
+            />
+            <Spacer />
+            <FormItemInput
+              required={true}
+              placeholder="Data de Ida"
+              defaultValue={trip.departure ?? null}
+              onChangeText={text => setTrip({ ...trip, departure: text})}
+            />
+            <Spacer />
+            <FormItemInput
+              required={true}
+              placeholder="Data de Volta"
+              defaultValue={trip.arrival ?? null}
+              onChangeText={text => setTrip({ ...trip, arrival: text})}
+            />
+            <Spacer />
+            <FormItemInput
+              placeholder="Tipo"
+              defaultValue={trip.type ?? null}
+              onChangeText={text => setTrip({ ...trip, type: text})}
+            />
+            <Spacer />
+              <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
               <TouchableOpacity
             style={{
               display: 'flex',
@@ -56,12 +80,12 @@ const EditarViagem = ({ navigation }) => {
               justifyContent: 'center',
               alignItems: 'center',
               backgroundColor: '#4FCF78',
-              width: 100,
+              width: '33%',
               height: 40,
               padding: 6,
               borderRadius: 6,
             }}
-            onPress={() => navigation.navigate('Editar Viagem')}
+            onPress={handleConfirmButton}
           >
             <Text
               style={{
@@ -78,9 +102,9 @@ const EditarViagem = ({ navigation }) => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#4FCF78',
+              backgroundColor: '#008E89',
               height: 40,
-              width: 100,
+              width: '33%',
               padding: 6,
               borderRadius: 6,
             }}
@@ -101,9 +125,9 @@ const EditarViagem = ({ navigation }) => {
               flexDirection: 'row',
               justifyContent: 'center',
               alignItems: 'center',
-              backgroundColor: '#4FCF78',
+              backgroundColor: '#008E89',
               height: 40,
-              width: 100,
+              width: '33%',
               padding: 6,
               borderRadius: 6,
             }}
@@ -119,7 +143,6 @@ const EditarViagem = ({ navigation }) => {
             </Text>
           </TouchableOpacity>
             </View>
-          </View>
           </Card>
         </Container>
         <BottomNav navigation={navigation}/>
