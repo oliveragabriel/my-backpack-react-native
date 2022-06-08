@@ -1,6 +1,6 @@
 import React, { useState, useCallback, useReducer } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
-import { Alert, TitleRow, FormItemInput, ButtonRow, ButtonReturn, Logo } from '../../components';
+import { Alert, TitleRow, FormItemInput, ButtonRow, Logo, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
@@ -58,8 +58,8 @@ const EsqueciMinhaSenha = ({ navigation }) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.35}>
-          <ButtonReturn iconName='west' onPress={() => navigation.navigate("Acessar Conta")}/>
+          <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Acessar Conta")}/>
+          <Card width="90%" height={0.3}>
           <Logo/>
           <TitleRow text="Esqueci Minha Senha" />
             <FormItemInput

@@ -30,7 +30,7 @@ const App = () => {
   return (
     <UserProvider>
       <NavigationContainer>
-        <Stack.Navigator initialRouteName='Editar Hospedagem'>
+        <Stack.Navigator initialRouteName='Meu Perfil'>
           <Stack.Screen name="Acessar Conta" component={AcessarConta} />
           <Stack.Screen name="Cadastro de Usuário" component={CadastroUsuario} />
           <Stack.Screen name="Esqueci Minha Senha" component={EsqueciMinhaSenha}/>

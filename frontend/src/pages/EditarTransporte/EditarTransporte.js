@@ -1,7 +1,7 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
-import { Alert, TitleRow, ButtonRow, CardEditarTransporte, BottomNav, ButtonReturnYellow } from '../../components';
-import { Card, Container } from '../../styles';
+import { SafeAreaView, ScrollView } from 'react-native';
+import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
+import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions'
 import { initialState, reducer } from './reducers/reducer';
 
@@ -36,22 +36,86 @@ const EditarTransporte = ({navigation}) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.22}>
-          <ButtonReturnYellow 
-            marginBottom={10}
+          <ButtonReturnYellow
             iconName='west' 
             onPress={() => navigation.navigate("Editar Viagem")} 
-             />
-          <TitleRow text="Editar Transporte" />
-            <View style={{
-              width: "100%",
-              }}>
-              <CardEditarTransporte/>
-              <ButtonRow              
-                text="Alterar"
-                onPress={() => handleConfirmButton()}
-              />
-            </View>
+          />
+          <Card width="90%" height={0.3}>
+            <TitleRow text="Editar Transporte" />
+            <FormItemInput
+              height={43}
+              padding={0}
+              fSize={14}
+              required={true}
+              placeholder="Descrição"
+              defaultValue={transport.description ?? null}
+              onChangeText={text => setTransport({ ...transport, description: text})}
+            />
+            <Spacer />
+            <FormItemInput
+              height={43}
+              padding={0}
+              fSize={14}
+              required={true}
+              placeholder="Tipo (ex: Alimentação, Lazer)"
+              defaultValue={transport.type ?? null}
+              onChangeText={text => setTransport({ ...transport, type: text})}
+            />
+            <Spacer />
+            <FormItemInput
+              height={43}
+              padding={0}
+              fSize={14}
+              required={true}
+              placeholder="Valor"
+              defaultValue={transport.value ?? null}
+              onChangeText={text => setTransport({ ...transport, value: text})}
+            />
+            <Spacer />
+            <FormItemInput
+                height={43}
+                padding={0}
+                fSize={14}
+                required={true}
+                placeholder="Horário de Saída"
+                defaultValue={transport.time ?? null}
+                onChangeText={text => setTransport({ ...transport, time: text})}
+            />
+            <Spacer />
+            <FormItemInput
+                height={43}
+                padding={0}
+                fSize={14}
+                required={true}
+                placeholder="Lugar de Saída"
+                defaultValue={transport.time ?? null}
+                onChangeText={text => setTransport({ ...transport, time: text})}
+            />
+            <Spacer />
+            <FormItemInput
+              height={43}
+              padding={0}
+              fSize={14}
+              required={true}
+              placeholder="Horário de Volta"
+              defaultValue={transport.time ?? null}
+              onChangeText={text => setTransport({ ...transport, time: text})}
+            />
+            <Spacer />
+            <FormItemInput
+              height={43}
+              padding={0}
+              fSize={14}
+              required={true}
+              placeholder="Destino"
+              defaultValue={transport.time ?? null}
+              onChangeText={text => setTransport({ ...transport, time: text})}
+            />
+            <Spacer />
+            <ButtonRow              
+              text="Alterar"
+              onPress={() => handleConfirmButton()}
+            />
           </Card>
         </Container>
         <BottomNav navigation={navigation}/>
