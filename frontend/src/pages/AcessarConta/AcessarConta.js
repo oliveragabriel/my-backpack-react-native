@@ -1,23 +1,24 @@
-import React, { useState, useCallback, useReducer} from 'react';
+import React, { useState, useCallback, useReducer, useContext} from 'react';
 import { SafeAreaView, ScrollView, Image } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow, Logo } from '../../components';
 import { Card, Container, Spacer} from '../../styles';
 import { actions } from './reducers/actions/';
 import { initialState, reducer } from './reducers/reducer';
-import {getAuth, SetTokenApi} from '../../services/api'
+import * as api from '../../services/api'
+import { UserContext } from '../../UseContext/UserContext';
 
 const AcessarConta = ({ navigation }) => {
-
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stop, setStop] = useState('');
   const [credentials, setCredentials] = useState({
     email: '',
-    acc_password: ''
+    password: ''
   });
+  const {SetUser} = useContext(UserContext);
 
   const checkRequiredField = useCallback(() => {
-    if(credentials.email === '' || credentials.acc_password === '') {
+    if(credentials.email === '' || credentials.password === '') {
       dispatch({type: actions.setMessage, payload: 'Os campos E-mail e Senha são obrigatórios e devem ser preenchidos para acessar para acessar!'});
       setStop('invalid');
       return dispatch({type: actions.showAlert, payload: true });
@@ -26,20 +27,21 @@ const AcessarConta = ({ navigation }) => {
       setStop('valid');
       return dispatch({type: actions.showAlert, payload: false });
     }
-  }, [credentials.login, credentials.acc_password, state, stop]);
+  }, [credentials.email, credentials.password, state, stop]);
 
   const handleConfirmButton = useCallback(async () => {
       checkRequiredField();
       // if (stop === 'valid') {
         try {
           dispatch({type: actions.toggleLoading});
-          let authtoken = await getAuth(credentials)
-          console.log(authtoken)
-          SetTokenApi(authtoken)
+          let resp = await api.requestLoginUser(credentials)
+          console.log(typeof resp)
+          console.log(resp["id"])
+          SetUser(resp["id"])
           navigation.navigate('Início');
         } catch (error) {
           console.log('Error', error)
-          dispatch({type: actions.setMessage, payload: 'O E-mail e a Senha não correspondem a um usuário válido. Por favor, tente novamente!'});
+          dispatch({type: actions.setMessage, payload: error});
           dispatch({type: actions.showAlert, payload: true });
         } finally {
           dispatch({type: actions.toggleLoading});
@@ -60,7 +62,7 @@ const AcessarConta = ({ navigation }) => {
 
   const handlePassword = (text) => {
     if(text !== '') {
-      setCredentials({ ...credentials, acc_password: text })
+      setCredentials({ ...credentials, password: text })
       dispatch({type: actions.setCheckedPassword, payload: 'valid'})
     } else {
       dispatch({type: actions.setCheckedPassword, payload: 'invalid'})

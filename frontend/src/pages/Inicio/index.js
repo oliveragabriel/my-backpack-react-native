@@ -1,21 +1,20 @@
-import React, { useState, useEffect, useCallback, useContext } from 'react';
+import React, { useEffect, useContext } from 'react';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
-import { BottomNav, Logo } from '../../components';
+import { BottomNav } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { ContainerViagem } from './ContainerViagem';
 import { ContainerConquistaInicio } from './ContainerConquista';
 import { UserContext } from '../../UseContext/UserContext';
-import { getNextTrip, getUser } from '../../services/api';
 
 const Inicio = ({ navigation }) => {
 
-  const {user, SetUser, conquest, GetConquest, nextTravel, SetNextTravel, flagTravel} = useContext(UserContext);
+  const {user, SetUser, travel, SetTravel, travels, SetTravels, flagTravel} = useContext(UserContext);
   //const dispatch = useDispatch();
 
   useEffect(()=>{
     try {
-      SetUser()
-      SetNextTravel()
+      console.log(user)
+      SetTravels()
       } catch (error) {
         console.log("err")
       }
@@ -40,21 +39,23 @@ const Inicio = ({ navigation }) => {
                 }}
               >
                 {
-                user.acc_name
+                user.name
                 }
               </Text>
             </View>
             <Spacer />
             <ContainerViagem
-              nextTravel={nextTravel}
+              nextTravel={travel}
               flagTravel={flagTravel}
               navigation={navigation}>
             </ContainerViagem>
             <Spacer />
             <ContainerConquistaInicio 
               title="Minhas Conquistas" 
-              travel={conquest.qtdTravel} 
-              country={conquest.qtdCountry}
+              travel={2}
+              country={2}
+              // travel={user.conquest.qtdTravel} 
+              // country={user.conquest.qtdCountry}
               onPress={() => navigation.navigate('Minhas Conquistas')} 
             />
           </Card>
