@@ -47,7 +47,6 @@ const MeuPerfil = ({ navigation }) => {
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
           <Card width="90%" height={0.3}>
-          <Logo/>
           <TitleRow text="Meu Perfil" />
             <FormItemInput
               required={true}
@@ -55,7 +54,7 @@ const MeuPerfil = ({ navigation }) => {
               autoComplete="name"
               defaultValue={user.name ?? null}
               onChangeText={text => setUser({ ...user, name: text})}
-              // iconName='account'
+              iconName='person'
             />
             <Spacer />
             <FormItemInput
@@ -64,6 +63,7 @@ const MeuPerfil = ({ navigation }) => {
               defaultValue={user.email ?? null}
               autoComplete='email'
               onChangeText={text => setUser({ ...user, email: text})}
+              iconName='email'
             />
             <Spacer />
             <ButtonRow
@@ -73,6 +73,10 @@ const MeuPerfil = ({ navigation }) => {
             <ButtonRow
               text="Configurar Senha"
               onPress={() => navigation.navigate('Alterar Senha')}
+            />
+            <ButtonRow
+              text="Deslogar Usuário"
+              onPress={() => navigation.navigate('Acessar Conta')}
             />
           </Card>
         </Container>

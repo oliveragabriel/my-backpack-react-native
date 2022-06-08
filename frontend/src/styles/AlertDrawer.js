@@ -7,4 +7,7 @@ export const AlertDrawer = styled.TouchableOpacity`
     height: ${(props) => props.height || 90}px;
     width: ${(props) => props.width || '100%'};
     padding: ${(props) => props.padding || 6}px;
+    position: ${(props) => props.position || 'absolute'};
+    z-index: ${(props) => props.zIndex || 3};
+    top: ${(props) => props.top || 0};
 `;

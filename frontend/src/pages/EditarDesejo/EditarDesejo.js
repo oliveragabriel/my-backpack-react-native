@@ -33,8 +33,8 @@ const EditarDesejo = ({navigation}) => {
       <ScrollView>
         <Container bgColor="#293775">
           {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.65}>
           <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Desejos")} />
+          <Card width="90%" height={0.65}>
           <TitleRow text="Editar Desejo" />
             <FormItemInput
               required={true}
