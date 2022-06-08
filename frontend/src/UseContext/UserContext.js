@@ -6,43 +6,60 @@ export const UserContext = createContext();
 export const UserProvider = ({children}) => {
 
   const [user, setUser] = useState({
-    id:'',
+    id:1,
     name: '',
     email:'',
+    conquest: {
+      qtdTravel: 3,
+      qtdCountry: 0,
+      qtdCity: 0,
+      qtdActivity: 0,
+    }
   });
 
-  const [conquest, setConquest] = useState({
-    qtdTravel: 3,
-    qtdCountry: 0,
-    qtdCity: 0,
-    qtdActivity: 0,
+  const [travels, setTravels] = useState({
+    done:[],
+    notDone:[]
   })
 
-  const [nextTravel, setNextTravel] = useState({})
+  const [travel, setTravel] = useState({})
   const [flagTravel, setFlagTravel] = useState(true);
+  const [travelDays, setTravelDays] = useState([])
+  const [activities, setActivities] = useState([])
+  const [activity, setActivity] = useState({})
 
-  const SetUser = async () => {
-    const loggedUser = await api.requestGetOne(user.id, 'user');
-    console.log(loggedUser);
+  //add conquest no back
+
+  const SetUser = async (id) => {
+    const loggedUser = await api.requestGetOne(id, 'user');
+    console.log(loggedUser)
     setUser(loggedUser);
   }
 
-  const GetConquest = () => {
-    return conquest;
-  }
-
-  const SetNextTravel = async () => {
-    const travel = false; // chamar api
-    if (travel === false) {
-      setFlagTravel(false);
-    } else {
-      setFlagTravel(true);
-      setNextTravel(travel);
+  const SetTravels = async () => {
+    try {
+      const response = await api.requestGetAll(user.id, 'travel')
+      setTravels(response);
+    } catch (erro) {
+      console.log(erro)
     }
   }
 
+  const SetTravel = async (id) => {
+    try {
+      const response =await api.requestGetOne(id, 'travel')
+      setTravel(response);
+    } catch (erro) {
+      console.log(erro)
+    }
+  }
+
+  //funcao especifica pro nexttravel
+
+
+
   return (
-    <UserContext.Provider value={{user, SetUser, conquest, GetConquest, nextTravel, SetNextTravel, flagTravel}}>
+    <UserContext.Provider value={{user, SetUser, travels, SetTravels, travel, SetTravel, flagTravel}}>
       {children}
     </UserContext.Provider>
   )

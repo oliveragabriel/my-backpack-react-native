@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, EntitySchemaEmbeddedColumnOptions } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, EntitySchemaEmbeddedColumnOptions, FindOptionsWhere } from "typeorm";
 import { Travel } from "./Travel";
 import { Wish } from "./Wish";
 
@@ -36,6 +36,17 @@ export class User extends BaseEntity {
             return true;
         }
         return false;
+    }
+
+    static async findOneByService(userId: number) {
+
+      const asdf = User.createQueryBuilder('user')
+        .innerJoinAndSelect("user.travels", "travel", "travel.userId = user.id")
+        //.innerJoinAndSelect("travel.travelDays", "travelDay")
+        //.innerJoinAndSelect("travelDay.activities", "activity")
+        .where("user.id = :userId", {userId: userId})
+        .getOne()
+      return asdf;
     }
 
     static async loginService(data: {email: string, password: string}): Promise<User> {

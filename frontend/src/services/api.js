@@ -62,6 +62,7 @@ export const requestGetOne = async (id, entity) => {
 export const requestLoginUser = async (data) => {
     try {
         const resp = await instance.post("/users/login", data);
+        console.log("respdata", resp.data)
         return resp.data;
     } catch (err) {
         throw err.response.data.msg;
