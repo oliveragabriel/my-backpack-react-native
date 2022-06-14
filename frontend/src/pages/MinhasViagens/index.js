@@ -1,13 +1,18 @@
-import React, { useContext, useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, FlatList } from 'react-native';
+import React, { useContext, useEffect } from 'react';
+import { SafeAreaView, ScrollView, View } from 'react-native';
 import { BottomNav, ButtonRow, TitleRow } from '../../components';
-import { Card, Container, Spacer } from '../../styles';
+import { Card, Container } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';
 import { ContainerViagensAnteriores } from './ContainerViagensAnteriores';
 import { ContainerProximaViagem } from './ContainerProximaViagem';
 
 const MinhasViagens = ({ navigation }) => {
 
+  const {travels, contextSetTravels} = useContext(UserContext);
+
+  useEffect(() => {
+    contextSetTravels()
+  },[]);
 
   return (
     <SafeAreaView>
@@ -18,11 +23,18 @@ const MinhasViagens = ({ navigation }) => {
               width: "100%",
               }}>
               <TitleRow  text="Minhas Viagens"/>
-              <ContainerViagensAnteriores navigation={navigation}/>
-              <ContainerProximaViagem navigation={navigation}/>
+              <ContainerViagensAnteriores
+                navigation={navigation}
+                travels={travels.done}
+              />
+              <ContainerProximaViagem
+                navigation={navigation}
+                travels={travels.notDone}
+              />
               <ButtonRow 
                 text="Adicionar próxima viagem" 
-                onPress={() => navigation.navigate('Cadastro Viagem')}/>
+                onPress={() => navigation.navigate('Cadastro Viagem')}
+              />
             </View>
           </Card>
         </Container>

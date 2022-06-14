@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer, useContext} from 'react';
+import React, { useState, useCallback, useReducer, useContext, useEffect} from 'react';
 import { SafeAreaView, ScrollView, Image } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow, Logo } from '../../components';
 import { Card, Container, Spacer} from '../../styles';
@@ -15,7 +15,7 @@ const AcessarConta = ({ navigation }) => {
     email: '',
     password: ''
   });
-  const {SetUser} = useContext(UserContext);
+  const {user, contextSetUser, contextSetTravels} = useContext(UserContext);
 
   const checkRequiredField = useCallback(() => {
     if(credentials.email === '' || credentials.password === '') {
@@ -31,23 +31,19 @@ const AcessarConta = ({ navigation }) => {
 
   const handleConfirmButton = useCallback(async () => {
       checkRequiredField();
-      // if (stop === 'valid') {
         try {
           dispatch({type: actions.toggleLoading});
-          let resp = await api.requestLoginUser(credentials)
-          console.log(typeof resp)
-          console.log(resp["id"])
-          SetUser(resp["id"])
+          let resp = await api.requestLoginUser(credentials);
+          await contextSetUser(resp["id"]);
           navigation.navigate('Início');
         } catch (error) {
-          console.log('Error', error)
+          console.log('Error', error);
           dispatch({type: actions.setMessage, payload: error});
           dispatch({type: actions.showAlert, payload: true });
         } finally {
           dispatch({type: actions.toggleLoading});
           setStop('');
         }
-     // }
   }, [checkRequiredField, stop])
 
   // passar p/ usecallback

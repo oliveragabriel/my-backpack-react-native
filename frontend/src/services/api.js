@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
     // nao logar na internet do senai que muda o IP direto e da erro
-    baseURL: "http://192.168.56.1:3000",
+    baseURL: "http://10.3.60.8:3000",
     headers: {
         "Content-Type": "application/json",
     }
@@ -62,7 +62,6 @@ export const requestGetOne = async (id, entity) => {
 export const requestLoginUser = async (data) => {
     try {
         const resp = await instance.post("/users/login", data);
-        console.log("respdata", resp.data)
         return resp.data;
     } catch (err) {
         throw err.response.data.msg;

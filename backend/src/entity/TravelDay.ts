@@ -19,9 +19,6 @@ export class TravelDay extends BaseEntity {
     @Column()
     city: string
 
-    @Column('boolean')
-    isDone: boolean
-
     @Column()
     travelId: number
 
@@ -35,7 +32,6 @@ export class TravelDay extends BaseEntity {
     static async createByService(data: travelDayType, id: number): Promise<TravelDay> {
         return await TravelDay.create({
             ...data,
-            isDone: false,
             travel: await Travel.findOneBy({id: id})
         }).save();
     }
@@ -43,6 +39,11 @@ export class TravelDay extends BaseEntity {
 
     static async readByService(id: number) {
         return TravelDay.findBy({travelId: id});
+    }
+
+
+    static async findOneByService(id: number) {
+        return await TravelDay.findOneBy({id: id});
     }
 
 

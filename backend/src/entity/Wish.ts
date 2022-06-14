@@ -30,6 +30,11 @@ export class Wish extends BaseEntity {
     }
 
 
+    static async findOneByService(id: number) {
+        return await Wish.findOneBy({id: id});
+    }
+
+
     static async getUserId(id: number) {
         return (await Wish.findOneBy({id: id})).userId;
     }

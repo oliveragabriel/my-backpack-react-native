@@ -2,18 +2,17 @@ import React from "react";
 import { ContainerVazio } from "../ContainerVazio";
 import { ContainerProximaViagemInicio } from "../ContainerProximaViagem";
 
-export const ContainerViagem = ({navigation, nextTravel, flagTravel}) => {
-
-  const handleNextTravelContainer = () => {
-    //console.log(nextTrip, "nexttrip");
+export const ContainerViagem = ({navigation, nextTravel}) => {
   
-    if (flagTravel) {
+  const handleNextTravelContainer = () => {
+      
+    if (nextTravel.id !== '') {
       return (
         <ContainerProximaViagemInicio 
           title="Próxima Viagem"
-          name="a definir"
-          departure_date={nextTravel.departure_date}
-          country={nextTravel.title}
+          name={nextTravel.title}
+          departure_date={nextTravel.arrivalDate.split('T')[0]}
+          country={""}
           day={nextTravel.days}
           activity={nextTravel.activities}
           onPress={() => navigation.navigate('Viagem Detalhe')}
@@ -22,15 +21,15 @@ export const ContainerViagem = ({navigation, nextTravel, flagTravel}) => {
     }
     return (
       <ContainerVazio
-        title="Próxima Viagem"
-        onPress={() => navigation.navigate('Cadastro Viagem')}>
+      title="Próxima Viagem"
+      onPress={() => navigation.navigate('Cadastro Viagem')}>
       </ContainerVazio>
     )
   };
 
   return (
     <>
-    {handleNextTravelContainer()}
+      {handleNextTravelContainer()}
     </>
   )
 

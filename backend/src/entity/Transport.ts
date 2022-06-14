@@ -48,6 +48,11 @@ export class Transport extends BaseEntity {
     }
 
 
+    static async findOneByService(id: number) {
+        return await Transport.findOneBy({id: id});
+    }
+
+
     static async getUserId(id: number) {
         return await Travel.getUserId(
             (await Transport.findOneBy({id: id})).travelId
