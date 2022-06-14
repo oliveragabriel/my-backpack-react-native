@@ -50,6 +50,11 @@ export class Accomodation extends BaseEntity {
     }
 
 
+    static async findOneByService(id: number) {
+        return await Accomodation.findOneBy({id: id});
+    }
+
+
     static async getUserId(id: number) {
         return await Travel.getUserId(
             (await Accomodation.findOneBy({id: id})).travelId

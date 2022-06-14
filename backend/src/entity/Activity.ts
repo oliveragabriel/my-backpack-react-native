@@ -19,9 +19,6 @@ export class Activity extends BaseEntity {
     @Column('time')
     time: string
 
-    @Column('boolean')
-    isDone: boolean
-
     @Column()
     travelDayId: number
 
@@ -32,14 +29,18 @@ export class Activity extends BaseEntity {
     static async createByService(data, id: number): Promise<Activity> {
         return await Activity.create({
             ...data,
-            idDone: false,
             travelDay: await TravelDay.findOneBy({id: id})
         }).save();
     }
 
 
     static async readByService(id: number) {
-        return Activity.findBy({travelDayId: id});
+        return await Activity.findBy({travelDayId: id});
+    }
+
+
+    static async findOneByService(id: number) {
+        return await Activity.findOneBy({id: id});
     }
 
 

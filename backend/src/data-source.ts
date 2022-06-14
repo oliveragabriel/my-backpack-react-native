@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "123456",
+    password: "senai",
     database: "gobackpack",
     synchronize: true,
     logging: false,
@@ -31,33 +31,31 @@ export const AppDataSource = new DataSource({
 });
 
 export const setTestData = async () => {
+    const em = AppDataSource.manager;
+    if (!(await em.count(User))) {
+        await em.query(`
+            INSERT INTO user (name, email, password) VALUES ("ana", "ana@gmail.com", "1234");
+        `);
 
-    let em = AppDataSource.manager;
+        await em.query(`
+            INSERT INTO user (name, email, password) VALUES ("gabriel", "gabriel@gmail.com", "1234");
+        `);
 
-    let users = await em.count(User);
-    if (!users) {
-
-        const user1 = new User();
-        user1.name = "ana";
-        user1.email = "ana@gmail.com";
-        user1.password = "1234";
-        await user1.save();
-
-        const user2 = new User();
-        user2.name = "gabriel";
-        user2.email = "gabriel@gmail.com";
-        user2.password = "1234";
-        await user2.save();
-
-        const travel1 = new Travel();
-        travel1.title = 'USA';
-        travel1.arrivalDate = '2022-07-02';
-        travel1.departureDate = '2022-07-15';
-        travel1.type = 'turismo';
-        travel1.isDone = false;
-        travel1.user = user1;
-        await travel1.save();
-
+        await em.query(`
+            INSERT INTO user (name, email, password) VALUES ("rafael", "rafael@gmail.com", "1234");
+        `);
+            
+        await em.query(`
+            INSERT INTO travel (title, arrivalDate, departureDate, type, userId)
+            VALUES ("USA", "2022-07-15", "2022-07-25", "turismo", "1");
+        `);
+        await em.query(`
+            INSERT INTO travel (title, arrivalDate, departureDate, type, userId)
+            VALUES ("Europa", "2021-07-15", "2021-07-25", "turismo", "1");
+        `);
+        await em.query(`
+            INSERT INTO travel (title, arrivalDate, departureDate, type, userId)
+            VALUES ("Japão", "2023-07-15", "2023-07-25", "turismo", "1");
+        `);
     }
-
-}
+};

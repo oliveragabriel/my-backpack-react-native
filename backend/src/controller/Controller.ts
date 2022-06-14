@@ -29,23 +29,15 @@ export class Controller {
 
     async allBy(request: Request, response: Response, next: NextFunction) {
         const result = await this.entity.readByService(parseInt(request.params.id));
-        if (result.length) return this.stdResponse(200, result);
+        if (result !== null) return this.stdResponse(200, result);
         return this.msgResponse(404, 'Resultado não foi encontrado!');
     }
 
 
     async oneBy(request: Request, response: Response, next: NextFunction) {
-        const result = await this.entity.findOneBy({id: parseInt(request.params.id)});
+        const result = await this.entity.findOneByService(parseInt(request.params.id));
         if (result !== null) return this.stdResponse(200, result);
         return this.msgResponse(404, 'Resultado não foi encontrado!');
-    }
-    
-    async userAsdf(request: Request, response: Response, next: NextFunction) {
-      const result = await this.entity.findOneByService({id: parseInt(request.params.id)});
-      console.log(result);
-      return this.stdResponse(200, result);
-      //if (result !== null) return this.stdResponse(200, result);
-      //return this.msgResponse(404, 'Resultado não foi encontrado!');
     }
 
 

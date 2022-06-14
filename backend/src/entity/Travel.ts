@@ -29,9 +29,6 @@ export class Travel extends BaseEntity {
     @Column()
     type: string
 
-    @Column('boolean')
-    isDone: boolean
-
     @Column()
     userId: number
 
@@ -51,16 +48,56 @@ export class Travel extends BaseEntity {
     static async createByService(data: travelType, id: number): Promise<Travel> {
         return await Travel.create({
             ...data,
-            isDone: false,
             user: await User.findOneBy({id: id})
         }).save();
     }
 
 
     static async readByService(id: number) {
-        return await Travel.find({where: {userId: id}, order: {arrivalDate: 'ASC'}});
+
+        const result = {
+
+            done: await Travel.query(`
+                SELECT * FROM travel WHERE userId = ? AND arrivalDate < CURDATE() ORDER BY arrivalDate ASC
+            `,[id]),
+
+            notDone: await Travel.query(`
+                SELECT * FROM travel WHERE userId = ? AND arrivalDate >= CURDATE() ORDER BY arrivalDate ASC
+            `,[id])
+        }
+
+        if (result.done.length || result.notDone.length) return result;
+        return null;
     }
 
+    static async findOneByService(id: number) {
+
+        const result = await Travel.query(`
+            SELECT
+                travel.id,
+                travel.title,
+                travel.arrivalDate,
+                travel.departureDate,
+                travel.type,
+                COUNT(travel_day.id) AS days,
+                COUNT(activity.id) AS activities,
+                GROUP_CONCAT(DISTINCT travel_day.country, '') AS countries
+            FROM
+                travel
+                LEFT JOIN travel_day ON
+                travel_day.travelId = travel.id
+                LEFT JOIN activity ON
+                activity.travelDayId = travel_day.id
+            WHERE
+                travel.id = ?
+            GROUP BY
+                travel.id
+        `,
+        [id]);
+
+        if (result.length) return result[0];
+        return null;
+    }
 
     static async getUserId(id: number) {
         return (await Travel.findOneBy({id: id})).userId;

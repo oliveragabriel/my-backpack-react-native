@@ -1,30 +1,11 @@
-import React, { useState }from 'react';
+import React, { useContext, useState }from 'react';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
+import { UserContext } from '../../../UseContext/UserContext';
 
-export const ComponenteDias = ({navigation}) => {
-  const [listaDias, setListaDias] = useState([{
-    name: "01/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }, {
-    name: "02/03"
-  }])
+export const ComponenteDias = ({navigation, travelDays, travelDate}) => {
+
+  const {contextSetActivities} = useContext(UserContext);
+
   return (
     <View
       style={{
@@ -63,8 +44,8 @@ export const ComponenteDias = ({navigation}) => {
             //GAMBIARRA
             marginBottom:80,
           }}
-          data={listaDias}
-          renderItem={({item}) => 
+          data={travelDays}
+          renderItem={({item}) =>
             <TouchableOpacity
               style={{
                 display: 'flex',
@@ -78,7 +59,10 @@ export const ComponenteDias = ({navigation}) => {
                 borderRadius: 6,
                 borderColor: "#DCDCDC",
               }}
-              onPress={() => navigation.navigate('Lista Atividades')}>
+              onPress={async () => {
+                await contextSetActivities(item.id);
+                navigation.navigate('Lista Atividades');
+              }}>
               <Text
                 style={{
                   fontSize: 16,
@@ -87,7 +71,7 @@ export const ComponenteDias = ({navigation}) => {
                   color: "#084594",
                   marginLeft: 4
                 }}
-              >{item.name}
+              >{item.id}
               </Text>
             </TouchableOpacity>
           }/>

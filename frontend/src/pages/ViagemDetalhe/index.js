@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { SafeAreaView, ScrollView } from 'react-native';
 import { BottomNav, TitleRow, ButtonRow, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
+import { UserContext } from '../../UseContext/UserContext';
 import { ContainerViagem } from './ContainerViagem';
 
 const ViagemDetalhe = ({ navigation }) => {
-  const [trip, setTrip] = useState({
-    title: 'Viagem ao mar do Caribe',
-    departure: null,
-    country: 'Estados Unidos da América',
-    days: 0,
-    activitys: 0
-  });
+
+  const {travel, contextSetTravelDays} = useContext(UserContext);
 
   return (
     <SafeAreaView>
@@ -21,14 +17,15 @@ const ViagemDetalhe = ({ navigation }) => {
             <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Minhas Viagens")} />
             <TitleRow text="Detalhes da Viagem" />
             <ContainerViagem 
-              title={trip.title}
-              departure={trip.departure} 
-              country={trip.country}
+              travel={travel}
               navigation={navigation}
             />
             <ButtonRow 
                 text="Detalhar dias da viagem" 
-                onPress={() => navigation.navigate('Lista Dias')}/>
+                onPress={async () => {
+                  await contextSetTravelDays(travel.id);
+                  navigation.navigate('Lista Dias');
+                }}/>
           </Card>
         </Container>
         <BottomNav navigation={navigation}/>

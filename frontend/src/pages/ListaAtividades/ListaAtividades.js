@@ -2,10 +2,12 @@ import React, { useContext, useState } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { BottomNav, TitleRow, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
+import { UserContext } from '../../UseContext/UserContext';
 import { ComponenteListaAtividades } from './ComponenteListaAtividades';
 
 const ListaAtividades = ({ navigation }) => {
-  const [dia, setDia] = useState("02/07")
+
+  const {activities} = useContext(UserContext);
   
   return (
     <SafeAreaView>

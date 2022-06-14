@@ -1,31 +1,10 @@
-import React, { useState } from 'react';
+import React, { useContext } from 'react';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
-import { ButtonRow } from '../../../components';
+import { UserContext } from '../../../UseContext/UserContext';
 
-export const ContainerProximaViagem = ({ 
-  travels, 
-  navigation,
-}) => {
+export const ContainerProximaViagem = ({navigation, travels}) => {
 
-  const [travelsEx, setTravels] = useState([{
-    name: "Viagem 1"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }, {
-    name: "Viagem 2"
-  }])
+  const {contextSetTravel} = useContext(UserContext);
 
     return (
 
@@ -70,7 +49,7 @@ export const ContainerProximaViagem = ({
                   //GAMBIARRA
                   marginBottom:80,
                 }}
-                data={travelsEx}
+                data={travels}
                 renderItem={({item}) => 
                   <TouchableOpacity
                     style={{
@@ -85,7 +64,11 @@ export const ContainerProximaViagem = ({
                       borderRadius: 6,
                       borderColor: "#DCDCDC",
                     }}
-                    onPress={() => navigation.navigate('Viagem Detalhe')}>
+                    onPress={ async () => {
+                      console.log(item.id);
+                      await contextSetTravel(item.id);
+                      navigation.navigate('Viagem Detalhe');
+                    }}>
                     <Text
                       style={{
                         fontSize: 16,
@@ -94,7 +77,7 @@ export const ContainerProximaViagem = ({
                         color: "#084594",
                         marginLeft: 4
                       }}
-                    >{item.name}
+                    >{item.title}
                     </Text>
                   </TouchableOpacity>
                 }/>

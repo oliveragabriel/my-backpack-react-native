@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
-export const ContainerViagem = ({ title, country, departure, arrival, days, activities, value, navigation }) => {
+export const ContainerViagem = ({navigation, travel}) => {
     return (
       <View
         style={{
@@ -23,7 +23,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
               textTransform: "uppercase",
             }}
             >
-            {`${title}`}
+            {`${travel.title}`}
           </Text>
         </View>
         <View
@@ -88,7 +88,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
             margin: 4,
           }}
         >
-            <Text>País:</Text>
+            <Text>País(es):</Text>
             <Text 
               style={{
                 fontSize: 12,
@@ -99,7 +99,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
                 marginLeft: 6,
               }}
             >
-              {`${country}`}
+              {`${travel.countries.replace(',', ', ')}`}
             </Text>
           </View>
           <View 
@@ -122,7 +122,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
                 marginLeft: 6,
               }}
             >
-              R$ {`${value}`}
+              R$ {`${0}`}
             </Text>
           </View>
         <View
@@ -153,7 +153,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
                 marginLeft: 6,
               }}
               >
-              {`${departure}`}
+              {`${travel.arrivalDate.split('T')[0]}`}
             </Text>
           </View>
           <View
@@ -176,7 +176,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
                 marginLeft: 6,
               }}
               >
-              {`${arrival}`}
+              {`${travel.departureDate.split('T')[0]}`}
             </Text>
           </View>
         </View>
@@ -208,7 +208,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
                 marginLeft: 6,
               }}
               >
-              {`${days}`}
+              {`${travel.days}`}
             </Text>
           </View>
           <View
@@ -231,7 +231,7 @@ export const ContainerViagem = ({ title, country, departure, arrival, days, acti
                 marginLeft: 6,
               }}
               >
-              {`${activities}`}
+              {`${travel.activities}`}
             </Text>
           </View>
         </View>

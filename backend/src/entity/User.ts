@@ -1,4 +1,4 @@
-import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity, EntitySchemaEmbeddedColumnOptions, FindOptionsWhere } from "typeorm";
+import { Entity, PrimaryGeneratedColumn, Column, OneToMany, BaseEntity } from "typeorm";
 import { Travel } from "./Travel";
 import { Wish } from "./Wish";
 
@@ -38,15 +38,34 @@ export class User extends BaseEntity {
         return false;
     }
 
-    static async findOneByService(userId: number) {
+    static async findOneByService(id: number) {
 
-      const asdf = User.createQueryBuilder('user')
-        .innerJoinAndSelect("user.travels", "travel", "travel.userId = user.id")
-        //.innerJoinAndSelect("travel.travelDays", "travelDay")
-        //.innerJoinAndSelect("travelDay.activities", "activity")
-        .where("user.id = :userId", {userId: userId})
-        .getOne()
-      return asdf;
+        const result = await User.query(`
+            SELECT
+                user.id,
+                user.name,
+                user.email,
+                COUNT(travel.id) AS travels,
+                COUNT(DISTINCT travel_day.country) AS countries,
+                COUNT(DISTINCT travel_day.city) AS cities,
+                COUNT(activity.id) AS activities
+            FROM
+                user
+                LEFT JOIN travel ON
+                travel.userId = user.id
+                LEFT JOIN travel_day ON
+                travel_day.travelId = travel.id
+                LEFT JOIN activity ON
+                activity.travelDayId = travel_day.id
+            WHERE
+                user.id = ?
+            GROUP BY
+                user.id
+        `,
+        [id]);
+
+        if (result.length) return result[0];
+        return null;
     }
 
     static async loginService(data: {email: string, password: string}): Promise<User> {

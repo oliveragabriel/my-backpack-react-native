@@ -3,11 +3,9 @@ export * from './TitleRow';
 export * from './FormItemInput';
 export * from './ButtonRow';
 export * from './ButtonLink';
-export * from './ButtonReturn';
+export * from './ButtonReturnYellow';
 export * from './BottomNavigation';
 export * from './Logo';
 export * from './CardEditarAtividade';
-export * from './CardEditarViagem'
-export * from './ButtonReturnYellow'
-export * from './CardEditarTransporte'
-export * from './CardEditarHospedagem'
+export * from './ButtonReturnYellow';
+export * from './Loading';
