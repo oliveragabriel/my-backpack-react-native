@@ -46,8 +46,7 @@ export const ContainerProximaViagem = ({navigation, travels}) => {
         }}>
             <FlatList
                 style={{
-                  //GAMBIARRA
-                  marginBottom:80,
+                  marginBottom:50,
                 }}
                 data={travels}
                 renderItem={({item}) => 
