@@ -71,7 +71,7 @@ export const ComponenteDias = ({navigation, travelDays, travelDate}) => {
                   color: "#084594",
                   marginLeft: 4
                 }}
-              >{item.id}
+              >{item.day}
               </Text>
             </TouchableOpacity>
           }/>

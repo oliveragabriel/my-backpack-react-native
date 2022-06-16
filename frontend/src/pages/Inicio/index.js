@@ -8,7 +8,7 @@ import { UserContext } from '../../UseContext/UserContext';
 
 const Inicio = ({ navigation }) => {
 
-    const {user, travel, travels, contextSetTravels, contextSetNextTravel, flagTravel} = useContext(UserContext);
+    const {user, travel, travels, contextSetTravels, contextSetNextTravel} = useContext(UserContext);
 
     useEffect(()=>{
         contextSetTravels();

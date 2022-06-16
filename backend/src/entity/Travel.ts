@@ -46,10 +46,17 @@ export class Travel extends BaseEntity {
 
 
     static async createByService(data: travelType, id: number): Promise<Travel> {
-        return await Travel.create({
+        const travel = await Travel.create({
             ...data,
             user: await User.findOneBy({id: id})
         }).save();
+        for (let day = new Date(data.arrivalDate); day <= new Date(data.departureDate); day.setDate(day.getDate() + 1)) {
+            await TravelDay.create({
+                day: day,
+                travel: travel
+            }).save();
+        }
+        return travel;
     }
 
 

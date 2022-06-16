@@ -45,7 +45,7 @@ export class User extends BaseEntity {
                 user.id,
                 user.name,
                 user.email,
-                COUNT(travel.id) AS travels,
+                COUNT(DISTINCT travel.id) AS travels,
                 COUNT(DISTINCT travel_day.country) AS countries,
                 COUNT(DISTINCT travel_day.city) AS cities,
                 COUNT(activity.id) AS activities
