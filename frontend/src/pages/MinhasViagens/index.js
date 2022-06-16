@@ -39,14 +39,12 @@ const MinhasViagens = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {renderContainer()}
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {renderContainer()}
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

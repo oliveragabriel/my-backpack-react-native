@@ -7,11 +7,11 @@ export const ContainerAtividade = ({ country, description, value, type, time, na
       try {
         dispatch({type: actions.toggleLoading});
         //deleteActivity(id_activity)
-        dispatch({type: actions.setMessage, payload: 'Uma nova senha foi enviada ao seu e-mail!'});
+        dispatch({type: actions.setMessage, payload: 'Sua atividade foi removida!'});
         dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
         dispatch({type: actions.showAlert, payload: true });
       } catch (error) {
-        dispatch({type: actions.setMessage, payload: 'Não foi possível solicitar uma nova senha. Por favor, tente novamente!'});
+        dispatch({type: actions.setMessage, payload: 'Não foi possível remover a atividade, tente novamente!'});
         dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
         dispatch({type: actions.showAlert, payload: true });
       } finally {

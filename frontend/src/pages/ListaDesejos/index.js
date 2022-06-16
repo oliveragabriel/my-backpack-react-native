@@ -8,24 +8,22 @@ import { ContainerListaDesejos } from './ContainerListaDesejos';
 const ListaDesejos = ({ navigation }) => {
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          <Card width="90%" height={0.25}>
-            <View style={{
-              width: "100%",
-              }}>
-              <TitleRow  text="Meus desejos"/>
-              <ContainerListaDesejos navigation={navigation}/>
-              <ButtonRow 
-                text="Adicionar desejo"
-                onPress={() => navigation.navigate('Cadastro Desejo')} />
-            </View>
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        <Card width="90%" height={0.25}>
+          <View style={{
+            width: "100%",
+            }}>
+            <TitleRow  text="Meus desejos"/>
+            <ContainerListaDesejos navigation={navigation}/>
+            <ButtonRow 
+              text="Adicionar desejo"
+              onPress={() => navigation.navigate('Cadastro Desejo')} />
+          </View>
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

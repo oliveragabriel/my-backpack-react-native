@@ -72,16 +72,16 @@ export const FormItemInput = (props) => {
                 placeholderTextColor="#7B8794"
                 // secureTextEntry={secureTextEntry}
             />
+                  <Icon 
+                      name={props.iconName}
+                      color="#7B8794"
+                      size={26} 
+                      style={{ 
+                          position: 'absolute',
+                          left: '80%',
+                          top: '35%',
+                      }}/>
             
-                <Icon 
-                    name={props.iconName}
-                    color="#7B8794"
-                    size={26} 
-                    style={{ 
-                        position: 'absolute',
-                        left: 270,
-                        top: 12,
-                    }}/>
                 {/* {secureTextEntry && (
                     <TouchableOpacity onPress={() => setSecurity(!security)}>
                         <Icon 
