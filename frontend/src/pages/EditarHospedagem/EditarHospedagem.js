@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions'
@@ -30,62 +29,60 @@ const EditarHospedagem = ({navigation}) => {
   }, [checkRequiredField])
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <ButtonReturnYellow 
-            iconName='west' 
-            onPress={() => navigation.navigate("Editar Viagem")} 
-          />
-          <Card width="90%" height={0.3}>
-          <TitleRow text="Editar Hospedagem" />
-          <Spacer/>
-          <FormItemInput
-            required={true}
-            placeholder="Descrição"
-            defaultValue={accomodation.description ?? null}
-            onChangeText={text => setAccomodation({ ...accomodation, description: text})}
-          />
-          <Spacer />
-          <FormItemInput
-            required={true}
-            placeholder="Tipo (ex: Hotel, Airbnb)"
-            defaultValue={accomodation.type ?? null}
-            onChangeText={text => setAccomodation({ ...accomodation, type: text})}
-            iconName='home'
-          />
-          <Spacer />
-          <FormItemInput
-            required={true}
-            placeholder="Valor"
-            defaultValue={accomodation.value ?? null}
-            onChangeText={text => setAccomodation({ ...accomodation, value: text})}
-          />
-          <Spacer />
-          <FormItemInput
-            required={true}
-            placeholder="Horário de Saída"
-            defaultValue={accomodation.time ?? null}
-            onChangeText={text => setAccomodation({ ...accomodation, time: text})}
-          />
-          <Spacer />
-          <FormItemInput
-            required={true}
-            placeholder="Horário de Volta"
-            defaultValue={accomodation.time ?? null}
-            onChangeText={text => setAccomodation({ ...accomodation, time: text})}
-          />
-          <Spacer />    
-          <ButtonRow              
-            text="Alterar"
-            onPress={() => handleConfirmButton()}
-          />
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <ButtonReturnYellow 
+          iconName='west' 
+          onPress={() => navigation.navigate("Editar Viagem")} 
+        />
+        <Card width="90%" height={0.3}>
+        <TitleRow text="Editar Hospedagem" />
+        <Spacer/>
+        <FormItemInput
+          required={true}
+          placeholder="Descrição"
+          defaultValue={accomodation.description ?? null}
+          onChangeText={text => setAccomodation({ ...accomodation, description: text})}
+        />
+        <Spacer />
+        <FormItemInput
+          required={true}
+          placeholder="Tipo (ex: Hotel, Airbnb)"
+          defaultValue={accomodation.type ?? null}
+          onChangeText={text => setAccomodation({ ...accomodation, type: text})}
+          iconName='home'
+        />
+        <Spacer />
+        <FormItemInput
+          required={true}
+          placeholder="Valor"
+          defaultValue={accomodation.value ?? null}
+          onChangeText={text => setAccomodation({ ...accomodation, value: text})}
+        />
+        <Spacer />
+        <FormItemInput
+          required={true}
+          placeholder="Horário de Saída"
+          defaultValue={accomodation.time ?? null}
+          onChangeText={text => setAccomodation({ ...accomodation, time: text})}
+        />
+        <Spacer />
+        <FormItemInput
+          required={true}
+          placeholder="Horário de Volta"
+          defaultValue={accomodation.time ?? null}
+          onChangeText={text => setAccomodation({ ...accomodation, time: text})}
+        />
+        <Spacer />    
+        <ButtonRow              
+          text="Alterar"
+          onPress={() => handleConfirmButton()}
+        />
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

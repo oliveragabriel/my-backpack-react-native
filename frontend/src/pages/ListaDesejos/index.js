@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { SafeAreaView, ScrollView, View, Text, TouchableOpacity, FlatList } from 'react-native';
+import { View } from 'react-native';
 import { BottomNav, ButtonRow, TitleRow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';

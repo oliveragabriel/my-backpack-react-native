@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView, View, TouchableOpacity, Text } from 'react-native';
+import { View, TouchableOpacity, Text } from 'react-native';
 import { Alert, TitleRow, FormItemInput, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -32,122 +32,120 @@ const EditarViagem = ({ navigation }) => {
   }, [checkRequiredField])
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <ButtonReturnYellow
-            iconName='west' 
-            onPress={() => navigation.navigate("Minhas Viagens")} 
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <ButtonReturnYellow
+          iconName='west' 
+          onPress={() => navigation.navigate("Viagem Detalhe")} 
+        />
+        <Card width="90%" height={0.3}>
+        <TitleRow text="Editar Viagem" 
+            height={40} />
+            <Spacer />
+        <FormItemInput
+            required={true}
+            placeholder="Título"
+            autoComplete="name"
+            defaultValue={trip.title ?? null}
+            onChangeText={text => setTrip({ ...trip, title: text})}
           />
-          <Card width="90%" height={0.3}>
-          <TitleRow text="Editar Viagem" 
-              height={40} />
-              <Spacer />
+          <Spacer />
           <FormItemInput
-              required={true}
-              placeholder="Título"
-              autoComplete="name"
-              defaultValue={trip.title ?? null}
-              onChangeText={text => setTrip({ ...trip, title: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Data de Ida"
-              defaultValue={trip.departure ?? null}
-              onChangeText={text => setTrip({ ...trip, departure: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Data de Volta"
-              defaultValue={trip.arrival ?? null}
-              onChangeText={text => setTrip({ ...trip, arrival: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Tipo"
-              defaultValue={trip.type ?? null}
-              onChangeText={text => setTrip({ ...trip, type: text})}
-            />
-            <Spacer />
-              <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
-              <TouchableOpacity
+            required={true}
+            placeholder="Data de Ida"
+            defaultValue={trip.departure ?? null}
+            onChangeText={text => setTrip({ ...trip, departure: text})}
+          />
+          <Spacer />
+          <FormItemInput
+            required={true}
+            placeholder="Data de Volta"
+            defaultValue={trip.arrival ?? null}
+            onChangeText={text => setTrip({ ...trip, arrival: text})}
+          />
+          <Spacer />
+          <FormItemInput
+            placeholder="Tipo"
+            defaultValue={trip.type ?? null}
+            onChangeText={text => setTrip({ ...trip, type: text})}
+          />
+          <Spacer />
+            <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
+            <TouchableOpacity
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#4FCF78',
+            width: '33%',
+            height: 40,
+            padding: 6,
+            borderRadius: 6,
+          }}
+          onPress={handleConfirmButton}
+        >
+          <Text
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#4FCF78',
-              width: '33%',
-              height: 40,
-              padding: 6,
-              borderRadius: 6,
-            }}
-            onPress={handleConfirmButton}
+              fontSize: 14,
+              fontWeight: "600",
+            }} 
           >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "600",
-              }} 
-            >
-                  Alterar              
-            </Text>
-          </TouchableOpacity>
-                          <TouchableOpacity
+                Alterar              
+          </Text>
+        </TouchableOpacity>
+                        <TouchableOpacity
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#008E89',
+            height: 40,
+            width: '33%',
+            padding: 6,
+            borderRadius: 6,
+          }}
+          onPress={() => navigation.navigate('Editar Hospedagem')}
+        >
+          <Text
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#008E89',
-              height: 40,
-              width: '33%',
-              padding: 6,
-              borderRadius: 6,
-            }}
-            onPress={() => navigation.navigate('Editar Hospedagem')}
+              fontSize: 14,
+              fontWeight: "600",
+            }} 
           >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "600",
-              }} 
-            >
-                  Hospedagem              
-            </Text>
-          </TouchableOpacity>
-          <TouchableOpacity
+                Hospedagem              
+          </Text>
+        </TouchableOpacity>
+        <TouchableOpacity
+          style={{
+            display: 'flex',
+            flexDirection: 'row',
+            justifyContent: 'center',
+            alignItems: 'center',
+            backgroundColor: '#008E89',
+            height: 40,
+            width: '33%',
+            padding: 6,
+            borderRadius: 6,
+          }}
+          onPress={() => navigation.navigate('Editar Transporte')}
+        >
+          <Text
             style={{
-              display: 'flex',
-              flexDirection: 'row',
-              justifyContent: 'center',
-              alignItems: 'center',
-              backgroundColor: '#008E89',
-              height: 40,
-              width: '33%',
-              padding: 6,
-              borderRadius: 6,
-            }}
-            onPress={() => navigation.navigate('Editar Transporte')}
+              fontSize: 14,
+              fontWeight: "600",
+            }} 
           >
-            <Text
-              style={{
-                fontSize: 14,
-                fontWeight: "600",
-              }} 
-            >
-                  Transporte              
-            </Text>
-          </TouchableOpacity>
-            </View>
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+                Transporte              
+          </Text>
+        </TouchableOpacity>
+          </View>
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

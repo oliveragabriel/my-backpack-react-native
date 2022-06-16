@@ -1,5 +1,4 @@
 import React, { useState, useReducer, useCallback } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
 import { Container, Card, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -34,39 +33,37 @@ const AlterarSenha = ({ navigation }) => {
   console.log(token);
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Meu Perfil")} />
-          <Card width="90%" height={0.6}>
-            <TitleRow text="Alterar Senha" />
-            <FormItemInput
-              required={true}
-              placeholder="Senha"
-              autoComplete='password'
-              onChangeText={(text) => setToken({ ...token, password: text })}
-              // secureTextEntry
-              iconName="lock-outline"
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Confirme sua Nova Senha"
-              onChangeText={(text) => setToken({ ...token, confirm: text })}
-              // secureTextEntry
-              iconName="lock-outline"
-            />
-            <Spacer />
-            <ButtonRow
-              text="Confirmar"
-              onPress={() => handleConfirmButton()}
-            />
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>      
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Meu Perfil")} />
+        <Card width="90%" height={0.6}>
+          <TitleRow text="Alterar Senha" />
+          <FormItemInput
+            required={true}
+            placeholder="Senha"
+            autoComplete='password'
+            onChangeText={(text) => setToken({ ...token, password: text })}
+            // secureTextEntry
+            iconName="lock-outline"
+          />
+          <Spacer />
+          <FormItemInput
+            required={true}
+            placeholder="Confirme sua Nova Senha"
+            onChangeText={(text) => setToken({ ...token, confirm: text })}
+            // secureTextEntry
+            iconName="lock-outline"
+          />
+          <Spacer />
+          <ButtonRow
+            text="Confirmar"
+            onPress={() => handleConfirmButton()}
+          />
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>      
+    </>
   );
 };
 

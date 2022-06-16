@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, Logo } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -42,47 +41,45 @@ const MeuPerfil = ({ navigation }) => {
   }, [checkRequiredField])
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.3}>
-          <TitleRow text="Meu Perfil" />
-            <FormItemInput
-              required={true}
-              placeholder="Nome"
-              autoComplete="name"
-              defaultValue={user.name ?? null}
-              onChangeText={text => setUser({ ...user, name: text})}
-              iconName='person'
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="E-mail"
-              defaultValue={user.email ?? null}
-              autoComplete='email'
-              onChangeText={text => setUser({ ...user, email: text})}
-              iconName='email'
-            />
-            <Spacer />
-            <ButtonRow
-              text="Alterar"
-              onPress={() => handleConfirmButton()}
-            />
-            <ButtonRow
-              text="Configurar Senha"
-              onPress={() => navigation.navigate('Alterar Senha')}
-            />
-            <ButtonRow
-              text="Deslogar Usuário"
-              onPress={() => navigation.navigate('Acessar Conta')}
-            />
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <Card width="90%" height={0.3}>
+        <TitleRow text="Meu Perfil" />
+          <FormItemInput
+            required={true}
+            placeholder="Nome"
+            autoComplete="name"
+            defaultValue={user.name ?? null}
+            onChangeText={text => setUser({ ...user, name: text})}
+            iconName='person'
+          />
+          <Spacer />
+          <FormItemInput
+            required={true}
+            placeholder="E-mail"
+            defaultValue={user.email ?? null}
+            autoComplete='email'
+            onChangeText={text => setUser({ ...user, email: text})}
+            iconName='email'
+          />
+          <Spacer />
+          <ButtonRow
+            text="Alterar"
+            onPress={() => handleConfirmButton()}
+          />
+          <ButtonRow
+            text="Configurar Senha"
+            onPress={() => navigation.navigate('Alterar Senha')}
+          />
+          <ButtonRow
+            text="Deslogar Usuário"
+            onPress={() => navigation.navigate('Acessar Conta')}
+          />
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

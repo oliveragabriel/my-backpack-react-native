@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useReducer, useContext, useEffect} from 'react';
-import { SafeAreaView, ScrollView, Image } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow, Logo } from '../../components';
 import { Card, Container, Spacer} from '../../styles';
 import { actions } from './reducers/actions/';
@@ -15,7 +14,7 @@ const AcessarConta = ({ navigation }) => {
     email: '',
     password: ''
   });
-  const {user, contextSetUser, contextSetTravels} = useContext(UserContext);
+  const {user, contextSetUser, contextSetTravels, contextSetConquest} = useContext(UserContext);
 
   const checkRequiredField = useCallback(() => {
     if(credentials.email === '' || credentials.password === '') {
@@ -35,6 +34,7 @@ const AcessarConta = ({ navigation }) => {
           dispatch({type: actions.toggleLoading});
           let resp = await api.requestLoginUser(credentials);
           await contextSetUser(resp["id"]);
+          //await contextSetConquest(resp["id"]);
           navigation.navigate('Início');
         } catch (error) {
           console.log('Error', error);
@@ -66,54 +66,52 @@ const AcessarConta = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert bgColor="#DF6E6E" message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.25}>
-            <Logo/>
-            <TitleRow text="Acessar Conta" />
-            
-            <FormItemInput
-              required={true}
-              placeholder="E-mail"
-              autoComplete='email'
-              checked={state.checkedEmail}
-              onChangeText={(text) => handleEmail(text)}
-              iconName="email"
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert bgColor="#DF6E6E" message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <Card width="90%" height={0.25}>
+          <Logo/>
+          <TitleRow text="Acessar Conta" />
+          
+          <FormItemInput
+            required={true}
+            placeholder="E-mail"
+            autoComplete='email'
+            checked={state.checkedEmail}
+            onChangeText={(text) => handleEmail(text)}
+            iconName="email"
+          />
+          <Spacer />
+          <FormItemInput
+            required={true}
+            placeholder="Senha"
+            autoComplete='password'
+            checked={state.checkedPassword}
+            onChangeText={(text) => handlePassword(text)}
+            secureTextEntry
+            iconName="lock-outline"
+            style={{
+              //paddingTop: 10,
+            }}
+          />
+          <Container direction border="none">
+          <ButtonLink 
+            text="Criar Nova Conta"
+            onPress={() => navigation.navigate('Cadastro de Usuário')}
             />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Senha"
-              autoComplete='password'
-              checked={state.checkedPassword}
-              onChangeText={(text) => handlePassword(text)}
-              secureTextEntry
-              iconName="lock-outline"
-              style={{
-                //paddingTop: 10,
-              }}
+          <ButtonLink
+            text="Esqueci Minha Senha"
+            onPress={() => navigation.navigate('Esqueci Minha Senha')}
             />
-            <Container direction border="none">
-            <ButtonLink 
-              text="Criar Nova Conta"
-              onPress={() => navigation.navigate('Cadastro de Usuário')}
-              />
-            <ButtonLink
-              text="Esqueci Minha Senha"
-              onPress={() => navigation.navigate('Esqueci Minha Senha')}
-              />
-            </Container>
-            <ButtonRow
-              disabled={state.loading}
-              text="Entrar"
-              onPress={() => handleConfirmButton()}
-            />
-          </Card>
-        </Container>
-      </ScrollView>
-    </SafeAreaView>
+          </Container>
+          <ButtonRow
+            disabled={state.loading}
+            text="Entrar"
+            onPress={() => handleConfirmButton()}
+          />
+        </Card>
+      </Container>
+    </>
   );
 };
 

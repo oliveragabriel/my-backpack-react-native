@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { Alert, TitleRow, ButtonRow, CardEditarAtividade, BottomNav } from '../../components';
 import { Card, Container } from '../../styles';
 import { actions } from './reducers/actions';
@@ -29,26 +29,24 @@ const CadastroAtividade = ({navigation}) => {
   }, [checkRequiredField])
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.3}>
-          <TitleRow text="Adicionar Nova Atividade" />
-          <View style={{
-              width: "100%",
-              }}>
-              <CardEditarAtividade/>
-              <ButtonRow
-                text="Cadastrar"
-                onPress={() => handleConfirmButton()}
-              />
-            </View>
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <Card width="90%" height={0.3}>
+        <TitleRow text="Adicionar Nova Atividade" />
+        <View style={{
+            width: "100%",
+            }}>
+            <CardEditarAtividade/>
+            <ButtonRow
+              text="Cadastrar"
+              onPress={() => handleConfirmButton()}
+            />
+          </View>
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

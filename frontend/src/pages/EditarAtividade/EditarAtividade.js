@@ -1,5 +1,5 @@
 import React, { useState, useCallback, useReducer, useContext } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { Alert, TitleRow, ButtonRow, CardEditarAtividade, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
 import { actions } from './reducers/actions';
@@ -25,31 +25,29 @@ const EditarAtividade = ({navigation}) => {
   }, [checkRequiredField])
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <Card width="90%" height={0.3}>
-          <ButtonReturnYellow 
-            marginBottom={10}
-            iconName='west' 
-            onPress={() => navigation.navigate("Lista Atividades")} 
-             />
-          <TitleRow text="Editar Atividade" />
-            <View style={{
-              width: "100%",
-              }}>
-              <CardEditarAtividade/>
-              <ButtonRow
-                text="Alterar"
-                onPress={() => handleConfirmButton()}
-              />
-            </View>
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <Card width="90%" height={0.3}>
+        <ButtonReturnYellow 
+          marginBottom={10}
+          iconName='west' 
+          onPress={() => navigation.navigate("Lista Atividades")} 
+            />
+        <TitleRow text="Editar Atividade" />
+          <View style={{
+            width: "100%",
+            }}>
+            <CardEditarAtividade/>
+            <ButtonRow
+              text="Alterar"
+              onPress={() => handleConfirmButton()}
+            />
+          </View>
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

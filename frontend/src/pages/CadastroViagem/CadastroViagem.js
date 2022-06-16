@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useReducer, useContext } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -43,56 +42,54 @@ const CadastroViagem = ({navigation}) => {
   }, [checkRequiredField])
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <ButtonReturnYellow 
-            iconName='west' 
-            onPress={() => navigation.navigate("Minhas Viagens")} 
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <ButtonReturnYellow 
+          iconName='west' 
+          onPress={() => navigation.navigate("Minhas Viagens")} 
+        />
+        <Card width="90%" height={0.3}>
+        <TitleRow text="Adicionar Nova Viagem" />
+          <Spacer />
+        <FormItemInput
+            required={true}
+            placeholder="Título"
+            autoComplete="name"
+            defaultValue={trip.title ?? null}
+            onChangeText={text => setTrip({ ...trip, title: text})}
+            iconName='cloud'
           />
-          <Card width="90%" height={0.3}>
-          <TitleRow text="Adicionar Nova Viagem" />
-            <Spacer />
+          <Spacer />
           <FormItemInput
-              required={true}
-              placeholder="Título"
-              autoComplete="name"
-              defaultValue={trip.title ?? null}
-              onChangeText={text => setTrip({ ...trip, title: text})}
-              iconName='cloud'
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Data de Ida"
-              defaultValue={trip.arrivalDate ?? null}
-              onChangeText={text => setTrip({ ...trip, arrivalDate: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              required={true}
-              placeholder="Data de Volta"
-              defaultValue={trip.departureDate ?? null}
-              onChangeText={text => setTrip({ ...trip, departureDate: text})}
-            />
-            <Spacer />
-            <FormItemInput
-              placeholder="Tipo"
-              defaultValue={trip.type ?? null}
-              onChangeText={text => setTrip({ ...trip, type: text})}
-            />
-            <Spacer />
-            <ButtonRow
-              text="Cadastrar"
-              disabled={state.loading}
-              onPress={() => handleConfirmButton()}
-            />
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+            required={true}
+            placeholder="Data de Ida"
+            defaultValue={trip.arrivalDate ?? null}
+            onChangeText={text => setTrip({ ...trip, arrivalDate: text})}
+          />
+          <Spacer />
+          <FormItemInput
+            required={true}
+            placeholder="Data de Volta"
+            defaultValue={trip.departureDate ?? null}
+            onChangeText={text => setTrip({ ...trip, departureDate: text})}
+          />
+          <Spacer />
+          <FormItemInput
+            placeholder="Tipo"
+            defaultValue={trip.type ?? null}
+            onChangeText={text => setTrip({ ...trip, type: text})}
+          />
+          <Spacer />
+          <ButtonRow
+            text="Cadastrar"
+            disabled={state.loading}
+            onPress={() => handleConfirmButton()}
+          />
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

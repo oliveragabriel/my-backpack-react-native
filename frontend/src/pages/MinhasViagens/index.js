@@ -1,5 +1,5 @@
 import React, { useCallback, useContext, useEffect, useState } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { BottomNav, ButtonRow, Loading, TitleRow } from '../../components';
 import { Card, Container } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';
