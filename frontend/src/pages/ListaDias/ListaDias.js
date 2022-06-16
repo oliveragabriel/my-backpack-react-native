@@ -12,8 +12,8 @@ const ListaDias = ({ navigation }) => {
   return (
     <>
       <Container bgColor="#293775">
-        <Card width="90%" height={0.3}>
         <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Viagem Detalhe")} />
+        <Card width="90%" height={0.3}>
           <View style={{
             width: "100%",
             }}>
@@ -23,8 +23,8 @@ const ListaDias = ({ navigation }) => {
               travelDays={travelDays.objArr}
             />
           </View>
-          </Card>
-        </Container>
+        </Card>
+      </Container>
       <BottomNav navigation={navigation}/>
     </>
     );

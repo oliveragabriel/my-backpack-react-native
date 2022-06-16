@@ -13,10 +13,13 @@ export class TravelDay extends BaseEntity {
     @PrimaryGeneratedColumn()
     id: number
 
-    @Column()
+    @Column('date')
+    day: Date
+
+    @Column({nullable: true})
     country: string
 
-    @Column()
+    @Column({nullable: true})
     city: string
 
     @Column()

@@ -23,7 +23,7 @@ export const ContainerViagem = ({navigation, travel}) => {
               textTransform: "uppercase",
             }}
             >
-            {`${travel.title}`}
+            {`${travel?.title}`}
           </Text>
         </View>
         <View
@@ -99,7 +99,7 @@ export const ContainerViagem = ({navigation, travel}) => {
                 marginLeft: 6,
               }}
             >
-              {`${travel.countries.replace(',', ', ')}`}
+              {`${travel?.countries?.replace(',', ', ')}`}
             </Text>
           </View>
           <View 
@@ -153,7 +153,7 @@ export const ContainerViagem = ({navigation, travel}) => {
                 marginLeft: 6,
               }}
               >
-              {`${travel.arrivalDate.split('T')[0]}`}
+              {`${travel?.arrivalDate?.split('T')[0]}`}
             </Text>
           </View>
           <View
@@ -176,7 +176,7 @@ export const ContainerViagem = ({navigation, travel}) => {
                 marginLeft: 6,
               }}
               >
-              {`${travel.departureDate.split('T')[0]}`}
+              {`${travel?.departureDate?.split('T')[0]}`}
             </Text>
           </View>
         </View>
@@ -208,7 +208,7 @@ export const ContainerViagem = ({navigation, travel}) => {
                 marginLeft: 6,
               }}
               >
-              {`${travel.days}`}
+              {`${travel?.days}`}
             </Text>
           </View>
           <View
@@ -231,7 +231,7 @@ export const ContainerViagem = ({navigation, travel}) => {
                 marginLeft: 6,
               }}
               >
-              {`${travel.activities}`}
+              {`${travel?.activities}`}
             </Text>
           </View>
         </View>

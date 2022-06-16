@@ -5,6 +5,15 @@ export const UserContext = createContext();
 
 export const UserProvider = ({children}) => {
 
+  const [loading, setLoading] = useState({
+    accomodation: true,
+    activity: true,
+    transport: true,
+    travel: true,
+    travelDay: true,
+    user: true,
+    wish: true
+  });
   /**
    * User
    */
@@ -116,6 +125,7 @@ export const UserProvider = ({children}) => {
   const initialTravelDay = {
     loading: true,
     id: '',
+    day: '',
     country: '',
     city: '',
     day: '',
