@@ -91,6 +91,9 @@ const AcessarConta = ({ navigation }) => {
               onChangeText={(text) => handlePassword(text)}
               secureTextEntry
               iconName="lock-outline"
+              style={{
+                //paddingTop: 10,
+              }}
             />
             <Container direction border="none">
             <ButtonLink 

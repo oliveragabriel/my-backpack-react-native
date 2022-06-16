@@ -118,6 +118,7 @@ export const UserProvider = ({children}) => {
     id: '',
     country: '',
     city: '',
+    day: '',
   };
 
   const [travelDays, setTravelDays] = useState(initialObjArr);
@@ -256,6 +257,31 @@ export const UserProvider = ({children}) => {
   const [accomodation, setAccomodation] = useState(initialAccomodation);
   const resetAccomodation = () => setAccomodation(initialAccomodation);
 
+  const contextSetAccomodation = async (id) => {
+    try {
+      const response = await api.requestGetOne(id, 'accomodation');
+      setAccomodation(response);
+    } catch (error) {
+      
+      console.log(error);
+    }
+  };
+
+  const contextSetAccomodations = async (id) => {
+    try {
+      const response = await api.requestGetAll(id, 'accomodation');
+      setAccomodations({
+        loading: false,
+        objArr: [...response]
+      });
+    } catch (erro) {
+      setAccomodations({
+        loading: false,
+        objArr: []
+      });
+      console.log(erro);
+    }
+  };
 
   /**
    * Transport
@@ -279,24 +305,49 @@ export const UserProvider = ({children}) => {
   const [transport, setTransport] = useState(initialTransport);
   const resetTransport = () => setTransport(initialTransport);
 
+  const contextSetTransport = async (id) => {
+    try {
+      const response = await api.requestGetOne(id, 'transport');
+      setTransport(response);
+    } catch (error) {
+      
+      console.log(error);
+    }
+  };
+
+  const contextSetTransports = async (id) => {
+    try {
+      const response = await api.requestGetAll(id, 'transport');
+      setTransports({
+        loading: false,
+        objArr: [...response]
+      });
+    } catch (erro) {
+      setTransports({
+        loading: false,
+        objArr: []
+      });
+      console.log(erro);
+    }
+  };
 
   return (
     <UserContext.Provider value={{
-//        accomodations, contextSetAccomodations, resetAccomodations,
-//        accomodation, contextSetAccomodation, resetAccomodation,
-        activities, contextSetActivities, resetActivities,
-        activity, contextSetActivity, resetActivity,
-//        transports, contextSetTransports, resetTransports,
-//        transport, contextSetTransport, resetTransport,
-        travels, contextSetTravels, resetTravels,
-        travel, contextSetTravel, resetTravel,
-        flagTravel, contextSetNextTravel,
-        travelDays, contextSetTravelDays, resetTravelDays,
-        travelDay, contextSetTravelDay, resetTravelDay,
-        user, contextSetUser, resetUser,
-        wishes, contextSetWishes, resetWishes,
-        wish, contextSetWish, resetWish,
-      }}>
+      accomodations, contextSetAccomodations, resetAccomodations,
+      accomodation, contextSetAccomodation, resetAccomodation,
+      activities, contextSetActivities, resetActivities,
+      activity, contextSetActivity, resetActivity,
+      transports, contextSetTransports, resetTransports,
+      transport, contextSetTransport, resetTransport,
+      travels, contextSetTravels, resetTravels,
+      travel, contextSetTravel, resetTravel,
+      flagTravel, contextSetNextTravel,
+      travelDays, contextSetTravelDays, resetTravelDays,
+      travelDay, contextSetTravelDay, resetTravelDay,
+      user, contextSetUser, resetUser,
+      wishes, contextSetWishes, resetWishes,
+      wish, contextSetWish, resetWish,
+    }}>
       {children}
     </UserContext.Provider>
   )

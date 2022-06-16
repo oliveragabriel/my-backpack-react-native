@@ -15,32 +15,30 @@ const MinhasViagens = ({ navigation }) => {
   },[]);
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          <Card width="90%" height={0.25}>
-            <View style={{
-              width: "100%",
-              }}>
-              <TitleRow  text="Minhas Viagens"/>
-              <ContainerViagensAnteriores
-                navigation={navigation}
-                travels={travels.done}
-              />
-              <ContainerProximaViagem
-                navigation={navigation}
-                travels={travels.notDone}
-              />
-              <ButtonRow 
-                text="Adicionar próxima viagem" 
-                onPress={() => navigation.navigate('Cadastro Viagem')}
-              />
-            </View>
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        <Card width="90%" height={0.25}>
+          <View style={{
+            width: "100%",
+            }}>
+            <TitleRow  text="Minhas Viagens"/>
+            <ContainerViagensAnteriores
+              navigation={navigation}
+              travels={travels.done}
+            />
+            <ContainerProximaViagem
+              navigation={navigation}
+              travels={travels.notDone}
+            />
+            <ButtonRow 
+              text="Adicionar próxima viagem" 
+              onPress={() => navigation.navigate('Cadastro Viagem')}
+            />
+          </View>
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

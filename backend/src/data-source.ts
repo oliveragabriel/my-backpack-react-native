@@ -13,7 +13,7 @@ export const AppDataSource = new DataSource({
     host: "localhost",
     port: 3306,
     username: "root",
-    password: "senai",
+    password: "123456",
     database: "gobackpack",
     synchronize: true,
     logging: false,
@@ -56,6 +56,14 @@ export const setTestData = async () => {
         await em.query(`
             INSERT INTO travel (title, arrivalDate, departureDate, type, userId)
             VALUES ("Japão", "2023-07-15", "2023-07-25", "turismo", "1");
+        `);
+        await em.query(`
+          INSERT INTO travel_day (country, city, travelid)
+          VALUES ("EUA", "Miami", "1");
+        `);
+        await em.query(`
+          INSERT INTO activity (description, type, value, time, travelDayId)
+          VALUES ("Museu", "educacao", "300", "12:00", "1");
         `);
     }
 };

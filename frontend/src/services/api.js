@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
     // nao logar na internet do senai que muda o IP direto e da erro
-    baseURL: "http://10.3.60.8:3000",
+    baseURL: "http://192.168.100.10:3000",
     headers: {
         "Content-Type": "application/json",
     }

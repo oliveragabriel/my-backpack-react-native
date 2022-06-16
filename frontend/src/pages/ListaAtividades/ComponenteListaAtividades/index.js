@@ -1,16 +1,11 @@
-import React, { useState }from 'react';
+import React, { useContext }from 'react';
+import { UserContext } from '../../../UseContext/UserContext';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
 
 export const ComponenteListaAtividades = ({navigation}) => {
-  const [listaAtividades, setListaDias] = useState([{
-    name: "Museu Nacional"
-  }, {
-    name: "Praia"
-  }, {
-    name: "Torre Eifel"
-  }, {
-    name: "Blablabla"
-  }])
+  
+  const {activities} = useContext(UserContext);
+
   return (
     <View
       style={{
@@ -46,10 +41,9 @@ export const ComponenteListaAtividades = ({navigation}) => {
       }}>
         <FlatList
           style={{
-            //GAMBIARRA
             marginBottom:80,
           }}
-          data={listaAtividades}
+          data={activities}
           renderItem={({item}) => 
             <TouchableOpacity
               style={{

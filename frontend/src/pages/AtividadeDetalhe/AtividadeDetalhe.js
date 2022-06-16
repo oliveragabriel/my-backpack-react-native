@@ -1,17 +1,13 @@
-import React, { useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import { UserContext } from '../../UseContext/UserContext';
 import { BottomNav, TitleRow, ButtonRow, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
 import { ContainerAtividade } from './ContainerAtividade';
 
 const AtividadeDetalhe = ({ navigation }) => {
-  const [activity, setActivity] = useState({
-    country: 'EUA',
-    description: 'Museu Nacional',
-    value: 30,
-    type: 'Lazer',
-    time: 0,
-  });
+
+  const {activity, travelDay} = useContext(UserContext)
 
   return (
     <SafeAreaView>
@@ -21,7 +17,7 @@ const AtividadeDetalhe = ({ navigation }) => {
           <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Atividades")} />
             <TitleRow text="Detalhes da Atividade" />
             <ContainerAtividade 
-              country={activity.country}
+              country={travelDay.country}
               description={activity.description}
               value={activity.value} 
               type={activity.type}

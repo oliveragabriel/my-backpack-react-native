@@ -1,18 +1,14 @@
-import React, { useState, useCallback, useReducer } from 'react';
+import React, { useState, useCallback, useReducer, useContext } from 'react';
 import { SafeAreaView, ScrollView, View } from 'react-native';
 import { Alert, TitleRow, ButtonRow, CardEditarAtividade, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
 import { actions } from './reducers/actions';
+import { UserContext } from '../../UseContext/UserContext';
 import { initialState, reducer } from './reducers/reducer';
 
 const EditarAtividade = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [activity, setActivity] = useState({
-    description: '',
-    type: '',
-    value: 0,
-    time: null,
-  });
+  const {activity} = useContext(UserContext)
 
   const checkRequiredField = useCallback(() => {
     if(activity.description === '' || activity.type === '') {
