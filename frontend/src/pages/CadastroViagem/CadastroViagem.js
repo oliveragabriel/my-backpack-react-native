@@ -8,7 +8,7 @@ import * as api from '../../services/api';
 
 const CadastroViagem = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {user, resetTravels} = useContext(UserContext);
+  const {user, resetTravels, contextSetTravels} = useContext(UserContext);
   const [trip, setTrip] = useState({
     title: '',
     departureDate: '',
@@ -25,20 +25,38 @@ const CadastroViagem = ({navigation}) => {
     return dispatch({type: actions.showAlert, payload: false });
   }, [trip.title, trip.departureDate, trip.arrivalDate, trip.type, state]);
 
-  const handleConfirmButton = useCallback( async () => {
+  const FormatDate = (date) => {
+    var dia  = date.split("/")[0];
+    var mes  = date.split("/")[1];
+    var ano  = date.split("/")[2];
+    return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);  
+  }
+
+  const handlePostTravel = async (newTrip) => {
     try {
-      dispatch({type: actions.toggleLoading});
-      checkRequiredField();
-      await api.requestCreate(user.id, 'travel', trip);
-      //resetTravels();
-      navigation.navigate('Minhas Viagens');
-    } catch(error) {
+      await api.requestCreate(user.id, 'travel', newTrip);
+      dispatch({type: actions.setMessage, payload: 'Viagem atualizada com sucesso!'});
+      dispatch({type: actions.showAlert, payload: true });
+    } catch (error) {
       dispatch({type: actions.setMessage, payload: error});
       dispatch({type: actions.showAlert, payload: true });
+      console.log(error)
     } finally {
       dispatch({type: actions.toggleLoading});
     }
-    
+  }
+
+  const handleConfirmButton = useCallback(() => {
+      dispatch({type: actions.toggleLoading});
+      checkRequiredField();
+      const newArrivalDate = FormatDate(trip.arrivalDate);
+      const newDepartureDate = FormatDate(trip.departureDate)
+      const newTrip = {...trip, arrivalDate:newArrivalDate, departureDate:newDepartureDate}
+      handlePostTravel(newTrip);
+      console.log('passou req')
+      //resetTravels();
+      contextSetTravels();
+      navigation.navigate('Minhas Viagens');
   }, [checkRequiredField])
 
   return (

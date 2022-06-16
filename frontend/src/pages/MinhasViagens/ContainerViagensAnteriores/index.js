@@ -33,8 +33,7 @@ export const ContainerViagensAnteriores = ({navigation, travels}) => {
             <View>
                 <FlatList
                     style={{
-                        //GAMBIARRA
-                        marginBottom:80,
+                        marginBottom:50,
                     }}
                     data={travels}
                     renderItem={({item}) =>
