@@ -1,5 +1,5 @@
 import React, { useContext, useEffect } from 'react';
-import { SafeAreaView, ScrollView, View } from 'react-native';
+import { View } from 'react-native';
 import { BottomNav, TitleRow, ButtonReturnYellow } from '../../components';
 import { Card, Container } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';

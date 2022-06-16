@@ -15,7 +15,8 @@ const child = {
     travel: '/travels',
     travelDay: '/traveldays',
     user: '/users',
-    wish: '/wishes'
+    wish: '/wishes',
+    conquest: '/conquests'
 };
 
 const parent = {
@@ -108,4 +109,15 @@ export const requestDelete = async (id, entity) => {
     } catch (err) {
         throw err.response.data.msg;
     }
+}
+
+//CONQUEST - CRIAR NO BACKEND p path /conquests
+
+export const requestGetConquest = async (id) => {
+  try {
+    const resp = await instance.get(pathSimple(id));
+    return resp.data;
+  } catch (err) {
+    throw err.response.data.msg;
+  }
 }

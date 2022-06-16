@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions/';
@@ -29,29 +28,27 @@ const CadastroDesejo = ({navigation}) => {
   }, [checkRequiredField])
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Desejos")} />
-          <Card width="90%"height={0.65}>
-          <TitleRow text="Adicionar Novo Desejo" />
-            <FormItemInput
-              required={true}
-              placeholder="Que viagem você gostaria de fazer?"
-              defaultValue={wish.description ?? null}
-              onChangeText={text => setWish({ ...wish, description: text})}
-            />
-            <Spacer />
-            <ButtonRow
-              text="Cadastrar"
-              onPress={() => handleConfirmButton()}
-            />
-          </Card>
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Desejos")} />
+        <Card width="90%"height={0.65}>
+        <TitleRow text="Adicionar Novo Desejo" />
+          <FormItemInput
+            required={true}
+            placeholder="Que viagem você gostaria de fazer?"
+            defaultValue={wish.description ?? null}
+            onChangeText={text => setWish({ ...wish, description: text})}
+          />
+          <Spacer />
+          <ButtonRow
+            text="Cadastrar"
+            onPress={() => handleConfirmButton()}
+          />
+        </Card>
+      </Container>
+      <BottomNav navigation={navigation}/>
+    </>
   );
 };
 

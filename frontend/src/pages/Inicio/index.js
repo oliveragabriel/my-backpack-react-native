@@ -1,5 +1,5 @@
 import React, { useEffect, useContext } from 'react';
-import { SafeAreaView, ScrollView, View, Text } from 'react-native';
+import { View, Text } from 'react-native';
 import { BottomNav, Loading } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { ContainerViagem } from './ContainerViagem';
@@ -53,14 +53,12 @@ const Inicio = ({ navigation }) => {
     };
 
     return (
-        <SafeAreaView>
-            <ScrollView>
-                <Container bgColor="#293775">
-                    {handleContent()}
-                </Container>
-                </ScrollView>
-                <BottomNav navigation={navigation}/>
-        </SafeAreaView>
+      <>
+        <Container bgColor="#293775">
+            {handleContent()}
+        </Container>
+        <BottomNav navigation={navigation}/>
+      </>
     );
 };
 

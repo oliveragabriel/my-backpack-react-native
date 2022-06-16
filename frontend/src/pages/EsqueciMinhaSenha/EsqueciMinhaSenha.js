@@ -1,5 +1,4 @@
 import React, { useState, useCallback, useReducer } from 'react';
-import { SafeAreaView, ScrollView } from 'react-native';
 import { Alert, TitleRow, FormItemInput, ButtonRow, Logo, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -54,32 +53,30 @@ const EsqueciMinhaSenha = ({ navigation }) => {
   }
 
   return (
-    <SafeAreaView>
-      <ScrollView>
-        <Container bgColor="#293775">
-          {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-          <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Acessar Conta")}/>
-          <Card width="90%" height={0.3}>
-          <Logo/>
-          <TitleRow text="Esqueci Minha Senha" />
-            <FormItemInput
-              required={true}
-              placeholder="E-mail"
-              defaultValue={credential.email ?? null}
-              checked={state.checkedEmail}
-              onChangeText={(text) => handleEmail(text)}
-              iconName='email'
-            />
-            <Spacer />
-            <ButtonRow
-              disabled={state.loading}
-              text="Solicitar Nova Senha"
-              onPress={() => handleConfirmButton()}
-            />
-          </Card>
-        </Container>
-      </ScrollView>
-    </SafeAreaView>
+    <>
+      <Container bgColor="#293775">
+        {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Acessar Conta")}/>
+        <Card width="90%" height={0.3}>
+        <Logo/>
+        <TitleRow text="Esqueci Minha Senha" />
+          <FormItemInput
+            required={true}
+            placeholder="E-mail"
+            defaultValue={credential.email ?? null}
+            checked={state.checkedEmail}
+            onChangeText={(text) => handleEmail(text)}
+            iconName='email'
+          />
+          <Spacer />
+          <ButtonRow
+            disabled={state.loading}
+            text="Solicitar Nova Senha"
+            onPress={() => handleConfirmButton()}
+          />
+        </Card>
+      </Container>
+    </>
   );
 };
 

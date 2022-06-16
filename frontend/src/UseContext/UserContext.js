@@ -191,8 +191,15 @@ export const UserProvider = ({children}) => {
   const contextSetActivity = async (id) => {
     try {
       const response = await api.requestGetOne(id, 'activity');
-      setActivity(response);
+      setActivity({
+        loading: false,
+        ...response
+      });
     } catch (error) {
+      setActivity({
+        loading: false,
+        ...initialTravelDay
+      });
       console.log(error);
     }
   };
@@ -212,6 +219,36 @@ export const UserProvider = ({children}) => {
       console.log(erro);
     }
   };
+
+  /**
+   * Conquest
+   */
+  const initialConquest = {
+    loading: true,
+    qtdTravel: 0,
+    qtdCountry: 0,
+    qtdCity: 0,
+    qtdActivity: 0,
+  }
+
+  const [conquest, setConquest] = useState(initialConquest)
+  const resetConquest = () => setConquest(initialConquest)
+
+  const contextSetConquest = async (id) => {
+    try {
+      const response = await api.requestGetOne(id, 'conquest');
+      setConquest({
+        loading: false,
+        ...response
+      });
+    } catch (erro) {
+      setConquest({
+        loading: false,
+        ...initialConquest
+      });
+      console.log(erro);
+    }
+  }
 
   /**
    * Wish
@@ -357,6 +394,7 @@ export const UserProvider = ({children}) => {
       user, contextSetUser, resetUser,
       wishes, contextSetWishes, resetWishes,
       wish, contextSetWish, resetWish,
+      conquest, contextSetConquest, resetConquest,
     }}>
       {children}
     </UserContext.Provider>
