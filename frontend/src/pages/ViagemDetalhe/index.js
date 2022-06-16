@@ -13,8 +13,8 @@ const ViagemDetalhe = ({ navigation }) => {
     <SafeAreaView>
       <ScrollView>
         <Container bgColor="#293775">
+          <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Minhas Viagens")} />
           <Card width="90%" height={0.4}>
-            <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Minhas Viagens")} />
             <TitleRow text="Detalhes da Viagem" />
             <ContainerViagem 
               travel={travel}
