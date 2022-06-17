@@ -1,4 +1,4 @@
-import React from 'react';
+import React, {useCallback} from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
 export const ContainerAtividade = ({ country, description, value, type, time, navigation }) => {
@@ -63,7 +63,8 @@ export const ContainerAtividade = ({ country, description, value, type, time, na
               padding: 10,
               borderRadius: 6,
             }}
-            onPress={() => navigation.navigate('Editar Atividade')}
+            onPress={() => {
+              navigation.navigate('Editar Atividade')}}
           >
             <Text
               style={{

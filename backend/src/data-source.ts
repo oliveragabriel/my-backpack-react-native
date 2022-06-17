@@ -58,13 +58,16 @@ export const setTestData = async () => {
             VALUES ("Japão/Korea", "2023-07-15", "2023-07-17", "turismo", "1");
         `);
         await em.query(`
-            INSERT INTO travel_day (day, country, city, travelId) VALUES ('2023-07-15', 'japão', 'osaka', 3);
+            INSERT INTO travel_day (day, country, city, travelId) 
+            VALUES ('2023-07-15', 'japão', 'osaka', 3);
         `);
         await em.query(`
-            INSERT INTO travel_day (day, country, city, travelId) VALUES ('2023-07-16', 'japão', 'tokyo', 3);
+            INSERT INTO travel_day (day, country, city, travelId) 
+            VALUES ('2023-07-16', 'japão', 'tokyo', 3);
         `);
         await em.query(`
-            INSERT INTO travel_day (day, country, city, travelId) VALUES ('2023-07-17', 'korea', 'seoul', 3);
+            INSERT INTO travel_day (day, country, city, travelId) 
+            VALUES ('2023-07-17', 'korea', 'seoul', 3);
         `);
         await em.query(`
           INSERT INTO travel_day (country, city, travelid)

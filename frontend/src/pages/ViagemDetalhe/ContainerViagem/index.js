@@ -1,7 +1,32 @@
-import React from 'react';
+import React, { useContext, useReducer } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
+import { UserContext } from '../../../UseContext/UserContext';
+import { actions } from './reducers/actions';
+import { initialState, reducer } from './reducers/reducer';
+import * as api from '../../../services/api';
 
 export const ContainerViagem = ({navigation, travel}) => {
+
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const {contextSetTravels} = useContext(UserContext)
+
+  const handleDeleteTravel = async () => {
+    try {
+      await api.requestDelete(travel.id, 'travel')
+      dispatch({type: actions.setMessage, payload: 'Viagem deletada com sucesso!'});
+      dispatch({type: actions.showAlert, payload: true });
+    } catch (error) {
+      dispatch({type: actions.showAlert, payload: true });
+      dispatch({type: actions.setMessage, payload: 'A viagem não pode ser deletada, tente novamente!'});
+      console.log(error)
+    }
+  }
+
+  const handleDeleteButton = () => {
+    handleDeleteTravel()
+    contextSetTravels()
+    navigation.navigate("Minhas Viagens")
+  }
     return (
       <View
         style={{
@@ -68,6 +93,7 @@ export const ContainerViagem = ({navigation, travel}) => {
               padding: 10,
               borderRadius: 6,
             }}
+            onPress={handleDeleteButton}
           >
             <Text
               style={{

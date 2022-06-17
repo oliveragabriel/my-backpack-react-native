@@ -207,6 +207,7 @@ export const UserProvider = ({children}) => {
   const contextSetActivities = async (id) => {
     try {
       const response = await api.requestGetAll(id, 'activity');
+      //console.log(response)
       setActivities({
         loading: false,
         objArr: [...response]

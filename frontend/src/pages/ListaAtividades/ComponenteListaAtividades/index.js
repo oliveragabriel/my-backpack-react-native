@@ -2,9 +2,14 @@ import React, { useContext }from 'react';
 import { UserContext } from '../../../UseContext/UserContext';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
 
-export const ComponenteListaAtividades = ({navigation}) => {
+export const ComponenteListaAtividades = ({navigation, activities}) => {
   
-  const {activities} = useContext(UserContext);
+  const {contextSetActivity} = useContext(UserContext);
+  console.log(activities)
+  const handleActivityButton = async (id) => {
+    await contextSetActivity(id)
+    navigation.navigate('Atividade Detalhe')
+  }
 
   return (
     <View
@@ -43,7 +48,7 @@ export const ComponenteListaAtividades = ({navigation}) => {
           style={{
             marginBottom:80,
           }}
-          data={activities}
+          data={activities.objArr}
           renderItem={({item}) => 
             <TouchableOpacity
               style={{
@@ -58,7 +63,7 @@ export const ComponenteListaAtividades = ({navigation}) => {
                 borderRadius: 6,
                 borderColor: "#DCDCDC",
               }}
-              onPress={() => navigation.navigate('Atividade Detalhe')}>
+              onPress={() => handleActivityButton(item.id)}>
               <Text
                 style={{
                   fontSize: 16,
@@ -67,7 +72,7 @@ export const ComponenteListaAtividades = ({navigation}) => {
                   color: "#084594",
                   marginLeft: 4
                 }}
-              >{item.name}
+              >{item.description}
               </Text>
             </TouchableOpacity>
           }/>
