@@ -81,6 +81,8 @@ export const requestCreateUser = async (data) => {
 export const requestCreate = async (id, entity, data) => {
     try {
         const resp = await instance.post(pathParent(id, entity), data);
+        //retornando undefined quando passa a travelday.id, 'activity', obj
+        console.log(resp)
         return resp.data;
     } catch (err) {
         throw err.response.data.msg;

@@ -11,7 +11,7 @@ const AtividadeDetalhe = ({ navigation }) => {
   return (
     <>
       <Container bgColor="#293775">
-        <Card width="90%" height={0.3}>
+        <Card width="90%" height={0.5}>
         <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Atividades")} />
           <TitleRow text="Detalhes da Atividade" />
           <ContainerAtividade 
@@ -22,9 +22,6 @@ const AtividadeDetalhe = ({ navigation }) => {
             time={activity.time}
             navigation={navigation}
           />
-          <ButtonRow 
-              text="Atividade" 
-              onPress={() => navigation.navigate('')}/>
         </Card>
       </Container>
       <BottomNav navigation={navigation}/>

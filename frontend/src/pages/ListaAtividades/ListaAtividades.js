@@ -1,13 +1,13 @@
 import React, { useContext, useEffect } from 'react';
 import { View } from 'react-native';
-import { BottomNav, TitleRow, ButtonReturnYellow } from '../../components';
+import { BottomNav, TitleRow, ButtonReturnYellow, ButtonRow } from '../../components';
 import { Card, Container } from '../../styles';
 import { UserContext } from '../../UseContext/UserContext';
 import { ComponenteListaAtividades } from './ComponenteListaAtividades';
 
 const ListaAtividades = ({ navigation }) => {
 
-  const { travelDay } = useContext(UserContext)
+  const { travelDay, activities } = useContext(UserContext)
 
   return (
     <>
@@ -18,8 +18,11 @@ const ListaAtividades = ({ navigation }) => {
             width: "100%",
             }}>
             <TitleRow text={`Atividades do dia ${travelDay.day}`}/>
-            <ComponenteListaAtividades navigation={navigation}/>
+            <ComponenteListaAtividades activities={activities} navigation={navigation}/>
           </View>
+          <ButtonRow 
+            text={'Adicionar Atividade'}
+            onPress={() => navigation.navigate('Cadastrar Atividade')}/>
           </Card>
         </Container>
       <BottomNav navigation={navigation}/>

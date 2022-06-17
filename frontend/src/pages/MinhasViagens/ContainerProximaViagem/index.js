@@ -64,7 +64,7 @@ export const ContainerProximaViagem = ({navigation, travels}) => {
                       borderColor: "#DCDCDC",
                     }}
                     onPress={ async () => {
-                      console.log(item.id);
+                      //console.log(item.id);
                       await contextSetTravel(item.id);
                       navigation.navigate('Viagem Detalhe');
                     }}>

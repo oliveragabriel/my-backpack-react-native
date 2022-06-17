@@ -4,7 +4,13 @@ import { UserContext } from '../../../UseContext/UserContext';
 
 export const ComponenteDias = ({navigation, travelDays, travelDate}) => {
 
-  const {contextSetActivities} = useContext(UserContext);
+  const {activities, contextSetActivities} = useContext(UserContext);
+
+  const handleActivitiesButton = async (id) => {
+    await contextSetActivities(id);
+    //console.log(activities)
+    navigation.navigate('Lista Atividades');
+    }
 
   return (
     <View
@@ -41,7 +47,6 @@ export const ComponenteDias = ({navigation, travelDays, travelDate}) => {
       }}>
         <FlatList
           style={{
-            //GAMBIARRA
             marginBottom:80,
           }}
           data={travelDays}
@@ -59,10 +64,7 @@ export const ComponenteDias = ({navigation, travelDays, travelDate}) => {
                 borderRadius: 6,
                 borderColor: "#DCDCDC",
               }}
-              onPress={async () => {
-                await contextSetActivities(item.id);
-                navigation.navigate('Lista Atividades');
-              }}>
+              onPress={() => handleActivitiesButton(item.id)}>
               <Text
                 style={{
                   fontSize: 16,
