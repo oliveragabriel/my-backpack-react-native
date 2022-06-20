@@ -1,29 +1,44 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useContext, useEffect, useState } from 'react';
 import { View, Text } from 'react-native';
 import { BottomNav, Loading } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { ContainerViagem } from './ContainerViagem';
 import { ContainerConquistaInicio } from './ContainerConquista';
 import { UserContext } from '../../UseContext/UserContext';
+import * as api from '../../services/api';
 
 const Inicio = ({ navigation }) => {
 
-    const {user, travel, travels, contextSetTravels, contextSetNextTravel} = useContext(UserContext);
-
-    useEffect(()=>{
-        contextSetTravels();
-    },[])
+    const {stateId, dispatchId} = useContext(UserContext);
+    const [user, setUser] = useState({loading: true});
+    const [next, setNext] = useState({loading: true});
+    const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        contextSetNextTravel();
-    }, [travels]);
+        let isMounted = true;
+        if (isMounted) {
+            api.requestGetOne(stateId.user, 'user')
+                .then(res => setUser({...res, loading: false}));
+            api.requestGetNext(stateId.user)
+                .then(res => setNext({...res, empty: false, loading: false}))
+                .catch(error => setNext({empty: true, loading: false}));
+        }
+        return () => {isMounted = false};
+    }, []);
+
+
+    useEffect(() => {
+        let isMounted = true;
+        if (isMounted && !user.loading && !next.loading) setLoading(false);
+        return () => {isMounted= false;}
+    }, [user, next]);
 
     const handleContent = () => {
-        return (travels.loading || travel.loading) ? (<Loading/>) : (
+        return (loading) ? (<Loading/>) : (
             <Card width="90%" height={0.4}>
                 <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'center' }}>
                     <Text style={{ fontSize: 16, textAlign: "center", color: "#084594"}}>
-                        Bem-vindo
+                        Bem-vindo(a)
                     </Text>
                     <Text style={{
                         fontSize: 16,
@@ -38,11 +53,11 @@ const Inicio = ({ navigation }) => {
                 <Spacer />
                 <ContainerViagem
                     navigation={navigation}
-                    nextTravel={travel}
+                    nextTravel={next}
                 >
                 </ContainerViagem>
                 <Spacer />
-                <ContainerConquistaInicio 
+                <ContainerConquistaInicio
                     title="Minhas Conquistas" 
                     travel={user.travels} 
                     country={user.countries}
@@ -53,12 +68,12 @@ const Inicio = ({ navigation }) => {
     };
 
     return (
-      <>
-        <Container bgColor="#293775">
-            {handleContent()}
-        </Container>
-        <BottomNav navigation={navigation}/>
-      </>
+        <>
+            <Container bgColor="#293775">
+                {handleContent()}
+            </Container>
+            <BottomNav navigation={navigation} />
+        </>
     );
 };
 

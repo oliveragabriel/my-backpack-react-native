@@ -70,8 +70,8 @@ export const setTestData = async () => {
             VALUES ('2023-07-17', 'korea', 'seoul', 3);
         `);
         await em.query(`
-          INSERT INTO travel_day (country, city, travelid)
-          VALUES ("EUA", "Miami", "1");
+          INSERT INTO travel_day (day, country, city, travelid)
+          VALUES ("2022-07-15", "EUA", "Miami", "1");
         `);
         await em.query(`
           INSERT INTO activity (description, type, value, time, travelDayId)

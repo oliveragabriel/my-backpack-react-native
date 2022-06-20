@@ -2,7 +2,7 @@ import axios from 'axios';
 
 const instance = axios.create({
     // nao logar na internet do senai que muda o IP direto e da erro
-    baseURL: "http://192.168.100.10:3000",
+    baseURL: "http://192.168.0.17:3000",
     headers: {
         "Content-Type": "application/json",
     }
@@ -51,6 +51,15 @@ export const requestGetAll = async (id, entity) => {
 export const requestGetOne = async (id, entity) => {
     try {
         const resp = await instance.get(pathSimple(id, entity));
+        return resp.data;
+    } catch (err) {
+        throw err.response.data.msg;
+    }
+}
+
+export const requestGetNext = async (id) => {
+    try {
+        const resp = await instance.get(`/users/${id}/next`);
         return resp.data;
     } catch (err) {
         throw err.response.data.msg;
@@ -111,15 +120,4 @@ export const requestDelete = async (id, entity) => {
     } catch (err) {
         throw err.response.data.msg;
     }
-}
-
-//CONQUEST - CRIAR NO BACKEND p path /conquests
-
-export const requestGetConquest = async (id) => {
-  try {
-    const resp = await instance.get(pathSimple(id));
-    return resp.data;
-  } catch (err) {
-    throw err.response.data.msg;
-  }
 }

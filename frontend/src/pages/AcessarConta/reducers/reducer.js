@@ -7,6 +7,7 @@ export const initialState = {
     backgroundColor: '#DF6E6E',
     checkedEmail: '',
     checkedPassword: '',
+    isNext: false
 }
 
 export function reducer(state,action) {
@@ -36,5 +37,10 @@ export function reducer(state,action) {
             ...state,
             checkedPassword: action.payload,
             }
-    }
+        case actions.setNext:
+            return {
+                ...state,
+                isNext: true
+            }
+        }
 }
