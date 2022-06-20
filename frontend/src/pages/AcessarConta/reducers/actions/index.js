@@ -5,4 +5,5 @@ export const actions = {
     changeBackgroundColor: 'CHANGE_ALERT_BACKGROUNDCOLOR',
     setCheckedEmail: 'SET_CHECKED_EMAIL',
     setCheckedPassword: 'SET_CHECKED_PASSWORD',
+    setNext: 'SET_NEXT'
 }

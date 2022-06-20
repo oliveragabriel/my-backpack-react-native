@@ -27,6 +27,7 @@ export class Route {
 
         ].concat((parent === undefined) ? [
 
+            {action: "nextBy",      method: "get",      route: `/${child}/:id/next`},
             {action: "login",       method: "post",     route: `/${child}/login`},
             {action: "save",        method: "post",     route: `/${child}`},
 

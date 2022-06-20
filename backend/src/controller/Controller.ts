@@ -40,6 +40,11 @@ export class Controller {
         return this.msgResponse(404, 'Resultado não foi encontrado!');
     }
 
+    async nextBy(request: Request, response: Response, next: NextFunction) {
+        const result = await this.entity.findNextByService(parseInt(request.params.id));
+        if (result !== null) return this.stdResponse(200, result);
+        return this.msgResponse(404, 'Resultado não foi encontrado!');
+    }
 
     async login(request: Request, response: Response, next: NextFunction) {
         const result = await this.entity.loginService(request.body);

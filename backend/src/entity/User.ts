@@ -68,6 +68,14 @@ export class User extends BaseEntity {
         return null;
     }
 
+    static async findNextByService(id: number) {
+        const userTravels = await Travel.readByService(id);
+        if (userTravels !== null && userTravels.notDone.length) {
+            return await Travel.findOneByService(userTravels.notDone[0].id);
+        }
+        return null;
+    }
+
     static async loginService(data: {email: string, password: string}): Promise<User> {
         const {email, password} = data;
         return await User.findOne({where:{email: email, password: password}});
