@@ -88,9 +88,14 @@ export class Travel extends BaseEntity {
                 travel.type,
                 COUNT(travel_day.id) AS days,
                 COUNT(activity.id) AS activities,
-                GROUP_CONCAT(DISTINCT travel_day.country, '') AS countries
+                GROUP_CONCAT(DISTINCT travel_day.country, '') AS countries,
+                IFNULL(accomodation.value, 0) + IFNULL(transport.value, 0) + SUM(IFNULL(activity.value, 0)) AS total
             FROM
                 travel
+                LEFT JOIN accomodation ON
+                accomodation.travelId = travel.id
+                LEFT JOIN transport ON
+                transport.travelId = travel.id
                 LEFT JOIN travel_day ON
                 travel_day.travelId = travel.id
                 LEFT JOIN activity ON
