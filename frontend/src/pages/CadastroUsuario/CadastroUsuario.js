@@ -8,8 +8,6 @@ import { Dimensions } from 'react-native';
 
 
 const CadastroUsuario = ({ navigation }) => {
-  const Height = Dimensions.get('window').height;
-  const CardHeight = Height - (Height*0.175)
 
   const [state, dispatch] = useReducer(reducer, initialState);
   const [stop, setStop] = useState('');
@@ -54,6 +52,7 @@ const CadastroUsuario = ({ navigation }) => {
       } finally {
         dispatch({type: actions.toggleLoading});
         setStop('');
+        setTimeout(function() { navigation.navigate("Acessar Conta"); }, 2000);
       }
     }
   }, [checkRequiredField, stop])
