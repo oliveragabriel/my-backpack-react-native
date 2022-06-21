@@ -8,7 +8,7 @@ import * as api from '../../services/api';
 
 const CadastroViagem = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {user, resetTravels, contextSetTravels} = useContext(UserContext);
+  const {stateId, dispatchId} = useContext(UserContext);
   const [trip, setTrip] = useState({
     title: '',
     departureDate: '',
@@ -34,8 +34,9 @@ const CadastroViagem = ({navigation}) => {
 
   const handlePostTravel = async (newTrip) => {
     try {
-      await api.requestCreate(user.id, 'travel', newTrip);
-      dispatch({type: actions.setMessage, payload: 'Viagem atualizada com sucesso!'});
+      await api.requestCreate(stateId.user, 'travel', newTrip);
+      dispatch({type: actions.setMessage, payload: 'Viagem cadastrada com sucesso!'});
+      dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
       dispatch({type: actions.showAlert, payload: true });
     } catch (error) {
       dispatch({type: actions.setMessage, payload: error});
@@ -53,16 +54,19 @@ const CadastroViagem = ({navigation}) => {
       const newDepartureDate = FormatDate(trip.departureDate)
       const newTrip = {...trip, arrivalDate:newArrivalDate, departureDate:newDepartureDate}
       handlePostTravel(newTrip);
-      console.log('passou req')
-      //resetTravels();
-      contextSetTravels();
+      setTrip({
+        title: '',
+        departureDate: '',
+        arrivalDate: '',
+        type: '',
+      })
       navigation.navigate('Minhas Viagens');
   }, [checkRequiredField])
 
   return (
     <>
       <Container bgColor="#293775">
-        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
         <ButtonReturnYellow 
           iconName='west' 
           onPress={() => navigation.navigate("Minhas Viagens")} 

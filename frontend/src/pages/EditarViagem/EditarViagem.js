@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer, useContext } from 'react';
+import React, { useState, useCallback, useReducer, useContext, useEffect } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Alert, TitleRow, FormItemInput, BottomNav, ButtonReturnYellow, Loading } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
@@ -18,7 +18,12 @@ const EditarViagem = ({ navigation }) => {
         let isMounted = true;
         if (isMounted) {
             api.requestGetOne(stateId.travel, 'travel')
-                .then(res => setTrip({...res, empty: false, loading: false}))
+                .then(res => {
+                  console.log("aqui")
+                  res.departureDate = fromDateTimeToDate(res.departureDate)
+                  res.arrivalDate = fromDateTimeToDate(res.arrivalDate)
+                  setTrip({...res, empty: false, loading: false})
+              })
                 .catch(error => setTrip({empty: true, loading: false}));
         }
         return () => {isMounted = false};
@@ -50,6 +55,12 @@ const EditarViagem = ({ navigation }) => {
         var mes  = date.split("/")[1];
         var ano  = date.split("/")[2];
         return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);
+    }
+
+    const fromDateTimeToDate = (date) => {
+      const newDate = new Date(date)
+      const result = newDate.toISOString().slice(0,10);
+      return result.split("-").reverse().join("/");
     }
 
     const handleUpdateTravel = async () => {
