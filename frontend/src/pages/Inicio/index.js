@@ -17,11 +17,9 @@ const Inicio = ({ navigation }) => {
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
-            api.requestGetOne(stateId.user, 'user')
-                .then(res => setUser({...res, loading: false}));
-            api.requestGetNext(stateId.user)
-                .then(res => setNext({...res, empty: false, loading: false}))
-                .catch(error => setNext({empty: true, loading: false}));
+          handleSetUser()
+          console.log(stateId.user)
+          handleSetNextTravels()
         }
         return () => {isMounted = false};
     }, []);
@@ -32,6 +30,22 @@ const Inicio = ({ navigation }) => {
         if (isMounted && !user.loading && !next.loading) setLoading(false);
         return () => {isMounted= false;}
     }, [user, next]);
+
+    const handleSetUser = () => {
+      api.requestGetOne(stateId.user, 'user')
+      .then((res) => {
+      setUser({...res, empty: false, loading: false})
+      })
+      .catch(error => setUser({empty: true, loading: false}));
+   }
+
+    const handleSetNextTravels = () => {
+      api.requestGetNext(stateId.user)
+      .then((res) => {
+      setNext({...res, empty: false, loading: false})
+      })
+      .catch(error => setNext({empty: true, loading: false}));
+   }
 
     const handleContent = () => {
         return (loading) ? (<Loading/>) : (

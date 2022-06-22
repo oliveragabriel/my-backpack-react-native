@@ -14,11 +14,7 @@ const ListaDias = ({ navigation }) => {
 
     useEffect(() => {
         let isMounted = true;
-        if (isMounted) {
-            api.requestGetAll(stateId.travel, 'travelDay')
-                .then(res => setTravelDays({...res, empty: false, loading: false}))
-                .catch(error => setTravelDays({empty: true, loading: false}));
-        }
+        if (isMounted) { handleSetTravels() }
         return () => {isMounted = false};
     }, []);
 
@@ -27,6 +23,14 @@ const ListaDias = ({ navigation }) => {
         if (isMounted && !travelDays.loading) setLoading(false);
         return () => {isMounted = false}
     }, [travelDays]);
+
+    const handleSetTravels = () => {
+       api.requestGetAll(stateId.travel, 'travelDay')
+      .then((res) => {
+        setTravelDays({...res, empty: false, loading: false})
+      })
+      .catch(error => setTravelDays({empty: true, loading: false}));
+    }
 
     const handleContent = () => {
         return (loading) ? (<Loading/>) : (

@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer, useContext } from 'react';
+import React, { useState, useCallback, useReducer, useContext, useEffect } from 'react';
 import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -60,7 +60,7 @@ const CadastroViagem = ({navigation}) => {
         arrivalDate: '',
         type: '',
       })
-      navigation.navigate('Minhas Viagens');
+      setTimeout(function() { navigation.navigate('Minhas Viagens'); }, 2000);
   }, [checkRequiredField])
 
   return (

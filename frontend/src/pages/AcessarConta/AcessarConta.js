@@ -52,7 +52,6 @@ const AcessarConta = ({ navigation }) => {
             }
     }, [checkRequiredField, stop])
 
-    // passar p/ usecallback
     const handleEmail = (text) => {
         if(text !== '') {
             setCredentials({ ...credentials, email: text })

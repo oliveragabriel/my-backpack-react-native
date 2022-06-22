@@ -1,8 +1,9 @@
-import React, { useEffect, useContext } from 'react';
+import React, { useEffect, useContext, useState } from 'react';
 import { BottomNav, TitleRow, Loading } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { ContainerConquista } from './Container';
 import { UserContext } from '../../UseContext/UserContext';
+import * as api from '../../services/api';
 
 const MinhasConquistas = ({ navigation }) => {
 

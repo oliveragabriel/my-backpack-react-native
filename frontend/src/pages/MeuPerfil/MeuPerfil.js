@@ -132,7 +132,12 @@ const MeuPerfil = ({ navigation }) => {
           />
           <ButtonRow
             text="Deslogar Usuário"
+            onPress={() => navigation.navigate('Acessar Conta')}
+          />
+          <ButtonRow
+            text="Excluir Conta"
             onPress={() => handleDeleteButton()}
+            backgroundColor='#DF6E6E'
           />
         </Card>
       </Container>

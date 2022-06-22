@@ -20,6 +20,14 @@ export const ComponenteListaAtividades = ({navigation, activities}) => {
         return () => {isMounted = false}
     }, [stateId]);
 
+    const handleTravelList = () => {
+      const {empty, loading, ...travelDaysList} = activities
+      const mappedHash = Object.keys( travelDaysList ).map(function( sortedKey ) {
+        return travelDaysList[ sortedKey ];
+      });
+      return mappedHash;
+    }
+
     return (
         <View
             style={{
@@ -57,7 +65,7 @@ export const ComponenteListaAtividades = ({navigation, activities}) => {
                     style={{
                         marginBottom:80,
                     }}
-                    data={activities}
+                    data={handleTravelList()}
                     renderItem={({item}) => 
                         <TouchableOpacity
                             style={{

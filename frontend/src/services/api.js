@@ -60,8 +60,10 @@ export const requestGetOne = async (id, entity) => {
 export const requestGetNext = async (id) => {
     try {
         const resp = await instance.get(`/users/${id}/next`);
+        console.log(resp.data)
         return resp.data;
     } catch (err) {
+        console.log(err)
         throw err.response.data.msg;
     }
 }
@@ -99,8 +101,7 @@ export const requestCreateUser = async (data) => {
 export const requestCreate = async (id, entity, data) => {
     try {
         const resp = await instance.post(pathParent(id, entity), data);
-        //retornando undefined quando passa a travelday.id, 'activity', obj
-        console.log(resp)
+        console.log(resp.data)
         return resp.data;
     } catch (err) {
         throw err.response.data.msg;
