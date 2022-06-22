@@ -25,7 +25,6 @@ const MinhasViagens = ({ navigation }) => {
         return () => {isMounted = false};
     }, [isFocused]);
 
-
     useEffect(() => {
         let isMounted = true;
         if (isMounted && !travels.loading) setLoading(false);

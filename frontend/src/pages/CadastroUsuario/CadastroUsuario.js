@@ -1,4 +1,4 @@
-import React, { useState, useCallback, useReducer } from 'react';
+import React, { useState, useCallback, useReducer, useEffect } from 'react';
 import { Alert, TitleRow, FormItemInput, ButtonRow, Logo, ButtonReturnYellow } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -43,7 +43,10 @@ const CadastroUsuario = ({ navigation }) => {
       try {
         dispatch({type: actions.toggleLoading});
         const resp = await api.requestCreateUser(user);
-        setBack(true);
+        dispatch({type: actions.setMessage, payload: resp});
+        dispatch({type: actions.showAlert, payload: true });
+        dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
+        setTimeout(function() { setBack(true); }, 3000);
       } catch (error) {
         dispatch({type: actions.setMessage, payload: error});
         dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });

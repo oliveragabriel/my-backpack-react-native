@@ -1,7 +1,7 @@
 import React, {useCallback} from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
-export const ContainerAtividade = ({ id, country, description, value, type, time, navigation }) => {
+export const ContainerAtividade = ({ id, description, value, type, time, navigation }) => {
   
   const handleDelete = useCallback(async () => {
       try {
@@ -98,29 +98,6 @@ export const ContainerAtividade = ({ id, country, description, value, type, time
             </Text>
           </TouchableOpacity>
         </View>
-        <View 
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 4,
-          }}
-        >
-            <Text>País:</Text>
-            <Text 
-              style={{
-                fontSize: 14,
-                fontWeight: "600",
-                textTransform: "uppercase",
-                textAlign: "center",
-                color: "#084594",
-                marginLeft: 6,
-              }}
-            >
-              {`${country}`}
-            </Text>
-          </View>
           <View 
           style={{
             display: 'flex',
