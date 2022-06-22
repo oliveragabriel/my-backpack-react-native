@@ -38,8 +38,7 @@ const ViagemDetalhe = ({ navigation }) => {
                 />
                 <ButtonRow 
                     text="Detalhar dias da viagem" 
-                    onPress={async () => {
-                        await contextSetTravelDays(travel.id);
+                    onPress={() => {
                         navigation.navigate('Lista Dias');
                     }}
                 />

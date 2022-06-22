@@ -20,6 +20,14 @@ export const ComponenteDias = ({ navigation, travelDays }) => {
         return () => {isMounted = false}
     }, [stateId]);
 
+    const handleTravelList = () => {
+      const {empty, loading, ...travelDaysList} = travelDays
+      const mappedHash = Object.keys( travelDaysList ).map(function( sortedKey ) {
+        return travelDaysList[ sortedKey ];
+      });
+      return mappedHash;
+    }
+    
     return (
         <View
             style={{
@@ -57,7 +65,7 @@ export const ComponenteDias = ({ navigation, travelDays }) => {
                 style={{
                     marginBottom:80,
                 }}
-                data={travelDays}
+                data={handleTravelList()}
                 renderItem={({item}) =>
                     <TouchableOpacity
                     style={{

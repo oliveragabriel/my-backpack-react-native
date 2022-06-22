@@ -5,7 +5,7 @@ import { ContainerProximaViagemInicio } from "../ContainerProximaViagem";
 export const ContainerViagem = ({navigation, nextTravel}) => {
   
   const handleNextTravelContainer = () => {
-    if (nextTravel.id !== undefined) {
+    if (nextTravel.empty == false) {
       return (
         <ContainerProximaViagemInicio 
           title="Próxima Viagem"

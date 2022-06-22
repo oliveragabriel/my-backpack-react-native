@@ -9,11 +9,9 @@ import * as api from '../../services/api';
 
 const CadastroAtividade = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const [activity, setActivity] = useState({
+  const [activity, setActivity] = useState({})
 
-  })
-
-  const {travelDay, contextSetActivities} = useContext(UserContext)
+  const {stateId, dispatchId} = useContext(UserContext);
 
   const checkRequiredField = useCallback(() => {
     if(activity.description === '' || activity.type === '') {
@@ -26,10 +24,9 @@ const CadastroAtividade = ({navigation}) => {
 
   const handlePostActivity = async () => {
     try {
-      //erro aqui
-      await api.requestCreate(travelDay.id, 'activity', activity);
-      console.log("deu create")
-      dispatch({type: actions.setMessage, payload: 'Viagem atualizada com sucesso!'});
+      await api.requestCreate(stateId.travelDay, 'activity', activity);
+      dispatch({type: actions.setMessage, payload: 'Atividade criada com sucesso!'});
+      dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
       dispatch({type: actions.showAlert, payload: true });
     } catch (error) {
       dispatch({type: actions.setMessage, payload: error});
@@ -44,14 +41,13 @@ const CadastroAtividade = ({navigation}) => {
       checkRequiredField();
       dispatch({type: actions.toggleLoading});
       handlePostActivity()
-      contextSetActivities()
-      navigation.navigate('Lista Atividades')
+      setTimeout(function() { navigation.navigate('Lista Atividades'); }, 2000);
   }, [checkRequiredField])
 
   return (
     <>
       <Container bgColor="#293775">
-        {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
         <Card width="90%" height={0.3}>
         <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Dias")} />
         <TitleRow text="Adicionar Nova Atividade" />

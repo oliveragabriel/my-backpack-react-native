@@ -26,7 +26,7 @@ const ListaAtividades = ({ navigation }) => {
         let isMounted = true;
         if (isMounted && !activities.loading) setLoading(false);
         return () => {isMounted = false}
-    }, [travelDays]);
+    }, [activities]);
 
     const handleContent = () => {
         return (loading) ? (<Loading/>) : (

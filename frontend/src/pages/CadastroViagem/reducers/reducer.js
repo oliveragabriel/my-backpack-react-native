@@ -4,6 +4,7 @@ export const initialState = {
     alert: false,
     loading: false,
     message: '',
+    backgroundColor: '#DF6E6E',
 }
 
 export function reducer(state,action) {
@@ -23,5 +24,10 @@ export function reducer(state,action) {
                 ...state,
                 message: action.payload,
         }
+        case actions.changeBackgroundColor:
+            return {
+                ...state,
+                backgroundColor: action.payload,
+            }
     }
 }
