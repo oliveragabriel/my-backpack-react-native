@@ -36,7 +36,7 @@ const EditarTransporte = ({navigation}) => {
         {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
         <ButtonReturnYellow
           iconName='west' 
-          onPress={() => navigation.navigate("Editar Viagem")} 
+          onPress={() => navigation.goBack()} 
         />
         <Card width="90%" height={0.3}>
           <TitleRow text="Editar Transporte" />

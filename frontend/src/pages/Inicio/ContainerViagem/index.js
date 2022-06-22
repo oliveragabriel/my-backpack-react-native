@@ -4,33 +4,30 @@ import { ContainerProximaViagemInicio } from "../ContainerProximaViagem";
 
 export const ContainerViagem = ({navigation, nextTravel}) => {
   
-  const handleNextTravelContainer = () => {
-    if (nextTravel.empty == false) {
-      return (
-        <ContainerProximaViagemInicio 
-          title="Próxima Viagem"
-          name={nextTravel.title}
-          departure_date={nextTravel.arrivalDate.split('T')[0]}
-          country={""}
-          day={nextTravel.days}
-          activity={nextTravel.activities}
-          onPress={() => navigation.navigate('Viagem Detalhe')}
-        />
-      )
-    }
-    return (
-      <ContainerVazio
-      title="Próxima Viagem"
-      onPress={() => navigation.navigate('Cadastro Viagem')}>
-      </ContainerVazio>
-    )
-  };
+    const handleNextTravelContainer = () => {
+        return (nextTravel.empty) ? (
+            <ContainerVazio
+                title="Próxima Viagem"
+                onPress={() => navigation.navigate('Cadastro Viagem')}
+            />
+        ) : (
+            <ContainerProximaViagemInicio 
+                title="Próxima Viagem"
+                name={nextTravel.title}
+                departure_date={nextTravel.arrivalDate.split('T')[0]}
+                country={""}
+                day={nextTravel.days}
+                activity={nextTravel.activities}
+                onPress={() => navigation.navigate('Viagem Detalhe', {id: nextTravel.id})}
+            />
+        );
+    };
 
-  return (
-    <>
-      {handleNextTravelContainer()}
-    </>
-  )
+    return (
+        <>
+            {handleNextTravelContainer()}
+        </>
+    )
 
 }
 

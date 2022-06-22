@@ -1,33 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
-import { UserContext } from '../../../UseContext/UserContext';
-import { actionsId } from '../../../UseContext/reducer/actions';
 
 export const ComponenteListaAtividades = ({navigation, activities}) => {
-
-    const {stateId, dispatchId} = useContext(UserContext);
-    const [nextPage, setNextPage] = useState({go: false});
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && nextPage.go) dispatchId({type: actionsId.setActivityId, payload: nextPage.id});
-        return () => {isMounted = false}
-    }, [nextPage]);
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && nextPage.go) navigation.navigate("Atividade Detalhe");
-        return () => {isMounted = false}
-    }, [stateId]);
-
-    const handleTravelList = () => {
-      const {empty, loading, ...travelDaysList} = activities
-      const mappedHash = Object.keys( travelDaysList ).map(function( sortedKey ) {
-        return travelDaysList[ sortedKey ];
-      });
-      return mappedHash;
-    }
-
     return (
         <View
             style={{
@@ -65,7 +39,7 @@ export const ComponenteListaAtividades = ({navigation, activities}) => {
                     style={{
                         marginBottom:80,
                     }}
-                    data={handleTravelList()}
+                    data={activities}
                     renderItem={({item}) => 
                         <TouchableOpacity
                             style={{
@@ -80,7 +54,7 @@ export const ComponenteListaAtividades = ({navigation, activities}) => {
                                 borderRadius: 6,
                                 borderColor: "#DCDCDC",
                             }}
-                            onPress={() => setNextPage({go: true, id:item.id})}>
+                            onPress={ () => navigation.navigate("Atividade Detalhe", {id: item.id}) }>
                             <Text
                                 style={{
                                 fontSize: 16,

@@ -1,20 +1,19 @@
-import React, { useContext, useReducer } from 'react';
+import React, { useEffect, useReducer, useState } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { UserContext } from '../../../UseContext/UserContext';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
 import * as api from '../../../services/api';
 
-export const ContainerViagem = ({navigation, travel}) => {
+export const ContainerViagem = ({ navigation, travel }) => {
 
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {contextSetTravels} = useContext(UserContext)
+  const [back, setBack] = useState(false);
+  useEffect(() => {if (back) navigation.goBack();}, [back]);
 
   const handleDeleteTravel = async () => {
     try {
-      await api.requestDelete(travel.id, 'travel')
-      dispatch({type: actions.setMessage, payload: 'Viagem deletada com sucesso!'});
-      dispatch({type: actions.showAlert, payload: true });
+      await api.requestDelete(travel.id, 'travel');
+      setBack(true);
     } catch (error) {
       dispatch({type: actions.showAlert, payload: true });
       dispatch({type: actions.setMessage, payload: 'A viagem não pode ser deletada, tente novamente!'});
@@ -23,9 +22,7 @@ export const ContainerViagem = ({navigation, travel}) => {
   }
 
   const handleDeleteButton = () => {
-    handleDeleteTravel()
-    contextSetTravels()
-    navigation.navigate("Minhas Viagens")
+    handleDeleteTravel();
   }
     return (
       <View
@@ -71,7 +68,7 @@ export const ContainerViagem = ({navigation, travel}) => {
               padding: 10,
               borderRadius: 6,
             }}
-            onPress={() => navigation.navigate('Editar Viagem')}
+            onPress={() => navigation.navigate('Editar Viagem', {id: travel.id})}
           >
             <Text
               style={{
@@ -93,7 +90,7 @@ export const ContainerViagem = ({navigation, travel}) => {
               padding: 10,
               borderRadius: 6,
             }}
-            onPress={handleDeleteButton}
+            onPress={() => handleDeleteButton()}
           >
             <Text
               style={{
@@ -148,7 +145,7 @@ export const ContainerViagem = ({navigation, travel}) => {
                 marginLeft: 6,
               }}
             >
-              R$ {`${0}`}
+              R$ {`${travel.total}`}
             </Text>
           </View>
         <View

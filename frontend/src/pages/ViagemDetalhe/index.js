@@ -1,20 +1,19 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { BottomNav, TitleRow, ButtonRow, ButtonReturnYellow, Loading } from '../../components';
 import { Card, Container } from '../../styles';
-import { UserContext } from '../../UseContext/UserContext';
 import { ContainerViagem } from './ContainerViagem';
 import * as api from '../../services/api';
 
-const ViagemDetalhe = ({ navigation }) => {
+const ViagemDetalhe = ({ navigation, route }) => {
 
-    const {stateId, dispatchId} = useContext(UserContext);
+    const id = route.params.id;
     const [travel, setTravel] = useState({loading: true});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
-            api.requestGetOne(stateId.travel, 'travel')
+            api.requestGetOne(id, 'travel')
                 .then(res => setTravel({...res, empty: false, loading: false}))
                 .catch(error => setTravel({empty: true, loading: false}));
         }
@@ -39,7 +38,7 @@ const ViagemDetalhe = ({ navigation }) => {
                 <ButtonRow 
                     text="Detalhar dias da viagem" 
                     onPress={() => {
-                        navigation.navigate('Lista Dias');
+                        navigation.navigate('Lista Dias', {id: id});
                     }}
                 />
             </Card>
@@ -49,7 +48,7 @@ const ViagemDetalhe = ({ navigation }) => {
     return (
         <>
             <Container bgColor="#293775">
-                <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Minhas Viagens")} />
+                <ButtonReturnYellow iconName='west' onPress={() => navigation.goBack()} />
                 {handleContent()}
             </Container>
             <BottomNav navigation={navigation}/>

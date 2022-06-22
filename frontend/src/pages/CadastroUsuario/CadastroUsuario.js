@@ -4,7 +4,6 @@ import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
 import * as api from '../../services/api';
-import { Dimensions } from 'react-native';
 
 
 const CadastroUsuario = ({ navigation }) => {
@@ -17,6 +16,8 @@ const CadastroUsuario = ({ navigation }) => {
     password: '',
     confirm: '',
   });
+  const [back, setBack] = useState(false);
+  useEffect(() => {if (back) navigation.goBack()}, [back]);
 
   const checkRequiredField = useCallback(() => {
     if(user.name === '' || user.email === '' || user.password === '' || user.confirm === '') {
@@ -42,9 +43,7 @@ const CadastroUsuario = ({ navigation }) => {
       try {
         dispatch({type: actions.toggleLoading});
         const resp = await api.requestCreateUser(user);
-        dispatch({type: actions.setMessage, payload: resp});
-        dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
-        dispatch({type: actions.showAlert, payload: true });
+        setBack(true);
       } catch (error) {
         dispatch({type: actions.setMessage, payload: error});
         dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
@@ -52,7 +51,6 @@ const CadastroUsuario = ({ navigation }) => {
       } finally {
         dispatch({type: actions.toggleLoading});
         setStop('');
-        setTimeout(function() { navigation.navigate("Acessar Conta"); }, 2000);
       }
     }
   }, [checkRequiredField, stop])
@@ -101,7 +99,7 @@ const CadastroUsuario = ({ navigation }) => {
     <>
       <Container bgColor="#293775">
         {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-        <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Acessar Conta")} />
+        <ButtonReturnYellow iconName='west' onPress={() => navigation.goBack()} />
         <Card width="90%" height={0.3}>
         <Logo/>
         <TitleRow text="Cadastro de Usuário" />

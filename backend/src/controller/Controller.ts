@@ -69,7 +69,7 @@ export class Controller {
 
     async updateBy(request: Request, response: Response, next: NextFunction) {
         const result = await this.entity.update({id: parseInt(request.params.id)}, request.body);
-        if (result.affected) return this.stdResponse(200, await this.entity.findOneBy({id: parseInt(request.params.id)}));
+        if (result.affected) return this.msgResponse(200, 'Registro atualizado com sucesso!');
         return this.msgResponse(404, 'Não foi possível concluir a operação. Por favor, tente novamente!');
     }
 

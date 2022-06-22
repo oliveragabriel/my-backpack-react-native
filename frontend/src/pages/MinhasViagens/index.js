@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { View } from 'react-native';
 import { BottomNav, ButtonRow, Loading, TitleRow } from '../../components';
 import { Card, Container } from '../../styles';
@@ -9,19 +10,20 @@ import * as api from '../../services/api';
 
 const MinhasViagens = ({ navigation }) => {
 
-    const {stateId, dispatchId} = useContext(UserContext);
+    const isFocused = useIsFocused();
+    const {context} = useContext(UserContext);
     const [travels, setTravels] = useState({loading: true});
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
-            api.requestGetAll(stateId.user, 'travel')
-                .then(res => setTravels({...res, empty: false, loading: false}))
+            api.requestGetAll(context.userId, 'travel')
+                .then(res => setTravels({data: res, empty: false, loading: false}))
                 .catch(error => setTravels({empty: true, loading: false}));
         }
         return () => {isMounted = false};
-    }, []);
+    }, [isFocused]);
 
 
     useEffect(() => {
@@ -39,11 +41,11 @@ const MinhasViagens = ({ navigation }) => {
                 <TitleRow  text="Minhas Viagens"/>
                 <ContainerViagensAnteriores
                     navigation={navigation}
-                    travels={travels.done}
+                    travels={travels.data?.done ?? []}
                 />
                 <ContainerProximaViagem
                     navigation={navigation}
-                    travels={travels.notDone}
+                    travels={travels.data?.notDone ?? []}
                 />
                 <ButtonRow 
                     text="Adicionar próxima viagem" 

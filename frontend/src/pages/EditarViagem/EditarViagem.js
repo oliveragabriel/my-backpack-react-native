@@ -1,25 +1,25 @@
-import React, { useState, useCallback, useReducer, useContext, useEffect } from 'react';
+import React, { useState, useCallback, useReducer, useEffect } from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 import { Alert, TitleRow, FormItemInput, BottomNav, ButtonReturnYellow, Loading } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
-import { UserContext } from '../../UseContext/UserContext';
 import * as api from '../../services/api';
 
-const EditarViagem = ({ navigation }) => {
+const EditarViagem = ({ navigation, route }) => {
+
+    const id = route.params.id;
     const [state, dispatch] = useReducer(reducer, initialState);
-    const {stateId, dispatchId} = useContext(UserContext);
     const [trip, setTrip] = useState({loading: true});
     const [loading, setLoading] = useState(true);
-    const [nextPage, setNextPage] = useState(false);
+    const [back, setBack] = useState(false);
+    useEffect(() => {if (back) navigation.goBack()}, [back]);
 
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
-            api.requestGetOne(stateId.travel, 'travel')
+            api.requestGetOne(id, 'travel')
                 .then(res => {
-                  console.log("aqui")
                   res.departureDate = fromDateTimeToDate(res.departureDate)
                   res.arrivalDate = fromDateTimeToDate(res.arrivalDate)
                   setTrip({...res, empty: false, loading: false})
@@ -34,12 +34,6 @@ const EditarViagem = ({ navigation }) => {
         if (isMounted && !trip.loading) setLoading(false);
         return () => {isMounted = false}
     }, [trip]);
-    
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && nextPage) navigation.navigate("Minhas Viagens");
-        return () => {isMounted = false}
-    }, [nextPage]);
 
     const checkRequiredField = useCallback(() => {
         if(trip.title === '' || trip.departureDate === '' || trip.arrivalDate === '') {
@@ -63,27 +57,27 @@ const EditarViagem = ({ navigation }) => {
       return result.split("-").reverse().join("/");
     }
 
-    const handleUpdateTravel = async () => {
+    const handleUpdateTravel = async (data) => {
         try {
-            await api.requestUpdate(trip.id, 'travel', trip)
-            dispatch({type: actions.setMessage, payload: 'Viagem atualizada com sucesso!'});
-            dispatch({type: actions.showAlert, payload: true });
-            setNextPage(true);
+            await api.requestUpdate(trip.id, 'travel', data);
+            setBack(true);
         } catch (error) {
             dispatch({type: actions.showAlert, payload: true });
             dispatch({type: actions.setMessage, payload: 'A viagem não pode ser atualizada, tente novamente!'});
-            console.log(error)
+            console.log(error);
         }
     }
 
     const handleConfirmButton = useCallback(() => {
         checkRequiredField();
         dispatch({type: actions.toggleLoading});
-        //const newArrivalDate = FormatDate(trip.arrivalDate);
-        //const newDepartureDate = FormatDate(trip.departureDate)
-        //const newTrip = {...trip, arrivalDate:newArrivalDate, departureDate:newDepartureDate}
-        handleUpdateTravel();
-    }, [checkRequiredField])
+        handleUpdateTravel({
+            title: trip.title,
+            type: trip.type,
+            arrivalDate: FormatDate(trip.arrivalDate),
+            departureDate: FormatDate(trip.departureDate)
+        });
+    }, [checkRequiredField]);
 
     const handleContent = () => {
         return (loading) ? (<Loading/>) : (
@@ -119,76 +113,76 @@ const EditarViagem = ({ navigation }) => {
                     onChangeText={text => setTrip({ ...trip, type: text})}
                 />
                 <Spacer />
-                    <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
+                <View style={{ display: 'flex', flexDirection: 'row', justifyContent: 'space-between', width: '100%'}}>
                     <TouchableOpacity
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#4FCF78',
-                    width: '33%',
-                    height: 40,
-                    padding: 6,
-                    borderRadius: 6,
-                }}
-                onPress={handleConfirmButton}
-                >
-                <Text
-                    style={{
-                    fontSize: 14,
-                    fontWeight: "600",
-                    }} 
-                >
-                        Alterar              
-                </Text>
-                </TouchableOpacity>
-                                <TouchableOpacity
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#008E89',
-                    height: 40,
-                    width: '33%',
-                    padding: 6,
-                    borderRadius: 6,
-                }}
-                onPress={() => navigation.navigate('Editar Hospedagem')}
-                >
-                <Text
-                    style={{
-                    fontSize: 14,
-                    fontWeight: "600",
-                    }} 
-                >
-                        Hospedagem              
-                </Text>
-                </TouchableOpacity>
-                <TouchableOpacity
-                style={{
-                    display: 'flex',
-                    flexDirection: 'row',
-                    justifyContent: 'center',
-                    alignItems: 'center',
-                    backgroundColor: '#008E89',
-                    height: 40,
-                    width: '33%',
-                    padding: 6,
-                    borderRadius: 6,
-                }}
-                onPress={() => navigation.navigate('Editar Transporte')}
-                >
-                <Text
-                    style={{
-                    fontSize: 14,
-                    fontWeight: "600",
-                    }} 
-                >
-                        Transporte              
-                </Text>
-                </TouchableOpacity>
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: '#4FCF78',
+                            width: '33%',
+                            height: 40,
+                            padding: 6,
+                            borderRadius: 6,
+                        }}
+                        onPress={handleConfirmButton}
+                        >
+                        <Text
+                            style={{
+                            fontSize: 14,
+                            fontWeight: "600",
+                            }} 
+                        >
+                                Alterar              
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: '#008E89',
+                            height: 40,
+                            width: '33%',
+                            padding: 6,
+                            borderRadius: 6,
+                        }}
+                        onPress={() => navigation.navigate('Editar Hospedagem')}
+                        >
+                        <Text
+                            style={{
+                            fontSize: 14,
+                            fontWeight: "600",
+                            }} 
+                        >
+                                Hospedagem              
+                        </Text>
+                    </TouchableOpacity>
+                    <TouchableOpacity
+                        style={{
+                            display: 'flex',
+                            flexDirection: 'row',
+                            justifyContent: 'center',
+                            alignItems: 'center',
+                            backgroundColor: '#008E89',
+                            height: 40,
+                            width: '33%',
+                            padding: 6,
+                            borderRadius: 6,
+                        }}
+                        onPress={() => navigation.navigate('Editar Transporte')}
+                        >
+                        <Text
+                            style={{
+                            fontSize: 14,
+                            fontWeight: "600",
+                            }} 
+                        >
+                            Transporte
+                        </Text>
+                    </TouchableOpacity>
                 </View>
             </Card>
         );
@@ -201,7 +195,7 @@ const EditarViagem = ({ navigation }) => {
                 {state.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
                 <ButtonReturnYellow
                     iconName='west' 
-                    onPress={() => navigation.navigate("Viagem Detalhe")}
+                    onPress={() => navigation.goBack()}
                 />
                 {handleContent()}
             </Container>

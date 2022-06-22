@@ -1,17 +1,18 @@
-import React, { useState, useCallback, useReducer, useContext } from 'react';
+import React, { useState, useCallback, useReducer, useContext, useEffect } from 'react';
 import { View } from 'react-native';
 import { Alert, TitleRow, ButtonRow, BottomNav, ButtonReturnYellow, FormItemInput } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
-import { UserContext } from '../../UseContext/UserContext';
 import { actions } from './reducers/actions';
 import { initialState, reducer } from './reducers/reducer';
 import * as api from '../../services/api';
 
-const CadastroAtividade = ({navigation}) => {
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [activity, setActivity] = useState({})
+const CadastroAtividade = ({ navigation, route }) => {
 
-  const {stateId, dispatchId} = useContext(UserContext);
+  const id = route.params.id;
+  const [state, dispatch] = useReducer(reducer, initialState);
+  const [activity, setActivity] = useState({});
+  const [back, setBack] = useState(false);
+  useEffect(() => {if (back) navigation.goBack();}, [back]);
 
   const checkRequiredField = useCallback(() => {
     if(activity.description === '' || activity.type === '') {
@@ -24,7 +25,7 @@ const CadastroAtividade = ({navigation}) => {
 
   const handlePostActivity = async () => {
     try {
-      await api.requestCreate(stateId.travelDay, 'activity', activity);
+      await api.requestCreate(id, 'activity', activity);
       dispatch({type: actions.setMessage, payload: 'Atividade criada com sucesso!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
       dispatch({type: actions.showAlert, payload: true });
@@ -41,15 +42,15 @@ const CadastroAtividade = ({navigation}) => {
       checkRequiredField();
       dispatch({type: actions.toggleLoading});
       handlePostActivity()
-      setTimeout(function() { navigation.navigate('Lista Atividades'); }, 2000);
+      setBack(true);
   }, [checkRequiredField])
 
   return (
     <>
       <Container bgColor="#293775">
         {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        <ButtonReturnYellow iconName='west' onPress={() => navigation.goBack()} />
         <Card width="90%" height={0.3}>
-        <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Lista Dias")} />
         <TitleRow text="Adicionar Nova Atividade" />
           <View
             style={{
