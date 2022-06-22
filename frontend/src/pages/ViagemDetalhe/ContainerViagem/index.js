@@ -1,29 +1,8 @@
-import React, { useEffect, useReducer, useState } from 'react';
+import React from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
-import { actions } from './reducers/actions';
-import { initialState, reducer } from './reducers/reducer';
-import * as api from '../../../services/api';
 
-export const ContainerViagem = ({ navigation, travel }) => {
+export const ContainerViagem = ({ handleDeleteButton, navigation, travel }) => {
 
-  const [state, dispatch] = useReducer(reducer, initialState);
-  const [back, setBack] = useState(false);
-  useEffect(() => {if (back) navigation.goBack();}, [back]);
-
-  const handleDeleteTravel = async () => {
-    try {
-      await api.requestDelete(travel.id, 'travel');
-      setBack(true);
-    } catch (error) {
-      dispatch({type: actions.showAlert, payload: true });
-      dispatch({type: actions.setMessage, payload: 'A viagem não pode ser deletada, tente novamente!'});
-      console.log(error)
-    }
-  }
-
-  const handleDeleteButton = () => {
-    handleDeleteTravel();
-  }
     return (
       <View
         style={{
@@ -102,29 +81,6 @@ export const ContainerViagem = ({ navigation, travel }) => {
             </Text>
           </TouchableOpacity>
         </View>
-        <View 
-          style={{
-            display: 'flex',
-            flexDirection: 'row',
-            justifyContent: 'center',
-            alignItems: 'center',
-            margin: 4,
-          }}
-        >
-            <Text>País(es):</Text>
-            <Text 
-              style={{
-                fontSize: 12,
-                fontWeight: "600",
-                textTransform: "uppercase",
-                textAlign: "center",
-                color: "#084594",
-                marginLeft: 6,
-              }}
-            >
-              {`${travel?.countries?.replace(',', ', ')}`}
-            </Text>
-          </View>
           <View 
           style={{
             display: 'flex',

@@ -1,4 +1,4 @@
-import React, { useState, useReducer, useCallback, useContext } from 'react';
+import React, { useState, useReducer, useCallback, useContext, useEffect } from 'react';
 import { Alert, TitleRow, FormItemInput, ButtonRow, BottomNav, ButtonReturnYellow } from '../../components';
 import { Container, Card, Spacer } from '../../styles';
 import { actions } from './reducers/actions';
@@ -40,7 +40,10 @@ const AlterarSenha = ({ navigation }) => {
       try {
         dispatch({type: actions.toggleLoading});
         const resp = await api.requestUpdate(context.userId, 'user', {password: token.password});
-        setBack(true);
+        dispatch({type: actions.setMessage, payload: "Senha alterada com sucesso!"});
+        dispatch({type: actions.showAlert, payload: true });
+        dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
+        setTimeout(function() { setBack(true); }, 3000);
       } catch (error) {
         dispatch({type: actions.setMessage, payload: error});
         dispatch({type: actions.changeBackgroundColor, payload: '#DF6E6E' });
@@ -55,7 +58,7 @@ const AlterarSenha = ({ navigation }) => {
   return (
     <>
       <Container bgColor="#293775">
-        {state?.alert && (<Alert message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
+        {state?.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
         <ButtonReturnYellow iconName='west' onPress={() => navigation.goBack()} />
         <Card width="90%" height={0.6}>
           <TitleRow text="Alterar Senha" />

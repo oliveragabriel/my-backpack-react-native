@@ -29,6 +29,7 @@ const CadastroAtividade = ({ navigation, route }) => {
       dispatch({type: actions.setMessage, payload: 'Atividade criada com sucesso!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
       dispatch({type: actions.showAlert, payload: true });
+      setTimeout(function() { setBack(true); }, 3000);
     } catch (error) {
       dispatch({type: actions.setMessage, payload: error});
       dispatch({type: actions.showAlert, payload: true });
@@ -42,7 +43,6 @@ const CadastroAtividade = ({ navigation, route }) => {
       checkRequiredField();
       dispatch({type: actions.toggleLoading});
       handlePostActivity()
-      setBack(true);
   }, [checkRequiredField])
 
   return (

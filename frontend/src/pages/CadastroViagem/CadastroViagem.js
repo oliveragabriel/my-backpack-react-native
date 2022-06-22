@@ -40,6 +40,7 @@ const CadastroViagem = ({navigation}) => {
       dispatch({type: actions.setMessage, payload: 'Viagem cadastrada com sucesso!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
       dispatch({type: actions.showAlert, payload: true });
+      setTimeout(function() { setBack(true); }, 3000);
     } catch (error) {
       dispatch({type: actions.setMessage, payload: error});
       dispatch({type: actions.showAlert, payload: true });
@@ -56,7 +57,6 @@ const CadastroViagem = ({navigation}) => {
       const newDepartureDate = FormatDate(trip.departureDate)
       const newTrip = {...trip, arrivalDate:newArrivalDate, departureDate:newDepartureDate}
       await handlePostTravel(newTrip);
-      setBack(true);
   }, [checkRequiredField])
 
   return (
