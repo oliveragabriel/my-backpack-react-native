@@ -1,11 +1,9 @@
-import React, { useState, useCallback, useReducer, useContext, useEffect} from 'react';
+import React, { useState, useCallback, useReducer } from 'react';
 import { Alert, TitleRow, FormItemInput, ButtonLink, ButtonRow, Logo } from '../../components';
 import { Card, Container, Spacer} from '../../styles';
 import { actions } from './reducers/actions/';
 import { initialState, reducer } from './reducers/reducer';
 import * as api from '../../services/api'
-import { UserContext } from '../../UseContext/UserContext';
-import { actionsId } from '../../UseContext/reducer/actions';
 
 const AcessarConta = ({ navigation }) => {
 
@@ -15,13 +13,6 @@ const AcessarConta = ({ navigation }) => {
         email: '',
         password: ''
     });
-    const {stateId, dispatchId} = useContext(UserContext);
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && state.isNext) navigation.navigate('Início');
-        return () => {isMounted = false}
-    }, [stateId]);
 
     const checkRequiredField = useCallback(() => {
         if(credentials.email === '' || credentials.password === '') {
@@ -40,10 +31,8 @@ const AcessarConta = ({ navigation }) => {
             try {
                 dispatch({type: actions.toggleLoading});
                 let resp = await api.requestLoginUser(credentials);
-                dispatch({type: actions.setNext});
-                dispatchId({type: actionsId.setUserId, payload: resp.id});
+                navigation.navigate('Início', {id: resp.id});
             } catch (error) {
-            console.log('Error', error);
                 dispatch({type: actions.setMessage, payload: error});
                 dispatch({type: actions.showAlert, payload: true });
             } finally {

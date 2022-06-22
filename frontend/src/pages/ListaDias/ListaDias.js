@@ -1,14 +1,13 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { View } from 'react-native';
 import { BottomNav, TitleRow, ButtonReturnYellow, Loading } from '../../components';
 import { Card, Container } from '../../styles';
-import { UserContext } from '../../UseContext/UserContext';
 import { ComponenteDias } from './ComponenteDias';
 import * as api from '../../services/api';
 
-const ListaDias = ({ navigation }) => {
+const ListaDias = ({ navigation, route }) => {
 
-    const {stateId, dispatchId} = useContext(UserContext);
+    const id = route.params.id;
     const [travelDays, setTravelDays] = useState({loading: true});
     const [loading, setLoading] = useState(true);
 
@@ -25,11 +24,11 @@ const ListaDias = ({ navigation }) => {
     }, [travelDays]);
 
     const handleSetTravels = () => {
-       api.requestGetAll(stateId.travel, 'travelDay')
-      .then((res) => {
-        setTravelDays({...res, empty: false, loading: false})
-      })
-      .catch(error => setTravelDays({empty: true, loading: false}));
+        api.requestGetAll(id, 'travelDay')
+            .then((res) => {
+                setTravelDays({data: res, empty: false, loading: false})
+            })
+            .catch(error => setTravelDays({empty: true, loading: false}));
     }
 
     const handleContent = () => {
@@ -39,7 +38,7 @@ const ListaDias = ({ navigation }) => {
                     <TitleRow text="Dias da Viagem"/>
                     <ComponenteDias
                         navigation={navigation}
-                        travelDays={travelDays}
+                        travelDays={travelDays.data}
                     />
                 </View>
             </Card>
@@ -49,7 +48,7 @@ const ListaDias = ({ navigation }) => {
     return (
         <>
             <Container bgColor="#293775">
-                <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Viagem Detalhe")} />
+                <ButtonReturnYellow iconName='west' onPress={() => navigation.goBack()} />
                 {handleContent()}
             </Container>
             <BottomNav navigation={navigation}/>

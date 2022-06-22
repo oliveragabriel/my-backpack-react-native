@@ -1,12 +1,12 @@
 import React, {useCallback} from 'react';
 import { View, TouchableOpacity, Text } from 'react-native';
 
-export const ContainerAtividade = ({ country, description, value, type, time, navigation }) => {
+export const ContainerAtividade = ({ id, country, description, value, type, time, navigation }) => {
   
   const handleDelete = useCallback(async () => {
       try {
         dispatch({type: actions.toggleLoading});
-        //deleteActivity(id_activity)
+        //deleteActivity(id)
         dispatch({type: actions.setMessage, payload: 'Sua atividade foi removida!'});
         dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
         dispatch({type: actions.showAlert, payload: true });
@@ -64,7 +64,7 @@ export const ContainerAtividade = ({ country, description, value, type, time, na
               borderRadius: 6,
             }}
             onPress={() => {
-              navigation.navigate('Editar Atividade')}}
+              navigation.navigate('Editar Atividade', {id: id})}}
           >
             <Text
               style={{

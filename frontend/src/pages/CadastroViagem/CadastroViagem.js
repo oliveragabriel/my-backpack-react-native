@@ -8,13 +8,15 @@ import * as api from '../../services/api';
 
 const CadastroViagem = ({navigation}) => {
   const [state, dispatch] = useReducer(reducer, initialState);
-  const {stateId, dispatchId} = useContext(UserContext);
+  const {context} = useContext(UserContext);
   const [trip, setTrip] = useState({
     title: '',
     departureDate: '',
     arrivalDate: '',
     type: '',
   });
+  const [back, setBack] = useState(false);
+  useEffect(() => {if (back) navigation.goBack()}, [back]);
 
   const checkRequiredField = useCallback(() => {
     if (trip.title === '' || trip.departureDate === '' || trip.arrivalDate === '') {
@@ -29,12 +31,12 @@ const CadastroViagem = ({navigation}) => {
     var dia  = date.split("/")[0];
     var mes  = date.split("/")[1];
     var ano  = date.split("/")[2];
-    return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);  
+    return ano + '-' + ("0"+mes).slice(-2) + '-' + ("0"+dia).slice(-2);
   }
 
   const handlePostTravel = async (newTrip) => {
     try {
-      await api.requestCreate(stateId.user, 'travel', newTrip);
+      await api.requestCreate(context.userId, 'travel', newTrip);
       dispatch({type: actions.setMessage, payload: 'Viagem cadastrada com sucesso!'});
       dispatch({type: actions.changeBackgroundColor, payload: '#58CE7E' });
       dispatch({type: actions.showAlert, payload: true });
@@ -47,20 +49,14 @@ const CadastroViagem = ({navigation}) => {
     }
   }
 
-  const handleConfirmButton = useCallback(() => {
+  const handleConfirmButton = useCallback(async () => {
       dispatch({type: actions.toggleLoading});
       checkRequiredField();
       const newArrivalDate = FormatDate(trip.arrivalDate);
       const newDepartureDate = FormatDate(trip.departureDate)
       const newTrip = {...trip, arrivalDate:newArrivalDate, departureDate:newDepartureDate}
-      handlePostTravel(newTrip);
-      setTrip({
-        title: '',
-        departureDate: '',
-        arrivalDate: '',
-        type: '',
-      })
-      setTimeout(function() { navigation.navigate('Minhas Viagens'); }, 2000);
+      await handlePostTravel(newTrip);
+      setBack(true);
   }, [checkRequiredField])
 
   return (
@@ -69,7 +65,7 @@ const CadastroViagem = ({navigation}) => {
         {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
         <ButtonReturnYellow 
           iconName='west' 
-          onPress={() => navigation.navigate("Minhas Viagens")} 
+          onPress={() => navigation.goBack()} 
         />
         <Card width="90%" height={0.3}>
         <TitleRow text="Adicionar Nova Viagem" />

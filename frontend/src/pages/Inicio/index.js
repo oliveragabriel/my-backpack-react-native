@@ -1,4 +1,5 @@
 import React, { useContext, useEffect, useState } from 'react';
+import { useIsFocused } from '@react-navigation/native';
 import { View, Text } from 'react-native';
 import { BottomNav, Loading } from '../../components';
 import { Card, Container, Spacer } from '../../styles';
@@ -7,9 +8,10 @@ import { ContainerConquistaInicio } from './ContainerConquista';
 import { UserContext } from '../../UseContext/UserContext';
 import * as api from '../../services/api';
 
-const Inicio = ({ navigation }) => {
+const Inicio = ({ navigation, route }) => {
 
-    const {stateId, dispatchId} = useContext(UserContext);
+    const isFocused = useIsFocused();
+    const {context, setContext} = useContext(UserContext);
     const [user, setUser] = useState({loading: true});
     const [next, setNext] = useState({loading: true});
     const [loading, setLoading] = useState(true);
@@ -17,12 +19,18 @@ const Inicio = ({ navigation }) => {
     useEffect(() => {
         let isMounted = true;
         if (isMounted) {
-          handleSetUser()
-          console.log(stateId.user)
-          handleSetNextTravels()
+            let id;
+            if (context.isSet) {
+                id = context.userId
+            } else {
+                id = route.params.id;
+                setContext({isSet: true, userId: id});
+            }
+            handleSetUser(id);
+            handleSetNextTravels(id);
         }
         return () => {isMounted = false};
-    }, []);
+    }, [isFocused]);
 
 
     useEffect(() => {
@@ -31,20 +39,20 @@ const Inicio = ({ navigation }) => {
         return () => {isMounted= false;}
     }, [user, next]);
 
-    const handleSetUser = () => {
-      api.requestGetOne(stateId.user, 'user')
-      .then((res) => {
-      setUser({...res, empty: false, loading: false})
-      })
-      .catch(error => setUser({empty: true, loading: false}));
+    const handleSetUser = (id) => {
+        api.requestGetOne(id, 'user')
+            .then((res) => {
+                setUser({...res, empty: false, loading: false})
+            })
+            .catch(error => setUser({empty: true, loading: false}));
    }
 
-    const handleSetNextTravels = () => {
-      api.requestGetNext(stateId.user)
-      .then((res) => {
-      setNext({...res, empty: false, loading: false})
-      })
-      .catch(error => setNext({empty: true, loading: false}));
+    const handleSetNextTravels = (id) => {
+        api.requestGetNext(id)
+            .then((res) => {
+                setNext({...res, empty: false, loading: false})
+            })
+            .catch(error => setNext({empty: true, loading: false}));
    }
 
     const handleContent = () => {

@@ -1,25 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
-import { UserContext } from '../../../UseContext/UserContext';
-import { actionsId } from '../../../UseContext/reducer/actions';
 
 export const ContainerViagensAnteriores = ({navigation, travels}) => {
-
-    const {stateId, dispatchId} = useContext(UserContext);
-    const [nextPage, setNextPage] = useState({go: false});
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && nextPage.go) dispatchId({type: actionsId.setTravelId, payload: nextPage.id});
-        return () => {isMounted = false}
-    }, [nextPage]);
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && nextPage.go) navigation.navigate("Viagem Detalhe");
-        return () => {isMounted = false}
-    }, [stateId]);
-
     return (
 
         <View style={{
@@ -65,7 +47,7 @@ export const ContainerViagensAnteriores = ({navigation, travels}) => {
                                 borderRadius: 6,
                                 borderColor: "#DCDCDC",
                             }}
-                            onPress={() => setNextPage({go: true, id: item.id})}>
+                            onPress={() => navigation.navigate("Viagem Detalhe", {id: item.id})}>
                             <Text
                                 style={{
                                     fontSize: 16,

@@ -1,33 +1,7 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React from 'react';
 import { TouchableOpacity, View, Text, FlatList } from 'react-native';
-import { UserContext } from '../../../UseContext/UserContext';
-import { actionsId } from '../../../UseContext/reducer/actions';
 
 export const ComponenteDias = ({ navigation, travelDays }) => {
-
-    const {stateId, dispatchId} = useContext(UserContext);
-    const [nextPage, setNextPage] = useState({go: false});
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && nextPage.go) dispatchId({type: actionsId.setTravelDayId, payload: nextPage.id});
-        return () => {isMounted = false}
-    }, [nextPage]);
-
-    useEffect(() => {
-        let isMounted = true;
-        if (isMounted && nextPage.go) navigation.navigate("Lista Atividades");
-        return () => {isMounted = false}
-    }, [stateId]);
-
-    const handleTravelList = () => {
-      const {empty, loading, ...travelDaysList} = travelDays
-      const mappedHash = Object.keys( travelDaysList ).map(function( sortedKey ) {
-        return travelDaysList[ sortedKey ];
-      });
-      return mappedHash;
-    }
-    
     return (
         <View
             style={{
@@ -65,7 +39,7 @@ export const ComponenteDias = ({ navigation, travelDays }) => {
                 style={{
                     marginBottom:80,
                 }}
-                data={handleTravelList()}
+                data={travelDays}
                 renderItem={({item}) =>
                     <TouchableOpacity
                     style={{
@@ -80,7 +54,7 @@ export const ComponenteDias = ({ navigation, travelDays }) => {
                         borderRadius: 6,
                         borderColor: "#DCDCDC",
                     }}
-                    onPress={() => setNextPage({go: true, id: item.id})}>
+                    onPress={() => navigation.navigate("Lista Atividades", {id: item.id, day: item.day})}>
                     <Text
                         style={{
                         fontSize: 16,

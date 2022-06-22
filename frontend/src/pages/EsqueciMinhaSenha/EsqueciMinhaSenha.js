@@ -56,7 +56,7 @@ const EsqueciMinhaSenha = ({ navigation }) => {
     <>
       <Container bgColor="#293775">
         {state.alert && (<Alert bgColor={state.backgroundColor} message={state.message} onPress={() => dispatch({type: actions.showAlert, payload: false })} />)}
-        <ButtonReturnYellow iconName='west' onPress={() => navigation.navigate("Acessar Conta")}/>
+        <ButtonReturnYellow iconName='west' onPress={() => navigation.goBack()}/>
         <Card width="90%" height={0.3}>
         <Logo/>
         <TitleRow text="Esqueci Minha Senha" />
